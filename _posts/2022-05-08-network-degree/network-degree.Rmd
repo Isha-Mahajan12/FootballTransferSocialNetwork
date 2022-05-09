@@ -1,0 +1,75 @@
+---
+title: "Network Degree"
+description: |
+  Network Degree of Football Networks
+author:
+  - name: Isha Akshita Mahajan
+    affiliation: UMass Amherst
+date: 2022-05-08
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+## Density 
+
+```{r}
+graph.density(ig)
+```
+
+The network density of the football transfer network is 3.33 which indicated that 33.3% of all possible ties in the network are made. In this case we would leave the loops value as false because it is not possible for a football team to transfer a player back to their own team. 
+
+## Degree
+
+The degree measures the node centrality or a popularity of a node. It gives a count of the relationships that a node is involved in or the number of edges it has. Given that the goal of these blogs to keep all these important network properties in one place, I begin by creating a dataframe that I'll keep on building as I create these blogs. I call this data frame `transfer.nodes`. 
+
+```{r}
+#create degree column
+transfer.nodes<-data.frame(name=V(ig)$name, degree=igraph::degree(ig))
+#create indegree and outdegree column
+transfer.nodes<-transfer.nodes %>%
+           mutate(indegree=igraph::degree(ig, mode="in", loops=FALSE),
+           outdegree=igraph::degree(ig, mode="out", loops=FALSE))
+```
+
+
+```{r}
+# clubs that have the highest relationships in the network
+degree <- transfer.nodes %>% 
+  arrange(desc(degree)) 
+kable(head(degree))
+# Clubs that recieved the most transfers.
+indegree <- transfer.nodes %>% 
+  arrange(desc(indegree)) 
+kable(head(indegree))
+# Clubs that transferred the most.
+outdegree <- transfer.nodes %>% 
+  arrange(desc(outdegree)) 
+kable(head(outdegree))
+```
+
+Chelsea FC has the highest degree which means that it's going to be one of the key nodes in the network. They also have the highest indegree which means that they're recieved a lot of transfers in the last four years. Real Madrid has the highest outdegee which means they transferred 400 players in the last four years. 
+
+## Degree Distributions
+
+```{r}
+#create a histogram of Transfer Indegree
+hist(transfer.nodes$indegree, main="Football Transfers: In-degree Distribution", xlab="Players Recieved")
+```
+
+```{r}
+#create a histogram of Transfer Indegree
+hist(transfer.nodes$outdegree, main="Football Transfers: Out-degree Distribution", xlab="Players Transferred")
+```
+
+## Network Degree Centralization
+
+**Add Interpretation, check if loops are supposed to be true or false** 
+
+```{r}
+#get network centralization score: igraph
+centr_degree(ig, loops = FALSE, mode="in")$centralization
+centr_degree(ig, loops = FALSE, mode="out")$centralization
+```
+
+
