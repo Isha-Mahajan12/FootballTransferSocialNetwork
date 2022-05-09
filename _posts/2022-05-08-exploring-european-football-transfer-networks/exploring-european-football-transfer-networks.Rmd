@@ -24,6 +24,7 @@ library(statnet)
 library(network)
 library(sna)
 library(ggplot2)
+library(kableExtra)
 ```
 
 ## Load the data 
@@ -32,33 +33,31 @@ I begin by converting the data into an edgelist format. I select the club from a
 
 ```{r}
 #load data from CSV
-transfers <- read_csv("/Users/isha/Desktop/GitHub/transfers2018-2021.csv")
+transfers <- read_csv("/Users/isha/Desktop/GitHub/transfernetworks.csv")
+head(transfers)
 #select relevant data for edgelist format
 data <- transfers %>% 
-  select(club_from, club_to, player,fee, season) %>% 
-  filter(fee != "loan transfer") %>% 
+  select(club_from, club_to, name,fee) %>% 
   filter(fee != "free transfer") %>% 
-  arrange(desc(season))
-#convert fee to numeric character 
-data$fee <- as.numeric(data$fee)
-#convert season to numeric character 
-data$season <- as.numeric(data$season)
-#check summary for numeric conversion
-summary(data)
+  filter(fee != "loan transfer") %>% 
+  filter (fee != 0)
+data$fee <- as.numeric(data$fee) 
+data <- data %>% 
+filter(fee != is.na(fee))
+any(is.na(data$fee))
 ```
-
 
 ```{r}
 #create league names as node attributes
-node1 <- transfers$league_from
-node2 <- transfers$league_to
-nodes <- c(node1, node2)
-node_attr <- unique(nodes)
+#node1 <- transfers$league_from
+#node2 <- transfers$league_to
+#nodes <- c(node1, node2)
+#node_attr <- unique(nodes)
 ```
 
 ## Create Edgelist
 
-The edgelist I created consists of 48 nodes and 7520 ties. the edge attributes are the player who is being transferred, and the season in which they were transferred. The weight of the edges is the fee for which they were transferred. The edgelist is directed because the players are transferring from one team to another. 
+The edgelist I created consists of 867 nodes and 4386 ties. The edge attributes are the players who are being transferred. The weight of the edges is the fee for which they were transferred. The edgelist is directed because the players are transferring from one team to another. 
 
 ```{r}
 #convert data into matrix format
@@ -68,14 +67,17 @@ ig <- graph_from_data_frame(data.mat, directed = TRUE)
 # add edge attribute weight i.e transfer fee
 ig <- set_edge_attr(ig, "weight", value = na.omit(data$fee))
 # add edge attribute season of transfer
-ig<-  set_edge_attr(ig, "season", value = na.omit(data$season))
+#ig<-  set_edge_attr(ig, "season", value = na.omit(data$season))
 # add node attribute i.e league the club belongs to
-set_vertex_attr(ig,"league" ,value = node_attr)
+#set_vertex_attr(ig,"league" ,value = node_attr)
 #delete edge attribute that was automatically being created in addition to weight
-delete_edge_attr(ig, "fee")
+ig <- delete_edge_attr(ig, "fee")
 #check summary of the igraph object
 summary(ig)
 ```
+
+
+Here's an attempt to plot the network
 
 ```{r}
 #convert ig network into intergraph object to coerce with statnet
@@ -101,14 +103,14 @@ vcount(ig)
 ecount(ig)
 ```
 
-The network consists of 48 nodes and 7520 edges. 
+The network consists of 867 nodes and 4386 edges. This means that there are 867 football clubs in our network and we are going to be expl
 
 ```{r}
 # look at the dyad census
 dyad_census(ig)
 ```
 
-**There are 3 mutual, 81 asymmetrical and 1044 dyads. Elaborate Explanation**
+**There are 201 mutual, 3468 asymmetrical and 371742 dyads. Elaborate Explanation**
 
 ```{r}
 triad_census(ig)
@@ -139,13 +141,13 @@ transitivity(ig, type="average")
 ```
 
 
-The global transitivity of the graph is 0.1598063 which is the ratio of triangles connected to triangles
+The global transitivity of the graph is 0.1088854 which is the ratio of triangles connected to triangles
 
-the average transitivity is the transitivity of the local triad clusters, i.e. the ratio of local triangles to all connected triangles. 
+the average transitivity 0.1058294 is the transitivity of the local triad clusters, i.e. the ratio of local triangles to all connected triangles. 
 
 ## Path Lengths 
 
-The average path length in the weighted network is 164480670. **Add Interpretation**
+The average path length in the weighted network is 5689620. **Add Interpretation**
 
 ```{r}
 average.path.length(ig)
@@ -154,10 +156,10 @@ average.path.length(ig)
 The distances function enables us to look at the distance travelled between two nodes. Let's explore some distances between football clubs of various leagues.
 
 ```{r}
-distances(ig,"Liverpool FC", "FC Porto")
+shortest_paths(ig,"Chelsea FC", "Liverpool FC")
 ```
 
-The distance between Liverpool FC and FC Porto is approximitely 5 nodes. 
+The distance between Liverpool FC and FC Porto is approximately 5 nodes. 
 
 ```{r}
 distances(ig,"Chelsea FC", "Real Madrid")
@@ -167,7 +169,11 @@ The distance between Chelsea FC and Real Madrid is 3.8 nodes.
 
 
 ```{r}
-distances(ig, "Chelsea FC", "FC Barcelona")
+distances(ig, "Bayern Munich", "Chelsea FC")
+```
+
+```{r}
+average.path.length(ig)
 ```
 
 The distance between Chelsea and FC Barcelona is 1.6 nodes.
@@ -181,6 +187,35 @@ igraph::components(ig)$membership
 igraph::components(ig)$csize
 ```
 
-There are no subcomponents in the graph. 
+There are 20 components in this network. The largest component consists of 829 nodes and the rest nineteen components comprise of two nodes each.
+
+```{r}
+gd <- all_shortest_paths(ig,"Chelsea FC","FC Barcelona", weights = NA)
+gd$nrgeo# geodesic distance. 
+```
+
+**Add further Interpretation**
+
+## Testing Different Layouts for Network Visualizations
+
+```{r}
+plot(ig, vertex.label.color = "black")
+```
+
+```{r}
+plot(ig, layout_with_graphopt(ig))
+```
+
+```{r}
+m1 <- layout_nicely(ig)
+w1 <- E(ig)$names
+plot(ig, 
+        vertex.label.color = "black", 
+        edge.color = 'black',
+        edge.width = w1,
+        layout = m1)
+```
+
+
 
 

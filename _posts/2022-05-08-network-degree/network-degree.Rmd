@@ -14,10 +14,10 @@ output:
 ## Density 
 
 ```{r}
-graph.density(ig)
+graph.density(ig, loops = FALSE)
 ```
 
-The network density of the football transfer network is 3.33 which indicated that 33.3% of all possible ties in the network are made. In this case we would leave the loops value as false because it is not possible for a football team to transfer a player back to their own team. 
+The network density of the football transfer network is 0.005 which indicates that the 0.5% of all possible ties in the network are made. In this case we would leave the loops value as false because it is not possible for a football team to transfer a player back to their own team. 
 
 ## Degree
 
@@ -44,11 +44,36 @@ indegree <- transfer.nodes %>%
 kable(head(indegree))
 # Clubs that transferred the most.
 outdegree <- transfer.nodes %>% 
-  arrange(desc(outdegree)) 
+arrange(desc(outdegree)) 
 kable(head(outdegree))
 ```
 
-Chelsea FC has the highest degree which means that it's going to be one of the key nodes in the network. They also have the highest indegree which means that they're recieved a lot of transfers in the last four years. Real Madrid has the highest outdegee which means they transferred 400 players in the last four years. 
+AS ROMA has the highest degree in our football transfer network. Both the in degree and the out degrees hold a value of 39. This means that 39 transfer of players have left the club and 39 players have come in to the club.This makes me wonder if AS ROMA is a club which might be serving like a starting point for various players to move towards the major football leagues. But there might be better ways to explore that later in the analysis. 
+
+Genoa FC has the indegree of 46 which means they've had 46 transfers to their club. 
+
+Juventus FC has the highest ourdegree which means they've transferred 41 players out of the club. 
+
+
+```{r}
+#V(ig)$name
+roma_movement <- incident(ig, 66, mode = c("all"))
+```
+
+```{r}
+table(head_of(ig, E(ig)))
+```
+
+```{r}
+# make a basic plot
+plot(ig, 
+     vertex.label.color = "black", 
+     edge.color = 'gray77',
+     vertex.size = 6,
+     edge.arrow.size = 0.1,
+     layout = layout_nicely(ig))
+```
+
 
 ## Degree Distributions
 
@@ -70,53 +95,6 @@ hist(transfer.nodes$outdegree, main="Football Transfers: Out-degree Distribution
 #get network centralization score: igraph
 centr_degree(ig, loops = FALSE, mode="in")$centralization
 centr_degree(ig, loops = FALSE, mode="out")$centralization
-```
-
-
-
-## Visualization - An Attempt
-
-```{r}
-library(ggraph)
-ggraph(ig, layout = "stress") + 
-  geom_edge_link(
-    arrow = arrow(), 
-    start_cap = circle(2, "mm"),
-    end_cap = circle(2, "mm")
-  ) + 
-  geom_node_point(size = 4) + 
-  scale_edge_alpha_identity()
-```
-
-```{r}
-ggplot(ig, aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_edges(color = "grey25", alpha = 0.25, arrow = arrow(length = unit(2, "pt"), type = "closed"))+
-  geom_nodes(color = "gold", alpha = 0.5, size = 2) +
-  geom_nodetext(aes( label = vertex.names ), size=1)+
-    ggtitle("Football Transfer Networks") +
-  theme_blank()
-```
-
-
-## Create some  more network objects
-```{r}
-transfers_edgelist <- as.matrix(transfers)
-#transfers_edgelist <- graph.edgelist(transfers_edgelist, directed=TRUE)
-transfers.ig <-graph_from_data_frame(transfers)
-transfers_network <- asNetwork(transfers.ig)
-summary(transfers_network)
-```
-
-```{r}
-library(ggnetwork)
-library(ggthemes)
-ggplot(transfers_network, aes(x = x, y = y, xend = xend, yend = yend)) +
-geom_edges(color = "grey25", alpha = 0.50, arrow = arrow(length = unit(4, "pt"), type = "closed"))+
-  geom_nodes( alpha = 0.5, size = 4) +
-  geom_nodetext(aes(label = vertex.names),colour = "Black", size=1)+
-  ggtitle("Football Networks 2018-2021") +
-  geom_edgetext(aes(label = club_from), colour = "red", size=1)+
-  theme_fivethirtyeight()
 ```
 
 

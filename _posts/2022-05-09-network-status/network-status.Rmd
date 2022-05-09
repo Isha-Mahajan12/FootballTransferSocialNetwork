@@ -1,0 +1,151 @@
+---
+title: "Network Status and Centrality "
+description: |
+  Who are the key actors in the football network? What makes them the key actors
+author:
+  - name: Isha Akshita Mahajan
+    affiliation: UMass Amherst
+date: 2022-05-09
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+## Eigenvector Centrality
+
+The eigenvector centrality determines how important the neighborhood of the nodes is in the network. The higher the eigenvalue centrality, the more important the neighbors of that node are with respect to other nodes in the network. (Jackson 08) The eigenvalues also take into account the proximity of the node to many other important nodes in the network. 
+
+AS Roma has the highest eigenvalue in the network. This can be an additional support to our previous speculation on how AS Roma might influencial in the influx and outflow of football talent as they are well connected to the other influential nodes in our football transfer network. 
+
+```{r}
+#add eigenvector centrality to node measures
+temp <- centr_eigen(ig,directed=T)
+transfer.nodes$eigen<-temp$vector
+#arrange descending and return top 5 nodes
+arrange(transfer.nodes, desc(eigen)) %>%
+  slice(1:5)
+```
+
+## Derived and Reflected Centrality
+
+ We compute the derived and reflected Eigenvector centrality to better understand whether the influence is more observed in the neighborhood of the nodes or is it more observed on the strength of the node itself. 
+
+```{r}
+matrix <- as.matrix(as_adjacency_matrix(ig, attr = "weight"))
+#square the adjacency matrix
+matsq<-t(matrix) %*% matrix
+#Calculate the proportion of reflected centrality.
+transfer.nodes$rc<-diag(matsq)/rowSums(matsq)
+#replace missing values with 0
+transfer.nodes$rc<-ifelse(is.nan(transfer.nodes$rc),0,transfer.nodes$rc)
+#Calculate received eigenvalue centrality
+transfer.nodes$eigen.rc<-transfer.nodes$eigen*transfer.nodes$rc
+#Calculate the proportion of derived centrality.
+transfer.nodes$dc<-1-diag(matsq)/rowSums(matsq)
+#replace missing values with 0
+transfer.nodes$dc<-ifelse(is.nan(transfer.nodes$dc),1,transfer.nodes$dc)
+#Calculate received eigenvalue centrality
+transfer.nodes$eigen.dc<-transfer.nodes$eigen*transfer.nodes$dc
+kable(transfer.nodes)
+```
+
+```{r}
+filter(transfer.nodes,name%in%c("Chelsea FC","FC Barcelona"))
+```
+
+```{r}
+cen <- eigen_centrality(ig, directed = TRUE)
+cen$vector
+```
+
+```{r}
+transfer.nodes%>%
+  select(-name) %>% 
+  gather() %>% 
+  ggplot(aes(value)) +
+    geom_histogram() +
+    facet_wrap(~key, scales = "free")
+```
+
+```{r}
+#build on the dataframe
+temp<-transfer.nodes %>% 
+  select(degree,indegree,outdegree,eigen,eigen.rc,eigen.dc)%>%
+  correlate() %>%
+  rearrange()
+```
+
+```{r}
+fashion(temp)
+```
+
+```{r}
+rplot(temp)
+```
+
+## Betweeness Centrality
+
+Betweeness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes.
+
+```{r}
+transfer.nodes$betweeness <- igraph::betweenness(ig, directed=TRUE)
+transfer.nodes%>%
+arrange(desc(betweeness))%>%
+slice(1:5)
+```
+
+## Network Constraint 
+
+```{r}
+transfer.nodes$constraint<-constraint(ig)
+```
+
+## Authority 
+
+Authorities are those actors which get many incoming links from hubs, presumably because of their high quality relevant information. (Klien 16) In this case Juventus, Chelsea, Barcelona,PSG, Manchester United and Athleteco have the highest authority scores. This means that these clubs are attracting talent from the hubs like Real Madrid, which we will see includes Eden Hazard's transfer in 2019
+
+```{r}
+transfer.nodes$authority <- authority_score(ig)$vector
+
+a <- transfer.nodes %>% 
+  arrange(desc(authority))
+head(a)
+```
+
+## Hubs 
+
+Many Ties to Peripheral Actors 
+
+```{r}
+transfer.nodes$hub_score <- hub_score(ig)$vector
+head(transfer.nodes)
+```
+
+Consider Real Madrid a hub given that their hub_score is 1. We can confirm this by looking at higher eigenvector derived centrality and lower reflected centrality. 
+
+## Bridges 
+
+A few ties to central actors =
+
+```{r}
+bridges(ig)
+bridges <- transfer.nodes %>% 
+  filter(name == "Maccabi Haifa")
+head(bridges)
+```
+
+We test the understanding whether these teams actually serve as bridges in the network. By looking at the derived and reflected centrality scores, we see that the the reflected centrality for Maccabi Haifa is low while the derived centrality is high, thereby making it a bridge. 
+
+
+## Correlations for Centrality Measures 
+
+```{r}
+head(transfer.nodes)
+cor<-transfer.nodes %>% 
+  select(degree,eigen,betweeness, authority, hub_score)%>%
+  correlate() %>%
+  rearrange()
+rplot(cor)
+```
+
