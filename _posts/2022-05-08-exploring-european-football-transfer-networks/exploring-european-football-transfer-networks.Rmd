@@ -1,10 +1,11 @@
 ---
 title: "Exploring European Football Transfer Networks"
 description: |
-  A short description of the post.
+  Exploring a network of football teams and the transactions they made from 2018-2021. 
+  An Edgelist maybe?
 author:
-  - name: Nora Jones
-    url: https://example.com/norajones
+  - name: Isha Akshita Mahajan
+    affiliation: UMass Amherst
 date: 2022-05-08
 output:
   distill::distill_article:
@@ -12,12 +13,174 @@ output:
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+## Load Required Packages 
+
+```{r}
+library(igraph)
+library(tidyverse)
+library(corrr)
+library(intergraph)
+library(statnet)
+library(network)
+library(sna)
+library(ggplot2)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
+## Load the data 
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+I begin by converting the data into an edgelist format. I select the club from and club to columns which are our nodes in this case. The relationship that I'm interested in is where from and where to has the majority of transfers taken place across various places. After selecting the from and to columns, I select the players, the transfer fee and the season in which the transfer took place. I also remove loan and free transfer as they don't seem relevant at the moment. 
+
+```{r}
+#load data from CSV
+transfers <- read_csv("/Users/isha/Desktop/GitHub/transfers2018-2021.csv")
+#select relevant data for edgelist format
+data <- transfers %>% 
+  select(club_from, club_to, player,fee, season) %>% 
+  filter(fee != "loan transfer") %>% 
+  filter(fee != "free transfer") %>% 
+  arrange(desc(season))
+#convert fee to numeric character 
+data$fee <- as.numeric(data$fee)
+#convert season to numeric character 
+data$season <- as.numeric(data$season)
+#check summary for numeric conversion
+summary(data)
+```
+
+
+```{r}
+#create league names as node attributes
+node1 <- transfers$league_from
+node2 <- transfers$league_to
+nodes <- c(node1, node2)
+node_attr <- unique(nodes)
+```
+
+## Create Edgelist
+
+The edgelist I created consists of 48 nodes and 7520 ties. the edge attributes are the player who is being transferred, and the season in which they were transferred. The weight of the edges is the fee for which they were transferred. The edgelist is directed because the players are transferring from one team to another. 
+
+```{r}
+#convert data into matrix format
+data.mat <- as.matrix(data)
+#create igraph object from data
+ig <- graph_from_data_frame(data.mat, directed = TRUE)
+# add edge attribute weight i.e transfer fee
+ig <- set_edge_attr(ig, "weight", value = na.omit(data$fee))
+# add edge attribute season of transfer
+ig<-  set_edge_attr(ig, "season", value = na.omit(data$season))
+# add node attribute i.e league the club belongs to
+set_vertex_attr(ig,"league" ,value = node_attr)
+#delete edge attribute that was automatically being created in addition to weight
+delete_edge_attr(ig, "fee")
+#check summary of the igraph object
+summary(ig)
+```
+
+```{r}
+#convert ig network into intergraph object to coerce with statnet
+network <- intergraph::asNetwork(ig) 
+```
+
+```{r}
+#plot intergraph object
+plot(network)
+```
+
+```{r}
+#plot igraph object 
+plot(ig)
+```
+
+## Exploring Network Structures 
+
+```{r}
+#count the number of nodes
+vcount(ig)
+# count the number of edges
+ecount(ig)
+```
+
+The network consists of 48 nodes and 7520 edges. 
+
+```{r}
+# look at the dyad census
+dyad_census(ig)
+```
+
+**There are 3 mutual, 81 asymmetrical and 1044 dyads. Elaborate Explanation**
+
+```{r}
+triad_census(ig)
+```
+
+**Add Explanation**
+
+```{r}
+is_directed(ig)
+is_weighted(ig)
+is_bipartite(ig)
+```
+
+The results suggest that the network is directed, i.e players are transferring from one club to another. 
+
+The network is weighted. The weight of the transfer is the fee for which the transfer was made. 
+
+The network is not bipartite which mean that they transfers are not in sets- there is a flow of players. 
+
+
+## Transitivity
+
+```{r}
+#get global clustering cofficient: igraph
+transitivity(ig, type="global")
+#get average local clustering coefficient: igraph
+transitivity(ig, type="average")
+```
+
+
+The global transitivity of the graph is 0.1598063 which is the ratio of triangles connected to triangles
+
+the average transitivity is the transitivity of the local triad clusters, i.e. the ratio of local triangles to all connected triangles. 
+
+## Path Lengths 
+
+The average path length in the weighted network is 164480670. **Add Interpretation**
+
+```{r}
+average.path.length(ig)
+```
+
+The distances function enables us to look at the distance travelled between two nodes. Let's explore some distances between football clubs of various leagues.
+
+```{r}
+distances(ig,"Liverpool FC", "FC Porto")
+```
+
+The distance between Liverpool FC and FC Porto is approximitely 5 nodes. 
+
+```{r}
+distances(ig,"Chelsea FC", "Real Madrid")
+```
+
+The distance between Chelsea FC and Real Madrid is 3.8 nodes. 
+
+
+```{r}
+distances(ig, "Chelsea FC", "FC Barcelona")
+```
+
+The distance between Chelsea and FC Barcelona is 1.6 nodes.
+
+## Component Structure 
+
+```{r}
+names(igraph::components(ig))
+igraph::components(ig)$no
+igraph::components(ig)$membership
+igraph::components(ig)$csize
+```
+
+There are no subcomponents in the graph. 
 
 
