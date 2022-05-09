@@ -98,3 +98,4 @@ centr_degree(ig, loops = FALSE, mode="out")$centralization
 ```
 
 
+#Degree, Eigen Vector, Hub, Authority, closeness, betweeness - Centrality

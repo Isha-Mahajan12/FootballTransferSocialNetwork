@@ -114,6 +114,7 @@ dyad_census(ig)
 
 ```{r}
 triad_census(ig)
+triangles(ig)
 ```
 
 **Add Explanation**
