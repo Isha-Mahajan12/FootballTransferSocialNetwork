@@ -109,13 +109,14 @@ summary(transfers_network)
 
 ```{r}
 library(ggnetwork)
+library(ggthemes)
 ggplot(transfers_network, aes(x = x, y = y, xend = xend, yend = yend)) +
 geom_edges(color = "grey25", alpha = 0.50, arrow = arrow(length = unit(4, "pt"), type = "closed"))+
-  geom_nodes(color = "gold", alpha = 0.5, size = 4) +
+  geom_nodes( alpha = 0.5, size = 4) +
   geom_nodetext(aes(label = vertex.names),colour = "Black", size=1)+
   ggtitle("Football Networks 2018-2021") +
-  geom_edgetext(aes(label = club_from), colour = "red", size=1)
-  theme_blank()
+  geom_edgetext(aes(label = club_from), colour = "red", size=1)+
+  theme_fivethirtyeight()
 ```
 
 
