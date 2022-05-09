@@ -88,3 +88,34 @@ ggraph(ig, layout = "stress") +
   scale_edge_alpha_identity()
 ```
 
+```{r}
+ggplot(ig, aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_edges(color = "grey25", alpha = 0.25, arrow = arrow(length = unit(2, "pt"), type = "closed"))+
+  geom_nodes(color = "gold", alpha = 0.5, size = 2) +
+  geom_nodetext(aes( label = vertex.names ), size=1)+
+    ggtitle("Football Transfer Networks") +
+  theme_blank()
+```
+
+
+## Create some  more network objects
+```{r}
+transfers_edgelist <- as.matrix(transfers)
+#transfers_edgelist <- graph.edgelist(transfers_edgelist, directed=TRUE)
+transfers.ig <-graph_from_data_frame(transfers)
+transfers_network <- asNetwork(transfers.ig)
+summary(transfers_network)
+```
+
+```{r}
+library(ggnetwork)
+ggplot(transfers_network, aes(x = x, y = y, xend = xend, yend = yend)) +
+geom_edges(color = "grey25", alpha = 0.50, arrow = arrow(length = unit(4, "pt"), type = "closed"))+
+  geom_nodes(color = "gold", alpha = 0.5, size = 4) +
+  geom_nodetext(aes(label = vertex.names),colour = "Black", size=1)+
+  ggtitle("Football Networks 2018-2021") +
+  geom_edgetext(aes(label = club_from), colour = "red", size=1)
+  theme_blank()
+```
+
+
