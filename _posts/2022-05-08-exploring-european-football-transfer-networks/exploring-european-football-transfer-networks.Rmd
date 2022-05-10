@@ -199,5 +199,14 @@ ggraph(ig, layout = "with_kk" )+
 ```
 
 
+```{r}
+library(visNetwork)
+data_2 <- toVisNetworkData(ig)
 
+visNetwork(nodes = data_2$nodes, edges = data_2$edges, width = 300, height = 300) %>% 
+visIgraphLayout(layout = "layout_with_kk") %>% 
+visOptions(highlightNearest = TRUE) %>% 
+visOptions(nodesIdSelection = TRUE) %>% 
+visOptions(selectedBy = "group")
+```
 
