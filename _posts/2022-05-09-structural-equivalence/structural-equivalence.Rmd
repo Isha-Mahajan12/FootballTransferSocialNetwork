@@ -1,43 +1,167 @@
 ---
-title: "Structural Equivalence"
+title: "Structural Equivalence and Community Clusters"
 description: |
-
+  Some Dendograms
 author:
-  - name: Nora Jones
-    url: https://example.com/norajones
+  - name: Isha Akshita Mahajan, Ankit Kumar
+    affiliation: UMass Amherst
 date: 2022-05-09
 output:
   distill::distill_article:
     self_contained: false
 ---
 
-## Week 6 Structural Equivilence 
+## Structural Equivilence and Dendograms
+
+For this week, we worked on Structural Equivalence models on our data to observe groups of clubs that might have similar attributes. Given the large size of our edgelist,  it is not prudent to cluster in a large dataset with so many nodes. In this blog, we split the data with two parameters. First, differentiating by the `year` variable which is essentially the season of the transfer, and the weight of the edges i.e the amount of the transfer. These are split into three further categories - small , medium and expensive transfers. We chose this strategy because we fee that this would align with understanding the roles of brokers and clubs with higher degrees in our network. We run two kinds of equivalence clusters - first using the average method and the hamming distance, and the other using the lead eigenvector.
+
+The `cluster_lead_eigen` function finds densely connected subgraphs in the network by calculating the leading non-negative eigenvector of the modularity matrix of the graph. (igraph package)
 
 
-```{r}
-g_mat <- as.matrix(get.adjacency(simplify(ig)))
-g_eq <- equiv.clust(g_mat, mode = "graph", glabels = rownames(g_mat), plabels = rownames(g_mat))
-plot(g_eq)
-as.data.frame(rownames(g_mat))
+```{r collapse=TRUE, warning=FALSE}
+library(igraph)
+library(tidyverse)
+library(corrr)
+library(intergraph)
+library(statnet)
+library(network)
+library(sna)
+library(ggplot2)
+library(kableExtra)
+```
+
+# Transfers 2019
+
+
+```{r Expensive Transfers, include=FALSE}
+transfers <- read_csv("/Users/isha/Desktop/GitHub/transfernetworks.csv")
+expensive_transfers_2019 <- transfers %>% 
+filter(year == "2019") %>% 
+filter(fee >= 6.00e+06) %>% 
+filter(fee != "free transfer") %>% 
+filter(fee != "loan transfer") %>% 
+select(club_from,club_to,name,fee)
+expensive_transfers_2019$fee <- as.numeric(expensive_transfers_2019$fee) 
+expensive_transfers_2019 <- expensive_transfers_2019 %>% 
+filter(fee != is.na(fee))
+any(is.na(expensive_transfers_2019$fee))
+kable(head(expensive_transfers_2019))
 ```
 
 
+```{r Medium Transfers, include=FALSE}
+#consists the middle 50% of the data
+medium_transfers_2019 <- transfers %>% 
+filter(year == "2019") %>% 
+filter(fee <= 6.00e+06 & fee >= 1.00e+06) %>% 
+filter(fee != "free transfer") %>% 
+filter(fee != "loan transfer") %>% 
+select(club_from,club_to,name,fee)
+medium_transfers_2019$fee <- as.numeric(medium_transfers_2019$fee) 
+medium_transfers_2019 <- medium_transfers_2019 %>% 
+filter(fee != is.na(fee))
+any(is.na(medium_transfers_2019$fee))
+kable(head(medium_transfers_2019))
+```
+
+```{r Small Transfers, include=FALSE}
+small_transfers_2019 <- transfers %>% 
+filter(year == "2019") %>% 
+filter(fee <= 1.00e+06) %>% 
+filter(fee != "free transfer") %>% 
+filter(fee != "loan transfer") %>% 
+select(club_from,club_to,name,fee)
+small_transfers_2019$fee <- as.numeric(small_transfers_2019$fee) 
+small_transfers_2019 <- small_transfers_2019 %>% 
+filter(fee != is.na(fee))
+any(is.na(small_transfers_2019$fee))
+kable(head(small_transfers_2019))
+```
 
 
-```{r}
-g_block <- blockmodel(g_mat, g_eq, h=30, mode="graph")
-plot(g_block, cex=0.1)
+## Expensive Transfers
+
+```{r Expensive Transfers IG}
+#convert data into matrix format
+data.mat.exp <- as.matrix(expensive_transfers_2019)
+#create igraph object from data
+ig.exp.19 <- graph_from_data_frame(data.mat.exp, directed = TRUE)
+# add edge attribute weight i.e transfer fee
+ig.exp.19 <- set_edge_attr(ig.exp.19, "weight", value = na.omit(expensive_transfers_2019$fee))
+ig.exp.19 <- delete_edge_attr(ig.exp.19, "fee")
+#check summary of the igraph object
+summary(ig.exp.19)
+network.exp.19 <- intergraph::asNetwork(ig.exp.19) 
+network.exp.19
 ```
 
 ```{r}
-g_block
+matrix.exp.19 <- as.matrix(as_adjacency_matrix(ig.exp.19, attr = "weight"))
+transfer.se.exp<-equiv.clust(matrix.exp.19, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
+plot(transfer.se.exp,labels=transfer.se.exp$glabels)
+rect.hclust(transfer.se.exp$cluster, k = 3) 
 ```
 
 ```{r}
-gplot(g_mat, vertex.col = g_block$block.membership, gmode="graph")
+plot_dendrogram(cluster_leading_eigen(as.undirected(ig.exp.19)), mode = igraph_opt("dend.plot.type"))
 ```
 
 
+## Medium Transfers
+
+```{r Medium Transfers IG}
+#convert data into matrix format
+data.mat.med <- as.matrix(medium_transfers_2019)
+#create igraph object from data
+ig.med.19 <- graph_from_data_frame(data.mat.med, directed = TRUE)
+# add edge attribute weight i.e transfer fee
+ig.med.19<- set_edge_attr(ig.med.19, "weight", value = na.omit(medium_transfers_2019$fee))
+ig.med.19<- delete_edge_attr(ig.med.19, "fee")
+#check summary of the igraph object
+summary(ig.med.19)
+network.med.19 <- intergraph::asNetwork(ig.med.19) 
+network.med.19
+```
+
+```{r}
+matrix.med.19 <- as.matrix(as_adjacency_matrix(ig.med.19, attr = "weight"))
+transfer.se.med<-equiv.clust(matrix.med.19, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
+plot(transfer.se.med,labels=transfer.se.med$glabels)
+rect.hclust(transfer.se.med$cluster, k = 3) 
+```
+
+```{r}
+plot_dendrogram(cluster_leading_eigen(as.undirected(ig.med.19)), mode = igraph_opt("dend.plot.type"))
+```
+
+
+## Small Transfers 
+
+```{r Small Transfers IG}
+#convert data into matrix format
+data.mat.sm <- as.matrix(small_transfers_2019)
+#create igraph object from data
+ig.sm.19 <- graph_from_data_frame(data.mat.sm, directed = TRUE)
+# add edge attribute weight i.e transfer fee
+ig.sm.19<- set_edge_attr(ig.sm.19, "weight", value = na.omit(small_transfers_2019$fee))
+ig.sm.19<- delete_edge_attr(ig.sm.19, "fee")
+#check summary of the igraph object
+summary(ig.sm.19)
+network.sm.19 <- intergraph::asNetwork(ig.sm.19) 
+network.sm.19
+```
+
+```{r}
+matrix.sm.19 <- as.matrix(as_adjacency_matrix(ig.sm.19, attr = "weight"))
+transfer.se.sm<-equiv.clust(matrix.sm.19, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
+plot(transfer.se.sm,labels=transfer.se.sm$glabels)
+rect.hclust(transfer.se.sm$cluster, k = 3) 
+```
+
+```{r}
+#dd <- plot_dendrogram(cluster_leading_eigen(as.undirected(ig.sm.19)), mode = igraph_opt("dend.plot.type"))
+#dd
+```
 
 
 
