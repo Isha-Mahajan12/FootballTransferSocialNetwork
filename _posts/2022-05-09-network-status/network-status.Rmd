@@ -24,6 +24,56 @@ The eigenvector centrality determines how important the neighborhood of the node
 
 AS Roma has the highest eigenvalue in the network. This can be an additional support to our previous speculation on how AS Roma might influential in the influx and outflow of football talent as they are well connected to the other influential nodes in our football transfer network. 
 
+
+```{r include=FALSE}
+library(igraph)
+library(tidyverse)
+library(corrr)
+library(intergraph)
+library(statnet)
+library(network)
+library(sna)
+library(ggplot2)
+library(kableExtra)
+
+#load data from CSV
+transfers <- read_csv("/Users/isha/Desktop/GitHub/transfernetworks.csv")
+head(transfers)
+#select relevant data for edgelist format
+data <- transfers %>% 
+  select(club_from, club_to, name,fee) %>% 
+  filter(fee != "free transfer") %>% 
+  filter(fee != "loan transfer") %>% 
+  filter (fee != 0)
+data$fee <- as.numeric(data$fee) 
+data <- data %>% 
+filter(fee != is.na(fee))
+any(is.na(data$fee))
+#convert data into matrix format
+data.mat <- as.matrix(data)
+#create igraph object from data
+ig <- graph_from_data_frame(data.mat, directed = TRUE)
+# add edge attribute weight i.e transfer fee
+ig <- set_edge_attr(ig, "weight", value = na.omit(data$fee))
+# add edge attribute season of transfer
+#ig<-  set_edge_attr(ig, "season", value = na.omit(data$season))
+# add node attribute i.e league the club belongs to
+#set_vertex_attr(ig,"league" ,value = node_attr)
+#delete edge attribute that was automatically being created in addition to weight
+ig <- delete_edge_attr(ig, "fee")
+#check summary of the igraph object
+summary(ig)
+#convert ig network into intergraph object to coerce with statnet
+network <- intergraph::asNetwork(ig) 
+#create degree column
+transfer.nodes<-data.frame(name=V(ig)$name, degree=igraph::degree(ig))
+#create indegree and outdegree column
+transfer.nodes<-transfer.nodes %>%
+           mutate(indegree=igraph::degree(ig, mode="in", loops=FALSE),
+           outdegree=igraph::degree(ig, mode="out", loops=FALSE))
+```
+
+
 ```{r warning=FALSE}
 temp <- igraph::centr_eigen(ig,directed=T)
 transfer.nodes$eigen <- temp$vector
@@ -52,7 +102,6 @@ transfer.nodes$dc<-1-diag(matsq)/rowSums(matsq)
 transfer.nodes$dc<-ifelse(is.nan(transfer.nodes$dc),1,transfer.nodes$dc)
 #Calculate received eigenvalue centrality
 transfer.nodes$eigen.dc<-transfer.nodes$eigen*transfer.nodes$dc
-kable(transfer.nodes)
 ```
 
 ```{r}
