@@ -109,8 +109,8 @@ filter(transfer.nodes,name%in%c("Chelsea FC","FC Barcelona"))
 ```
 
 ```{r}
-cen <- eigen_centrality(ig, directed = TRUE)
-cen$vector
+##cen <- eigen_centrality(ig, directed = TRUE)
+#cen$vector
 ```
 
 ```{r}
