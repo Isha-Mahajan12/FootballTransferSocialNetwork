@@ -1,5 +1,5 @@
 ---
-title: "Network Status and Centrality "
+title: "Network Status and Centrality"
 description: |
   Who are the key actors in the football network? What makes them the key actors
 author:
