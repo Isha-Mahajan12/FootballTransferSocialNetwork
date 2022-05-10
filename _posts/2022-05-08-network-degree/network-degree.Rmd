@@ -64,7 +64,7 @@ network <- intergraph::asNetwork(ig)
 
 ## Density 
 
-```{r}
+```{r collapse=TRUE}
 graph.density(ig, loops = FALSE)
 ```
 
@@ -74,7 +74,7 @@ The network density of the football transfer network is 0.005 which indicates th
 
 The degree measures the node centrality or a popularity of a node. It gives a count of the relationships that a node is involved in or the number of edges it has. Given that the goal of these blogs to keep all these important network properties in one place, I begin by creating a dataframe that I'll keep on building as I create these blogs. I call this data frame `transfer.nodes`. 
 
-```{r}
+```{r collapse=TRUE}
 #create degree column
 transfer.nodes<-data.frame(name=V(ig)$name, degree=igraph::degree(ig))
 #create indegree and outdegree column
@@ -84,7 +84,7 @@ transfer.nodes<-transfer.nodes %>%
 ```
 
 
-```{r}
+```{r collapse=TRUE}
 # clubs that have the highest relationships in the network
 degree <- transfer.nodes %>% 
   arrange(desc(degree)) 
@@ -105,17 +105,16 @@ Genoa FC has the indegree of 46 which means they've had 46 transfers to their cl
 
 Juventus FC has the highest ourdegree which means they've transferred 41 players out of the club. 
 
-
-```{r}
+```{r collapse=TRUE}
 #V(ig)$name
 roma_movement <- incident(ig, 66, mode = c("all"))
 ```
 
-```{r}
-table(head_of(ig, E(ig)))
+```{r collapse=TRUE}
+#table(head_of(ig, E(ig)))
 ```
 
-```{r}
+```{r collapse=TRUE}
 # make a basic plot
 plot(ig, 
      vertex.label.color = "black", 
@@ -128,12 +127,12 @@ plot(ig,
 
 ## Degree Distributions
 
-```{r}
+```{r collapse=TRUE}
 #create a histogram of Transfer Indegree
 hist(transfer.nodes$indegree, main="Football Transfers: In-degree Distribution", xlab="Players Recieved")
 ```
 
-```{r}
+```{r collapse=TRUE}
 #create a histogram of Transfer Indegree
 hist(transfer.nodes$outdegree, main="Football Transfers: Out-degree Distribution", xlab="Players Transferred")
 ```
@@ -142,7 +141,7 @@ hist(transfer.nodes$outdegree, main="Football Transfers: Out-degree Distribution
 
 **Add Interpretation, check if loops are supposed to be true or false** 
 
-```{r}
+```{r collapse=TRUE}
 #get network centralization score: igraph
 centr_degree(ig, loops = FALSE, mode="in")$centralization
 centr_degree(ig, loops = FALSE, mode="out")$centralization
