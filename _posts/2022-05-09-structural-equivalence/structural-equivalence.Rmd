@@ -1,7 +1,7 @@
 ---
-title: "Structural Equivalence and Community Clusters"
+title: "Structural Equivalence and Blockmodels"
 description: |
-  Some Dendograms
+  Denodgrams and blocks
 author:
   - name: Isha Akshita Mahajan, Ankit Kumar
     affiliation: UMass Amherst
@@ -161,6 +161,21 @@ rect.hclust(transfer.se.sm$cluster, k = 3)
 ```{r}
 #dd <- plot_dendrogram(cluster_leading_eigen(as.undirected(ig.sm.19)), mode = igraph_opt("dend.plot.type"))
 #dd
+```
+
+
+## Block Modeling 
+
+```{r Expensive Transfers Block}
+g_mat <- as.matrix(get.adjacency(simplify(ig.exp.19)))
+g_eq <- equiv.clust(g_mat, mode = "graph")
+plot(g_eq)
+g_block <- blockmodel(g_mat, g_eq, h= 5, mode="graph")
+plot(g_block, cex=0.1)
+gplot(g_mat, vertex.col = g_block$block.membership, gmode="graph")
+gplot(g_block$block.model, gmode="graph", label=rownames(g_block$block.model), edge.lwd = g_block$block.model*10)
+plot(density(g_block$block.membership))
+# for this package to work, we will need to return to our original artist-artist adjacency matrix
 ```
 
 
