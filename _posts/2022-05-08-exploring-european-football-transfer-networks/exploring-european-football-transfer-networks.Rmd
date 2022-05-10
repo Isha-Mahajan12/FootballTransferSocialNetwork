@@ -55,7 +55,7 @@ any(is.na(data$fee))
 #node_attr <- unique(nodes)
 ```
 
-## Create Edgelist
+## Create Edgelist (Part 1)
 
 The edgelist I created consists of 867 nodes and 4386 ties. The edge attributes are the players who are being transferred. The weight of the edges is the fee for which they were transferred. The edgelist is directed because the players are transferring from one team to another. 
 
