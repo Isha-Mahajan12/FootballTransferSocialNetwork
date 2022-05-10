@@ -191,5 +191,13 @@ plot(ig,
 ```
 
 
+```{r}
+library(ggraph)
+ggraph(ig, layout = "with_kk" )+
+  geom_edge_link(aes(alpha = weight))+
+  geom_node_point(aes(size = strength(ig)))
+```
+
+
 
 

@@ -3,7 +3,7 @@ title: "Network Status and Centrality"
 description: |
   Who are the key actors in the football network? What makes them the key actors
 author:
-  - name: Isha Akshita Mahajan,Ankit Kumar
+  - name: Isha Akshita Mahajan, Ankit Kumar
     affiliation: UMass Amherst
 date: 2022-05-09
 output:
@@ -215,8 +215,10 @@ mutate(broker.tot = tempo$t, # AS ROMA, AS Monaco, US Sassuolo, Genoa CFC, Atlan
        broker.rep = tempo$b_IO, # # Aston Villa, Inter Milan, Borussia Dortmund, ACF florentina
        broker.gate = tempo$b_OI,
        broker.lia = tempo$b_O)
-transfer.nodes %>% 
-  arrange(desc(broker.tot))
+broker <- transfer.nodes %>% 
+  arrange(desc(broker.tot)) %>% 
+  slice(1:10)
+kable(broker)
 ```
 
 AS Roma plays a role of coordinator in the network which means that many ties go to and from AS Roma. This is in alignment with the degrees of the network as we saw earlier and the Eigenvector centrality which was also the highest for AS Roma in the network. 
