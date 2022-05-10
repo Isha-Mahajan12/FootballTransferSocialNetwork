@@ -1,19 +1,19 @@
 [
   {
     "path": "posts/welcome/",
-    "title": "Welcome to Football Networks",
-    "description": "Welcome to our new blog, Football Networks. We hope you enjoy \nreading what we have to say!",
+    "title": "Introduction to Football Networks",
+    "description": "In this blog, I'll be referring to soccer as football -- since it's played with a foot.",
     "author": [
       {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
+        "name": "Isha Akshita Mahajan",
+        "url": {}
       }
     ],
     "date": "2022-05-08",
     "categories": [],
-    "contents": "\n\n\n\n",
+    "contents": "\nTransfer of players in European Football\nThis blog is an attempt to examine a social network of football transfers in major football leagues. The data was extracted using web scraping techniques from transfermarket.co.uk which is known to be a reliable source for data on players and their movement in various sports.\nUnlike American sports, where players transfer from one team to another either through contracts or through their agents. It is more like a trade. However, in the football transfer system, the players move from one team to another by the selling and buying process. The transaction that is made during the process is considered to be a transfer fee and is the amount that one team is paying to another while transferring the player. Usually 5 or 10 percent of this fee goes to the player themself.\nThese transactions happen during transfer windows which are similar to trade deadlines in the NBA. However, unlike a specific date, it is a window of time during which football clubs buy and sell players. These transfer windows in most European leagues are during the summer summer and winter.\nIn addition to transfers by paying money, players also move from one club to another on loans where they can temporally play for a team for which they dont have a contract. There is no transaction between the clubs however the club is still responsible for paying the player’s fee.\nWebscraping\nThe data was scraped using python and is attached to this blog. I extracted data from the year 2018-2021 which is 4 years and 8 transfer windows. I removed the free and loan transfers because they don’t show a transaction between the club.\n\n\n\n",
     "preview": {},
-    "last_modified": "2022-05-08T20:18:45-04:00",
-    "input_file": {}
+    "last_modified": "2022-05-09T20:22:59-04:00",
+    "input_file": "welcome.knit.md"
   }
 ]

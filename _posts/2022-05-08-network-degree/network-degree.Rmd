@@ -11,6 +11,14 @@ output:
     self_contained: false
 ---
 
+
+## Assignment Description
+
+Briefly describe the dataset you are using: identify initial network format, describe and identify the nodes (including how many nodes are in the dataset), what constitutes a tie or edge (including how many ties, whether ties are directed/undirected and weighted/binary, and how to interpret the value of the tie if any), whether or not there are edge attributes that might be used to subset data or stack multiple networks (e.g., tie type, year, etc). Not every feature of the network needs to be described, but description should orient reader to the network data and provide any necessary context for the results provided.
+
+Provide at least two or three noteworthy results, including the relevant statistics and interpretation. For example, explaining which node(s) are most central and which are least central. Discuss (with any related evidence) whether or not the node(s) behavior is in line with or violates expectations based on the degree centrality measure. What do you make of network density and centralization measures?
+
+
 ## Density 
 
 ```{r}
@@ -97,5 +105,3 @@ centr_degree(ig, loops = FALSE, mode="in")$centralization
 centr_degree(ig, loops = FALSE, mode="out")$centralization
 ```
 
-
-#Degree, Eigen Vector, Hub, Authority, closeness, betweeness - Centrality

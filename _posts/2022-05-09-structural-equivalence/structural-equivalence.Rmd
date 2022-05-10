@@ -1,0 +1,43 @@
+---
+title: "Structural Equivalence"
+description: |
+
+author:
+  - name: Nora Jones
+    url: https://example.com/norajones
+date: 2022-05-09
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+## Week 6 Structural Equivilence 
+
+
+```{r}
+g_mat <- as.matrix(get.adjacency(simplify(ig)))
+g_eq <- equiv.clust(g_mat, mode = "graph", glabels = rownames(g_mat), plabels = rownames(g_mat))
+plot(g_eq)
+as.data.frame(rownames(g_mat))
+```
+
+
+
+
+```{r}
+g_block <- blockmodel(g_mat, g_eq, h=30, mode="graph")
+plot(g_block, cex=0.1)
+```
+
+```{r}
+g_block
+```
+
+```{r}
+gplot(g_mat, vertex.col = g_block$block.membership, gmode="graph")
+```
+
+
+
+
+
