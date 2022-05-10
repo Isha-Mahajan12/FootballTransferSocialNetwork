@@ -1513,7 +1513,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ig.exp.19</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>IGRAPH 6d3e06f DNW- 185 157 -- 
+<pre><code>IGRAPH 65538f4 DNW- 185 157 -- 
 + attr: name (v/c), name (e/c), weight (e/n)</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network.exp.19</span> <span class='op'>&lt;-</span> <span class='fu'>intergraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/intergraph/man/asNetwork.html'>asNetwork</a></span><span class='op'>(</span><span class='va'>ig.exp.19</span><span class='op'>)</span> 
@@ -1568,7 +1568,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ig.med.19</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>IGRAPH 13dbd46 DNW- 461 718 -- 
+<pre><code>IGRAPH 0018b90 DNW- 461 718 -- 
 + attr: name (v/c), name (e/c), weight (e/n)</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network.med.19</span> <span class='op'>&lt;-</span> <span class='fu'>intergraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/intergraph/man/asNetwork.html'>asNetwork</a></span><span class='op'>(</span><span class='va'>ig.med.19</span><span class='op'>)</span> 
@@ -1623,7 +1623,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ig.sm.19</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>IGRAPH 3e5c48e DNW- 283 312 -- 
+<pre><code>IGRAPH 891a575 DNW- 283 312 -- 
 + attr: name (v/c), name (e/c), weight (e/n)</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>network.sm.19</span> <span class='op'>&lt;-</span> <span class='fu'>intergraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/intergraph/man/asNetwork.html'>asNetwork</a></span><span class='op'>(</span><span class='va'>ig.sm.19</span><span class='op'>)</span> 
@@ -1680,281 +1680,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <img src="structural-equivalence_files/figure-html5/Expensive%20Transfers%20Block-2.png" width="624" />
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>g_block</span>
-</code></pre>
-</div>
-<pre><code>
-Network Blockmodel:
-
-Block membership:
-
-                    FC Barcelona                   Leicester City 
-                               1                                1 
-                  Ajax Amsterdam               Atlético de Madrid 
-                               2                                1 
-                      LOSC Lille                Manchester United 
-                               3                                1 
-                        AC Milan                       Chelsea FC 
-                               1                                4 
-             TSG 1899 Hoffenheim                      Sporting CP 
-                               5                                1 
-                  ACF Fiorentina                      FC Augsburg 
-                               1                                1 
-                 Manchester City                      Inter Milan 
-                               1                                6 
-                      Alanyaspor              Feyenoord Rotterdam 
-                               1                                7 
-               Red Bull Salzburg               CA Vélez Sarsfield 
-                               1                                1 
-                 Nîmes Olympique                Borussia Dortmund 
-                               1                                1 
-                     Hannover 96                  West Ham United 
-                               1                                7 
-                  Rayo Vallecano                   BSC Young Boys 
-                               1                                1 
-                       Getafe CF                     Cardiff City 
-                               1                                8 
-                        SD Eibar               Real Valladolid CF 
-                               1                                1 
-                    FC Groningen                 Stade Rennais FC 
-                               1                                9 
-                      SL Benfica              Paris Saint-Germain 
-                               1                                1 
-                       AS Monaco              Manchester City U23 
-                               1                               10 
-                  Spartak Moscow                       CF América 
-                               1                               11 
-                     Juventus FC                       SCO Angers 
-                               6                                1 
-                     EA Guingamp                Tottenham Hotspur 
-                               1                                1 
-        Sport Club Internacional                       Sevilla FC 
-                               1                               12 
-                       Empoli FC                      Stade Reims 
-                               1                                1 
-               Sint-Truidense VV                    FC Schalke 04 
-                               1                                1 
-                        SS Lazio                 Lokomotiv Moscow 
-                               1                                1 
-               Nottingham Forest                       Burnley FC 
-                               1                                1 
-           Deportivo Guadalajara              Bayer 04 Leverkusen 
-                              10                                1 
-                  Udinese Calcio                      FC Sion U21 
-                               1                                1 
-                  RSC Anderlecht                       Arsenal FC 
-                               1                                4 
-                  FC Barcelona B     Club Estudiantes de La Plata 
-                               1                               13 
-                   Spezia Calcio    Sociedade Esportiva Palmeiras 
-                              14                                1 
-                   Villarreal CF                    Real Sociedad 
-                              15                                1 
-    Clube de Regatas do Flamengo                      FC Toulouse 
-                              16                                1 
-                        KRC Genk                GNK Dinamo Zagreb 
-                               1                                1 
-                       Dijon FCO                      AS Monaco B 
-                               1                                4 
-                 Montpellier HSC                         Paris FC 
-                               1                                1 
-                      Levante UD                     Liverpool FC 
-                               1                               14 
-               Preston North End          São Paulo Futebol Clube 
-                               1                                1 
-                        SC Braga                        Málaga CF 
-                              11                                1 
-             Goiás Esporte Clube                     FK Krasnodar 
-                               1                                1 
-                     Tigres UANL                        Junior FC 
-                               1                               11 
-                     Club Necaxa Universidad San Martín de Porres 
-                              10                                1 
-              Defensa y Justicia                   1.FC Nuremberg 
-                               2                                1 
-       CA San Lorenzo de Almagro        Club Athletico Paranaense 
-                               1                                1 
-                SV Zulte Waregem                        Genoa CFC 
-                               1                                6 
-                    Juventus U23           Brighton &amp; Hove Albion 
-                               1                                1 
-               Huddersfield Town                    VfB Stuttgart 
-                               1                               17 
-                       Hull City  Sport Club Corinthians Paulista 
-                               1                                1 
-           FC Girondins Bordeaux                  Heracles Almelo 
-                               1                                1 
-                    Bristol City                 Columbus Crew SC 
-                               4                               13 
-                        CA Colon                        Bursaspor 
-                               1                                1 
-                 Sporting CP U23                          AS Roma 
-                               1                                1 
-                 CA Boca Juniors            Club Atlético Tucuman 
-                               1                                1 
-                      Reading FC                          FC Metz 
-                               1                                1 
-            Zenit St. Petersburg                Willem II Tilburg 
-                               1                                1 
-                      CD Tondela                         KAA Gent 
-                               1                                1 
-            Sport Club do Recife                    Dinamo Moscow 
-                               1                                1 
-                     Racing Club                     SL Benfica B 
-                               1                                1 
-                      FC Crotone                    AS Cittadella 
-                               1                                1 
-               Atlanta United FC                    Bayern Munich 
-                               1                                1 
-             Eintracht Frankfurt                        FC Nantes 
-                              18                                1 
-                     Atalanta BC                       Everton FC 
-                               1                                1 
-                     US Sassuolo                  Bologna FC 1909 
-                              12                               15 
-             Real Betis Balompié                        Torino FC 
-                               1                                4 
-                   VfL Wolfsburg           RCD Espanyol Barcelona 
-                               1                                1 
-                       Fulham FC                    PSV Eindhoven 
-                               1                                1 
-                SV Werder Bremen                 Galatasaray A.S. 
-                               1                                1 
-                   Beijing Guoan                  Al-Hilal Riyadh 
-                               1                                1 
-                        FC Porto                  Cagliari Calcio 
-                              11                                1 
-                     Aston Villa                   Olympique Lyon 
-                               3                               16 
-        Borussia Mönchengladbach                     CF Monterrey 
-                               1                                1 
-              Los Angeles Galaxy                       SSC Napoli 
-                               1                                1 
-                     SC Freiburg                    Celta de Vigo 
-                               1                                1 
-            West Bromwich Albion          Wolverhampton Wanderers 
-                               8                                1 
-                      UD Almería             Sporting Kansas City 
-                               1                                1 
-                      Watford FC               Juventus Primavera 
-                               1                                1 
-                      1. FC Köln                     Derby County 
-                               1                                1 
-                  Inter Miami CF                   Club Brugge KV 
-                              13                               14 
-                      RB Leipzig                        Celtic FC 
-                               1                                1 
-                 Birmingham City                   1.FSV Mainz 05 
-                               1                               12 
-                Sheffield United                      Rubin Kazan 
-                               1                                1 
-                      Rangers FC                       Hertha BSC 
-                               1                                1 
-                    Al-Duhail SC                    El Ahly Cairo 
-                               1                                1 
-                       Girona FC              Esporte Clube Bahia 
-                               1                                1 
-                      FC Utrecht                     Norwich City 
-                               1                               12 
-           Al-Shabab FC (Riyadh)                      AC Le Havre 
-                               1                                1 
-                      AEK Athens                          FC Sion 
-                               1                                1 
-          Club Atlético Talleres                SG Dynamo Dresden 
-                               1                                1 
-                      HNK Rijeka                      Millwall FC 
-                               1                                1 
-                  Legia Warszawa                         FC Sochi 
-                               1                                1 
-               Red Star Belgrade                       Bröndby IF 
-                               1                                1 
-                  Deportivo Cali                  Orlando City SC 
-                               1                                1 
-                New York City FC                   Brescia Calcio 
-                               1                                1 
-                  Virtus Entella 
-                               1 
-
-Reduced form blockmodel:
-
-     FC Barcelona Leicester City Ajax Amsterdam Atlético de Madrid LOSC Lille Manchester United AC Milan Chelsea FC TSG 1899 Hoffenheim Sporting CP ACF Fiorentina FC Augsburg Manchester City Inter Milan Alanyaspor Feyenoord Rotterdam Red Bull Salzburg CA Vélez Sarsfield Nîmes Olympique Borussia Dortmund Hannover 96 West Ham United Rayo Vallecano BSC Young Boys Getafe CF Cardiff City SD Eibar Real Valladolid CF FC Groningen Stade Rennais FC SL Benfica Paris Saint-Germain AS Monaco Manchester City U23 Spartak Moscow CF América Juventus FC SCO Angers EA Guingamp Tottenham Hotspur Sport Club Internacional Sevilla FC Empoli FC Stade Reims Sint-Truidense VV FC Schalke 04 SS Lazio Lokomotiv Moscow Nottingham Forest Burnley FC Deportivo Guadalajara Bayer 04 Leverkusen Udinese Calcio FC Sion U21 RSC Anderlecht Arsenal FC FC Barcelona B Club Estudiantes de La Plata Spezia Calcio Sociedade Esportiva Palmeiras Villarreal CF Real Sociedad Clube de Regatas do Flamengo FC Toulouse KRC Genk GNK Dinamo Zagreb Dijon FCO AS Monaco B Montpellier HSC Paris FC Levante UD Liverpool FC Preston North End São Paulo Futebol Clube SC Braga Málaga CF Goiás Esporte Clube FK Krasnodar Tigres UANL Junior FC Club Necaxa Universidad San Martín de Porres Defensa y Justicia 1.FC Nuremberg CA San Lorenzo de Almagro Club Athletico Paranaense SV Zulte Waregem Genoa CFC Juventus U23 Brighton &amp; Hove Albion Huddersfield Town VfB Stuttgart Hull City Sport Club Corinthians Paulista FC Girondins Bordeaux Heracles Almelo Bristol City Columbus Crew SC CA Colon Bursaspor Sporting CP U23 AS Roma CA Boca Juniors Club Atlético Tucuman Reading FC FC Metz Zenit St. Petersburg Willem II Tilburg CD Tondela KAA Gent Sport Club do Recife Dinamo Moscow Racing Club SL Benfica B FC Crotone AS Cittadella Atlanta United FC Bayern Munich Eintracht Frankfurt FC Nantes Atalanta BC Everton FC US Sassuolo Bologna FC 1909 Real Betis Balompié Torino FC VfL Wolfsburg RCD Espanyol Barcelona Fulham FC PSV Eindhoven SV Werder Bremen Galatasaray A.S. Beijing Guoan Al-Hilal Riyadh FC Porto Cagliari Calcio Aston Villa Olympique Lyon Borussia Mönchengladbach CF Monterrey Los Angeles Galaxy SSC Napoli SC Freiburg Celta de Vigo West Bromwich Albion Wolverhampton Wanderers UD Almería Sporting Kansas City Watford FC Juventus Primavera 1. FC Köln Derby County Inter Miami CF Club Brugge KV RB Leipzig Celtic FC Birmingham City 1.FSV Mainz 05 Sheffield United Rubin Kazan Rangers FC Hertha BSC Al-Duhail SC El Ahly Cairo Girona FC Esporte Clube Bahia FC Utrecht Norwich City Al-Shabab FC (Riyadh) AC Le Havre AEK Athens FC Sion Club Atlético Talleres SG Dynamo Dresden HNK Rijeka Millwall FC Legia Warszawa FC Sochi Red Star Belgrade Bröndby IF Deportivo Cali Orlando City SC New York City FC Brescia Calcio Virtus Entella 
-             Block 1 Block 2     Block 3 Block 4    Block 5
-Block 1  0.003496503       0 0.006944444     0.0 0.02083333
-Block 2  0.003472222       1 0.000000000     0.0 0.00000000
-Block 3  0.000000000       0 0.500000000     0.1 0.00000000
-Block 4  0.001388889       0 0.000000000     0.2 0.00000000
-Block 5  0.027777778       0 0.000000000     0.0        NaN
-Block 6  0.004629630       0 0.000000000     0.0 0.00000000
-Block 7  0.003472222       0 0.000000000     0.0 0.00000000
-Block 8  0.003472222       0 0.000000000     0.0 0.00000000
-Block 9  0.006944444       0 0.500000000     0.0 0.00000000
-Block 10 0.002314815       0 0.000000000     0.0 0.00000000
-Block 11 0.000000000       0 0.000000000     0.0 0.00000000
-Block 12 0.001736111       0 0.000000000     0.0 0.00000000
-Block 13 0.000000000       0 0.000000000     0.0 0.00000000
-Block 14 0.002314815       0 0.000000000     0.0 0.00000000
-Block 15 0.000000000       0 0.000000000     0.0 0.00000000
-Block 16 0.003472222       0 0.000000000     0.0 0.00000000
-Block 17 0.020833333       0 0.000000000     0.0 0.00000000
-Block 18 0.000000000       0 0.000000000     0.0 0.00000000
-             Block 6     Block 7     Block 8    Block 9 Block 10
-Block 1  0.002314815 0.003472222 0.006944444 0.01388889      0.0
-Block 2  0.166666667 0.000000000 0.000000000 0.00000000      0.0
-Block 3  0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 4  0.000000000 0.000000000 0.100000000 0.00000000      0.0
-Block 5  0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 6  0.500000000 0.000000000 0.000000000 0.00000000      0.0
-Block 7  0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 8  0.000000000 0.000000000 0.500000000 0.00000000      0.0
-Block 9  0.000000000 0.000000000 0.000000000        NaN      0.0
-Block 10 0.000000000 0.000000000 0.000000000 0.00000000      0.5
-Block 11 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 12 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 13 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 14 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 15 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 16 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 17 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-Block 18 0.000000000 0.000000000 0.000000000 0.00000000      0.0
-          Block 11    Block 12   Block 13    Block 14   Block 15
-Block 1  0.0000000 0.005208333 0.00462963 0.002314815 0.01388889
-Block 2  0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 3  0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 4  0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 5  0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 6  0.0000000 0.083333333 0.00000000 0.000000000 0.00000000
-Block 7  0.0000000 0.625000000 0.00000000 0.000000000 0.00000000
-Block 8  0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 9  0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 10 0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 11 0.3333333 0.000000000 0.00000000 0.000000000 0.00000000
-Block 12 0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 13 0.0000000 0.000000000 0.33333333 0.000000000 0.00000000
-Block 14 0.0000000 0.000000000 0.00000000 0.333333333 0.00000000
-Block 15 0.0000000 0.000000000 0.00000000 0.000000000 2.00000000
-Block 16 0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 17 0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-Block 18 0.0000000 0.000000000 0.00000000 0.000000000 0.00000000
-            Block 16    Block 17   Block 18
-Block 1  0.006944444 0.006944444 0.02777778
-Block 2  0.000000000 0.000000000 0.00000000
-Block 3  0.250000000 0.000000000 0.00000000
-Block 4  0.000000000 0.000000000 0.00000000
-Block 5  0.000000000 0.000000000 0.00000000
-Block 6  0.000000000 0.000000000 0.00000000
-Block 7  0.000000000 0.000000000 0.00000000
-Block 8  0.000000000 0.000000000 0.00000000
-Block 9  0.000000000 0.000000000 0.00000000
-Block 10 0.000000000 0.000000000 0.00000000
-Block 11 0.000000000 0.000000000 0.00000000
-Block 12 0.000000000 0.000000000 0.00000000
-Block 13 0.000000000 0.000000000 0.00000000
-Block 14 0.000000000 0.000000000 0.00000000
-Block 15 0.000000000 0.000000000 0.00000000
-Block 16 1.000000000 0.000000000 0.00000000
-Block 17 0.000000000         NaN 0.00000000
-Block 18 0.000000000 0.000000000        NaN</code></pre>
-<div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/sna/man/gplot.html'>gplot</a></span><span class='op'>(</span><span class='va'>g_mat</span>, vertex.col <span class='op'>=</span> <span class='va'>g_block</span><span class='op'>$</span><span class='va'>block.membership</span>, gmode<span class='op'>=</span><span class='st'>"graph"</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -1974,7 +1699,7 @@ Block 18 0.000000000 0.000000000        NaN</code></pre>
 </code></pre>
 </div>
 </div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
