@@ -203,4 +203,27 @@ cor<-transfer.nodes %>%
 rplot(cor)
 ```
 
+## Brokerage 
+
+```{r}
+tempo <-as.data.frame(brokerage(network, cl  = get.vertex.attribute(network,"league"))$raw.nli)
+head(tempo)
+transfer.nodes<-transfer.nodes %>%
+mutate(broker.tot = tempo$t, # AS ROMA, AS Monaco, US Sassuolo, Genoa CFC, Atlanta BC
+       broker.coord = tempo$w_I,
+       broker.itin = tempo$w_O, # Aston Villa, Inter Milan, Borussia Dortmund, ACF florentina
+       broker.rep = tempo$b_IO, # # Aston Villa, Inter Milan, Borussia Dortmund, ACF florentina
+       broker.gate = tempo$b_OI,
+       broker.lia = tempo$b_O)
+transfer.nodes %>% 
+  arrange(desc(broker.tot))
+```
+
+AS Roma plays a role of coordinator in the network which means that many ties go to and from AS Roma. This is in alignment with the degrees of the network as we saw earlier and the Eigenvector centrality which was also the highest for AS Roma in the network. 
+
+Aston Villa is an iterant broker in the network. 
+
+
+
+
 

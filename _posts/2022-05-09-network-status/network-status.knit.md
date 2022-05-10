@@ -1,1513 +1,59 @@
-<!DOCTYPE html>
+---
+title: "Network Status and Centrality"
+description: |
+  Who are the key actors in the football network? What makes them the key actors
+author:
+  - name: Isha Akshita Mahajan
+    affiliation: UMass Amherst
+date: 2022-05-09
+output:
+  distill::distill_article:
+    self_contained: false
+---
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+## Assignment Description
 
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
-  <meta name="generator" content="distill" />
+Calculate closeness, betweenness and eigenvector centrality measures for your network data, and bonachic-power if possible. Compare these measures to basic degree centrality measures. Try to interpret the results. Are there any interesting patterns in the distribution of measures or correlations between them that provide insight into the measures?
 
-  <style type="text/css">
-  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
-  body {
-    visibility: hidden;
-  }
-  </style>
+You may also want to identify whether the same node(s) are more/less central using the different measures, and see if you can find any patterns in the results based on which nodes are high/low on each measures. Discuss (with any related evidence) whether or not the node(s) behavior is in line with or violates expectations based on the degree centrality measure, comparing across those measures using a data frame similar to that constructed in the syntax. Be sure to share your assignment with group members for comments.
 
- <!--radix_placeholder_import_source-->
- <!--/radix_placeholder_import_source-->
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ad0000; } /* Alert */
-code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bn { color: #ad0000; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
-code span.ch { color: #20794d; } /* Char */
-code span.cn { color: #8f5902; } /* Constant */
-code span.co { color: #5e5e5e; } /* Comment */
-code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-code span.dt { color: #ad0000; } /* DataType */
-code span.dv { color: #ad0000; } /* DecVal */
-code span.er { color: #ad0000; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #ad0000; } /* Float */
-code span.fu { color: #4758ab; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
-code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
-code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #5e5e5e; } /* SpecialChar */
-code span.ss { color: #20794d; } /* SpecialString */
-code span.st { color: #20794d; } /* String */
-code span.va { color: #111111; } /* Variable */
-code span.vs { color: #20794d; } /* VerbatimString */
-code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-</style>
+## Eigenvector Centrality
 
+The eigenvector centrality determines how important the neighborhood of the nodes is in the network. The higher the eigenvalue centrality, the more important the neighbors of that node are with respect to other nodes in the network. (Jackson 08) The eigenvalues also take into account the proximity of the node to many other important nodes in the network. 
 
-  <!--radix_placeholder_meta_tags-->
-  <title>Network Status and Centrality</title>
+AS Roma has the highest eigenvalue in the network. This can be an additional support to our previous speculation on how AS Roma might influential in the influx and outflow of football talent as they are well connected to the other influential nodes in our football transfer network. 
 
-  <meta property="description" itemprop="description" content="Who are the key actors in the football network? What makes them the key actors"/>
 
 
-  <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-05-09"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-05-09"/>
-  <meta name="article:author" content="Isha Akshita Mahajan"/>
 
-  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Network Status and Centrality"/>
-  <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Who are the key actors in the football network? What makes them the key actors"/>
-  <meta property="og:locale" content="en_US"/>
 
-  <!--  https://dev.twitter.com/cards/types/summary -->
-  <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Network Status and Centrality"/>
-  <meta property="twitter:description" content="Who are the key actors in the football network? What makes them the key actors"/>
-
-  <!--/radix_placeholder_meta_tags-->
-  <!--radix_placeholder_rmarkdown_metadata-->
-
-  <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Network Status and Centrality"]},{"type":"character","attributes":{},"value":["Who are the key actors in the football network? What makes them the key actors\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Isha Akshita Mahajan"]},{"type":"character","attributes":{},"value":["UMass Amherst"]}]}]},{"type":"character","attributes":{},"value":["2022-05-09"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
-  </script>
-  <!--/radix_placeholder_rmarkdown_metadata-->
-  
-  <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["network-status_files/anchor-4.2.2/anchor.min.js","network-status_files/bowser-1.9.3/bowser.min.js","network-status_files/distill-2.2.21/template.v2.js","network-status_files/figure-html5/unnamed-chunk-15-1.png","network-status_files/figure-html5/unnamed-chunk-6-1.png","network-status_files/figure-html5/unnamed-chunk-9-1.png","network-status_files/header-attrs-2.14/header-attrs.js","network-status_files/jquery-3.6.0/jquery-3.6.0.js","network-status_files/jquery-3.6.0/jquery-3.6.0.min.js","network-status_files/jquery-3.6.0/jquery-3.6.0.min.map","network-status_files/popper-2.6.0/popper.min.js","network-status_files/tippy-6.2.7/tippy-bundle.umd.min.js","network-status_files/tippy-6.2.7/tippy-light-border.css","network-status_files/tippy-6.2.7/tippy.css","network-status_files/tippy-6.2.7/tippy.umd.min.js","network-status_files/webcomponents-2.0.0/webcomponents.js"]}
-  </script>
-  <!--radix_placeholder_navigation_in_header-->
-  <!--/radix_placeholder_navigation_in_header-->
-  <!--radix_placeholder_distill-->
-
-  <style type="text/css">
-
-  body {
-    background-color: white;
-  }
-
-  .pandoc-table {
-    width: 100%;
-  }
-
-  .pandoc-table>caption {
-    margin-bottom: 10px;
-  }
-
-  .pandoc-table th:not([align]) {
-    text-align: left;
-  }
-
-  .pagedtable-footer {
-    font-size: 15px;
-  }
-
-  d-byline .byline {
-    grid-template-columns: 2fr 2fr;
-  }
-
-  d-byline .byline h3 {
-    margin-block-start: 1.5em;
-  }
-
-  d-byline .byline .authors-affiliations h3 {
-    margin-block-start: 0.5em;
-  }
-
-  .authors-affiliations .orcid-id {
-    width: 16px;
-    height:16px;
-    margin-left: 4px;
-    margin-right: 4px;
-    vertical-align: middle;
-    padding-bottom: 2px;
-  }
-
-  d-title .dt-tags {
-    margin-top: 1em;
-    grid-column: text;
-  }
-
-  .dt-tags .dt-tag {
-    text-decoration: none;
-    display: inline-block;
-    color: rgba(0,0,0,0.6);
-    padding: 0em 0.4em;
-    margin-right: 0.5em;
-    margin-bottom: 0.4em;
-    font-size: 70%;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  d-article table.gt_table td,
-  d-article table.gt_table th {
-    border-bottom: none;
-  }
-
-  .html-widget {
-    margin-bottom: 2.0em;
-  }
-
-  .l-screen-inset {
-    padding-right: 16px;
-  }
-
-  .l-screen .caption {
-    margin-left: 10px;
-  }
-
-  .shaded {
-    background: rgb(247, 247, 247);
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .shaded .html-widget {
-    margin-bottom: 0;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .shaded .shaded-content {
-    background: white;
-  }
-
-  .text-output {
-    margin-top: 0;
-    line-height: 1.5em;
-  }
-
-  .hidden {
-    display: none !important;
-  }
-
-  d-article {
-    padding-top: 2.5rem;
-    padding-bottom: 30px;
-  }
-
-  d-appendix {
-    padding-top: 30px;
-  }
-
-  d-article>p>img {
-    width: 100%;
-  }
-
-  d-article h2 {
-    margin: 1rem 0 1.5rem 0;
-  }
-
-  d-article h3 {
-    margin-top: 1.5rem;
-  }
-
-  d-article iframe {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 2.0em;
-    width: 100%;
-  }
-
-  /* Tweak code blocks */
-
-  d-article div.sourceCode code,
-  d-article pre code {
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  }
-
-  d-article pre,
-  d-article div.sourceCode,
-  d-article div.sourceCode pre {
-    overflow: auto;
-  }
-
-  d-article div.sourceCode {
-    background-color: white;
-  }
-
-  d-article div.sourceCode pre {
-    padding-left: 10px;
-    font-size: 12px;
-    border-left: 2px solid rgba(0,0,0,0.1);
-  }
-
-  d-article pre {
-    font-size: 12px;
-    color: black;
-    background: none;
-    margin-top: 0;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    word-wrap: normal;
-    line-height: 1.5;
-
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-  }
-
-  d-article pre a {
-    border-bottom: none;
-  }
-
-  d-article pre a:hover {
-    border-bottom: none;
-    text-decoration: underline;
-  }
-
-  d-article details {
-    grid-column: text;
-    margin-bottom: 0.8em;
-  }
-
-  @media(min-width: 768px) {
-
-  d-article pre,
-  d-article div.sourceCode,
-  d-article div.sourceCode pre {
-    overflow: visible !important;
-  }
-
-  d-article div.sourceCode pre {
-    padding-left: 18px;
-    font-size: 14px;
-  }
-
-  d-article pre {
-    font-size: 14px;
-  }
-
-  }
-
-  figure img.external {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    padding: 18px;
-    box-sizing: border-box;
-  }
-
-  /* CSS for d-contents */
-
-  .d-contents {
-    grid-column: text;
-    color: rgba(0,0,0,0.8);
-    font-size: 0.9em;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-    padding-bottom: 0.5em;
-    margin-bottom: 1em;
-    padding-left: 0.25em;
-    justify-self: start;
-  }
-
-  @media(min-width: 1000px) {
-    .d-contents.d-contents-float {
-      height: 0;
-      grid-column-start: 1;
-      grid-column-end: 4;
-      justify-self: center;
-      padding-right: 3em;
-      padding-left: 2em;
-    }
-  }
-
-  .d-contents nav h3 {
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 1em;
-  }
-
-  .d-contents li {
-    list-style-type: none
-  }
-
-  .d-contents nav > ul {
-    padding-left: 0;
-  }
-
-  .d-contents ul {
-    padding-left: 1em
-  }
-
-  .d-contents nav ul li {
-    margin-top: 0.6em;
-    margin-bottom: 0.2em;
-  }
-
-  .d-contents nav a {
-    font-size: 13px;
-    border-bottom: none;
-    text-decoration: none
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .d-contents nav a:hover {
-    text-decoration: underline solid rgba(0, 0, 0, 0.6)
-  }
-
-  .d-contents nav > ul > li > a {
-    font-weight: 600;
-  }
-
-  .d-contents nav > ul > li > ul {
-    font-weight: inherit;
-  }
-
-  .d-contents nav > ul > li > ul > li {
-    margin-top: 0.2em;
-  }
-
-
-  .d-contents nav ul {
-    margin-top: 0;
-    margin-bottom: 0.25em;
-  }
-
-  .d-article-with-toc h2:nth-child(2) {
-    margin-top: 0;
-  }
-
-
-  /* Figure */
-
-  .figure {
-    position: relative;
-    margin-bottom: 2.5em;
-    margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
-  }
-
-  .figure .caption {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 12px;
-    line-height: 1.5em;
-  }
-
-  .figure img.external {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    padding: 18px;
-    box-sizing: border-box;
-  }
-
-  .figure .caption a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  .figure .caption b,
-  .figure .caption strong, {
-    font-weight: 600;
-    color: rgba(0, 0, 0, 1.0);
-  }
-
-  /* Citations */
-
-  d-article .citation {
-    color: inherit;
-    cursor: inherit;
-  }
-
-  div.hanging-indent{
-    margin-left: 1em; text-indent: -1em;
-  }
-
-  /* Citation hover box */
-
-  .tippy-box[data-theme~=light-border] {
-    background-color: rgba(250, 250, 250, 0.95);
-  }
-
-  .tippy-content > p {
-    margin-bottom: 0;
-    padding: 2px;
-  }
-
-
-  /* Tweak 1000px media break to show more text */
-
-  @media(min-width: 1000px) {
-    .base-grid,
-    distill-header,
-    d-title,
-    d-abstract,
-    d-article,
-    d-appendix,
-    distill-appendix,
-    d-byline,
-    d-footnote-list,
-    d-citation-list,
-    distill-footer {
-      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
-      grid-column-gap: 16px;
-    }
-
-    .grid {
-      grid-column-gap: 16px;
-    }
-
-    d-article {
-      font-size: 1.06rem;
-      line-height: 1.7em;
-    }
-    figure .caption, .figure .caption, figure figcaption {
-      font-size: 13px;
-    }
-  }
-
-  @media(min-width: 1180px) {
-    .base-grid,
-    distill-header,
-    d-title,
-    d-abstract,
-    d-article,
-    d-appendix,
-    distill-appendix,
-    d-byline,
-    d-footnote-list,
-    d-citation-list,
-    distill-footer {
-      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
-      grid-column-gap: 32px;
-    }
-
-    .grid {
-      grid-column-gap: 32px;
-    }
-  }
-
-
-  /* Get the citation styles for the appendix (not auto-injected on render since
-     we do our own rendering of the citation appendix) */
-
-  d-appendix .citation-appendix,
-  .d-appendix .citation-appendix {
-    font-size: 11px;
-    line-height: 15px;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    padding-left: 18px;
-    border: 1px solid rgba(0,0,0,0.1);
-    background: rgba(0, 0, 0, 0.02);
-    padding: 10px 18px;
-    border-radius: 3px;
-    color: rgba(150, 150, 150, 1);
-    overflow: hidden;
-    margin-top: -12px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  /* Include appendix styles here so they can be overridden */
-
-  d-appendix {
-    contain: layout style;
-    font-size: 0.8em;
-    line-height: 1.7em;
-    margin-top: 60px;
-    margin-bottom: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    color: rgba(0,0,0,0.5);
-    padding-top: 60px;
-    padding-bottom: 48px;
-  }
-
-  d-appendix h3 {
-    grid-column: page-start / text-start;
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 1em;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.65);
-  }
-
-  d-appendix h3 + * {
-    margin-top: 1em;
-  }
-
-  d-appendix ol {
-    padding: 0 0 0 15px;
-  }
-
-  @media (min-width: 768px) {
-    d-appendix ol {
-      padding: 0 0 0 30px;
-      margin-left: -30px;
-    }
-  }
-
-  d-appendix li {
-    margin-bottom: 1em;
-  }
-
-  d-appendix a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  d-appendix > * {
-    grid-column: text;
-  }
-
-  d-appendix > d-footnote-list,
-  d-appendix > d-citation-list,
-  d-appendix > distill-appendix {
-    grid-column: screen;
-  }
-
-  /* Include footnote styles here so they can be overridden */
-
-  d-footnote-list {
-    contain: layout style;
-  }
-
-  d-footnote-list > * {
-    grid-column: text;
-  }
-
-  d-footnote-list a.footnote-backlink {
-    color: rgba(0,0,0,0.3);
-    padding-left: 0.5em;
-  }
-
-
-
-  /* Anchor.js */
-
-  .anchorjs-link {
-    /*transition: all .25s linear; */
-    text-decoration: none;
-    border-bottom: none;
-  }
-  *:hover > .anchorjs-link {
-    margin-left: -1.125em !important;
-    text-decoration: none;
-    border-bottom: none;
-  }
-
-  /* Social footer */
-
-  .social_footer {
-    margin-top: 30px;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.67);
-  }
-
-  .disqus-comments {
-    margin-right: 30px;
-  }
-
-  .disqus-comment-count {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-  }
-
-  #disqus_thread {
-    margin-top: 30px;
-  }
-
-  .article-sharing a {
-    border-bottom: none;
-    margin-right: 8px;
-  }
-
-  .article-sharing a:hover {
-    border-bottom: none;
-  }
-
-  .sidebar-section.subscribe {
-    font-size: 12px;
-    line-height: 1.6em;
-  }
-
-  .subscribe p {
-    margin-bottom: 0.5em;
-  }
-
-
-  .article-footer .subscribe {
-    font-size: 15px;
-    margin-top: 45px;
-  }
-
-
-  .sidebar-section.custom {
-    font-size: 12px;
-    line-height: 1.6em;
-  }
-
-  .custom p {
-    margin-bottom: 0.5em;
-  }
-
-  /* Styles for listing layout (hide title) */
-  .layout-listing d-title, .layout-listing .d-title {
-    display: none;
-  }
-
-  /* Styles for posts lists (not auto-injected) */
-
-
-  .posts-with-sidebar {
-    padding-left: 45px;
-    padding-right: 45px;
-  }
-
-  .posts-list .description h2,
-  .posts-list .description p {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-  }
-
-  .posts-list .description h2 {
-    font-weight: 700;
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .posts-list h2.post-tag {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding-bottom: 12px;
-  }
-  .posts-list {
-    margin-top: 60px;
-    margin-bottom: 24px;
-  }
-
-  .posts-list .post-preview {
-    text-decoration: none;
-    overflow: hidden;
-    display: block;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 24px 0;
-  }
-
-  .post-preview-last {
-    border-bottom: none !important;
-  }
-
-  .posts-list .posts-list-caption {
-    grid-column: screen;
-    font-weight: 400;
-  }
-
-  .posts-list .post-preview h2 {
-    margin: 0 0 6px 0;
-    line-height: 1.2em;
-    font-style: normal;
-    font-size: 24px;
-  }
-
-  .posts-list .post-preview p {
-    margin: 0 0 12px 0;
-    line-height: 1.4em;
-    font-size: 16px;
-  }
-
-  .posts-list .post-preview .thumbnail {
-    box-sizing: border-box;
-    margin-bottom: 24px;
-    position: relative;
-    max-width: 500px;
-  }
-  .posts-list .post-preview img {
-    width: 100%;
-    display: block;
-  }
-
-  .posts-list .metadata {
-    font-size: 12px;
-    line-height: 1.4em;
-    margin-bottom: 18px;
-  }
-
-  .posts-list .metadata > * {
-    display: inline-block;
-  }
-
-  .posts-list .metadata .publishedDate {
-    margin-right: 2em;
-  }
-
-  .posts-list .metadata .dt-authors {
-    display: block;
-    margin-top: 0.3em;
-    margin-right: 2em;
-  }
-
-  .posts-list .dt-tags {
-    display: block;
-    line-height: 1em;
-  }
-
-  .posts-list .dt-tags .dt-tag {
-    display: inline-block;
-    color: rgba(0,0,0,0.6);
-    padding: 0.3em 0.4em;
-    margin-right: 0.2em;
-    margin-bottom: 0.4em;
-    font-size: 60%;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  .posts-list img {
-    opacity: 1;
-  }
-
-  .posts-list img[data-src] {
-    opacity: 0;
-  }
-
-  .posts-more {
-    clear: both;
-  }
-
-
-  .posts-sidebar {
-    font-size: 16px;
-  }
-
-  .posts-sidebar h3 {
-    font-size: 16px;
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    font-weight: 400;
-    text-transform: uppercase;
-  }
-
-  .sidebar-section {
-    margin-bottom: 30px;
-  }
-
-  .categories ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .categories li {
-    color: rgba(0, 0, 0, 0.8);
-    margin-bottom: 0;
-  }
-
-  .categories li>a {
-    border-bottom: none;
-  }
-
-  .categories li>a:hover {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-  }
-
-  .categories .active {
-    font-weight: 600;
-  }
-
-  .categories .category-count {
-    color: rgba(0, 0, 0, 0.4);
-  }
-
-
-  @media(min-width: 768px) {
-    .posts-list .post-preview h2 {
-      font-size: 26px;
-    }
-    .posts-list .post-preview .thumbnail {
-      float: right;
-      width: 30%;
-      margin-bottom: 0;
-    }
-    .posts-list .post-preview .description {
-      float: left;
-      width: 45%;
-    }
-    .posts-list .post-preview .metadata {
-      float: left;
-      width: 20%;
-      margin-top: 8px;
-    }
-    .posts-list .post-preview p {
-      margin: 0 0 12px 0;
-      line-height: 1.5em;
-      font-size: 16px;
-    }
-    .posts-with-sidebar .posts-list {
-      float: left;
-      width: 75%;
-    }
-    .posts-with-sidebar .posts-sidebar {
-      float: right;
-      width: 20%;
-      margin-top: 60px;
-      padding-top: 24px;
-      padding-bottom: 24px;
-    }
-  }
-
-
-  /* Improve display for browsers without grid (IE/Edge <= 15) */
-
-  .downlevel {
-    line-height: 1.6em;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-    margin: 0;
-  }
-
-  .downlevel .d-title {
-    padding-top: 6rem;
-    padding-bottom: 1.5rem;
-  }
-
-  .downlevel .d-title h1 {
-    font-size: 50px;
-    font-weight: 700;
-    line-height: 1.1em;
-    margin: 0 0 0.5rem;
-  }
-
-  .downlevel .d-title p {
-    font-weight: 300;
-    font-size: 1.2rem;
-    line-height: 1.55em;
-    margin-top: 0;
-  }
-
-  .downlevel .d-byline {
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
-    font-size: 0.8rem;
-    line-height: 1.8em;
-  }
-
-  .downlevel .section-separator {
-    border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .downlevel .d-article {
-    font-size: 1.06rem;
-    line-height: 1.7em;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-  }
-
-
-  .downlevel .d-appendix {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: none;
-    font-size: 0.8em;
-    line-height: 1.7em;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.5);
-    padding-top: 40px;
-    padding-bottom: 48px;
-  }
-
-  .downlevel .footnotes ol {
-    padding-left: 13px;
-  }
-
-  .downlevel .base-grid,
-  .downlevel .distill-header,
-  .downlevel .d-title,
-  .downlevel .d-abstract,
-  .downlevel .d-article,
-  .downlevel .d-appendix,
-  .downlevel .distill-appendix,
-  .downlevel .d-byline,
-  .downlevel .d-footnote-list,
-  .downlevel .d-citation-list,
-  .downlevel .distill-footer,
-  .downlevel .appendix-bottom,
-  .downlevel .posts-container {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-
-  @media(min-width: 768px) {
-    .downlevel .base-grid,
-    .downlevel .distill-header,
-    .downlevel .d-title,
-    .downlevel .d-abstract,
-    .downlevel .d-article,
-    .downlevel .d-appendix,
-    .downlevel .distill-appendix,
-    .downlevel .d-byline,
-    .downlevel .d-footnote-list,
-    .downlevel .d-citation-list,
-    .downlevel .distill-footer,
-    .downlevel .appendix-bottom,
-    .downlevel .posts-container {
-    padding-left: 150px;
-    padding-right: 150px;
-    max-width: 900px;
-  }
-  }
-
-  .downlevel pre code {
-    display: block;
-    border-left: 2px solid rgba(0, 0, 0, .1);
-    padding: 0 0 0 20px;
-    font-size: 14px;
-  }
-
-  .downlevel code, .downlevel pre {
-    color: black;
-    background: none;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    word-wrap: normal;
-    line-height: 1.5;
-
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-  }
-
-  .downlevel .posts-list .post-preview {
-    color: inherit;
-  }
-
-
-
-  </style>
-
-  <script type="application/javascript">
-
-  function is_downlevel_browser() {
-    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
-                                   window.navigator.userAgent)) {
-      return true;
-    } else {
-      return window.load_distill_framework === undefined;
-    }
-  }
-
-  // show body when load is complete
-  function on_load_complete() {
-
-    // add anchors
-    if (window.anchors) {
-      window.anchors.options.placement = 'left';
-      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
-    }
-
-
-    // set body to visible
-    document.body.style.visibility = 'visible';
-
-    // force redraw for leaflet widgets
-    if (window.HTMLWidgets) {
-      var maps = window.HTMLWidgets.findAll(".leaflet");
-      $.each(maps, function(i, el) {
-        var map = this.getMap();
-        map.invalidateSize();
-        map.eachLayer(function(layer) {
-          if (layer instanceof L.TileLayer)
-            layer.redraw();
-        });
-      });
-    }
-
-    // trigger 'shown' so htmlwidgets resize
-    $('d-article').trigger('shown');
-  }
-
-  function init_distill() {
-
-    init_common();
-
-    // create front matter
-    var front_matter = $('<d-front-matter></d-front-matter>');
-    $('#distill-front-matter').wrap(front_matter);
-
-    // create d-title
-    $('.d-title').changeElementType('d-title');
-
-    // create d-byline
-    var byline = $('<d-byline></d-byline>');
-    $('.d-byline').replaceWith(byline);
-
-    // create d-article
-    var article = $('<d-article></d-article>');
-    $('.d-article').wrap(article).children().unwrap();
-
-    // move posts container into article
-    $('.posts-container').appendTo($('d-article'));
-
-    // create d-appendix
-    $('.d-appendix').changeElementType('d-appendix');
-
-    // flag indicating that we have appendix items
-    var appendix = $('.appendix-bottom').children('h3').length > 0;
-
-    // replace footnotes with <d-footnote>
-    $('.footnote-ref').each(function(i, val) {
-      appendix = true;
-      var href = $(this).attr('href');
-      var id = href.replace('#', '');
-      var fn = $('#' + id);
-      var fn_p = $('#' + id + '>p');
-      fn_p.find('.footnote-back').remove();
-      var text = fn_p.html();
-      var dtfn = $('<d-footnote></d-footnote>');
-      dtfn.html(text);
-      $(this).replaceWith(dtfn);
-    });
-    // remove footnotes
-    $('.footnotes').remove();
-
-    // move refs into #references-listing
-    $('#references-listing').replaceWith($('#refs'));
-
-    $('h1.appendix, h2.appendix').each(function(i, val) {
-      $(this).changeElementType('h3');
-    });
-    $('h3.appendix').each(function(i, val) {
-      var id = $(this).attr('id');
-      $('.d-contents a[href="#' + id + '"]').parent().remove();
-      appendix = true;
-      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
-    });
-
-    // show d-appendix if we have appendix content
-    $("d-appendix").css('display', appendix ? 'grid' : 'none');
-
-    // localize layout chunks to just output
-    $('.layout-chunk').each(function(i, val) {
-
-      // capture layout
-      var layout = $(this).attr('data-layout');
-
-      // apply layout to markdown level block elements
-      var elements = $(this).children().not('details, div.sourceCode, pre, script');
-      elements.each(function(i, el) {
-        var layout_div = $('<div class="' + layout + '"></div>');
-        if (layout_div.hasClass('shaded')) {
-          var shaded_content = $('<div class="shaded-content"></div>');
-          $(this).wrap(shaded_content);
-          $(this).parent().wrap(layout_div);
-        } else {
-          $(this).wrap(layout_div);
-        }
-      });
-
-
-      // unwrap the layout-chunk div
-      $(this).children().unwrap();
-    });
-
-    // remove code block used to force  highlighting css
-    $('.distill-force-highlighting-css').parent().remove();
-
-    // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
-
-    // load distill framework
-    load_distill_framework();
-
-    // wait for window.distillRunlevel == 4 to do post processing
-    function distill_post_process() {
-
-      if (!window.distillRunlevel || window.distillRunlevel < 4)
-        return;
-
-      // hide author/affiliations entirely if we have no authors
-      var front_matter = JSON.parse($("#distill-front-matter").html());
-      var have_authors = front_matter.authors && front_matter.authors.length > 0;
-      if (!have_authors)
-        $('d-byline').addClass('hidden');
-
-      // article with toc class
-      $('.d-contents').parent().addClass('d-article-with-toc');
-
-      // strip links that point to #
-      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
-
-      // add orcid ids
-      $('.authors-affiliations').find('.author').each(function(i, el) {
-        var orcid_id = front_matter.authors[i].orcidID;
-        if (orcid_id) {
-          var a = $('<a></a>');
-          a.attr('href', 'https://orcid.org/' + orcid_id);
-          var img = $('<img></img>');
-          img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
-          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
-          a.append(img);
-          $(this).append(a);
-        }
-      });
-
-      // hide elements of author/affiliations grid that have no value
-      function hide_byline_column(caption) {
-        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
-      }
-
-      // affiliations
-      var have_affiliations = false;
-      for (var i = 0; i<front_matter.authors.length; ++i) {
-        var author = front_matter.authors[i];
-        if (author.affiliation !== "&nbsp;") {
-          have_affiliations = true;
-          break;
-        }
-      }
-      if (!have_affiliations)
-        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
-
-      // published date
-      if (!front_matter.publishedDate)
-        hide_byline_column("Published");
-
-      // document object identifier
-      var doi = $('d-byline').find('h3:contains("DOI")');
-      var doi_p = doi.next().empty();
-      if (!front_matter.doi) {
-        // if we have a citation and valid citationText then link to that
-        if ($('#citation').length > 0 && front_matter.citationText) {
-          doi.html('Citation');
-          $('<a href="#citation"></a>')
-            .text(front_matter.citationText)
-            .appendTo(doi_p);
-        } else {
-          hide_byline_column("DOI");
-        }
-      } else {
-        $('<a></a>')
-           .attr('href', "https://doi.org/" + front_matter.doi)
-           .html(front_matter.doi)
-           .appendTo(doi_p);
-      }
-
-       // change plural form of authors/affiliations
-      if (front_matter.authors.length === 1) {
-        var grid = $('.authors-affiliations');
-        grid.children('h3:contains("Authors")').text('Author');
-        grid.children('h3:contains("Affiliations")').text('Affiliation');
-      }
-
-      // remove d-appendix and d-footnote-list local styles
-      $('d-appendix > style:first-child').remove();
-      $('d-footnote-list > style:first-child').remove();
-
-      // move appendix-bottom entries to the bottom
-      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
-      $('.appendix-bottom').remove();
-
-      // hoverable references
-      $('span.citation[data-cites]').each(function() {
-        var refs = $(this).attr('data-cites').split(" ");
-        var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
-        }).join("\n");
-        window.tippy(this, {
-          allowHTML: true,
-          content: refHtml,
-          maxWidth: 500,
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start'
-        });
-      });
-
-      // clear polling timer
-      clearInterval(tid);
-
-      // show body now that everything is ready
-      on_load_complete();
-    }
-
-    var tid = setInterval(distill_post_process, 50);
-    distill_post_process();
-
-  }
-
-  function init_downlevel() {
-
-    init_common();
-
-     // insert hr after d-title
-    $('.d-title').after($('<hr class="section-separator"/>'));
-
-    // check if we have authors
-    var front_matter = JSON.parse($("#distill-front-matter").html());
-    var have_authors = front_matter.authors && front_matter.authors.length > 0;
-
-    // manage byline/border
-    if (!have_authors)
-      $('.d-byline').remove();
-    $('.d-byline').after($('<hr class="section-separator"/>'));
-    $('.d-byline a').remove();
-
-    // remove toc
-    $('.d-contents').remove();
-
-    // move appendix elements
-    $('h1.appendix, h2.appendix').each(function(i, val) {
-      $(this).changeElementType('h3');
-    });
-    $('h3.appendix').each(function(i, val) {
-      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
-    });
-
-
-    // inject headers into references and footnotes
-    var refs_header = $('<h3></h3>');
-    refs_header.text('References');
-    $('#refs').prepend(refs_header);
-
-    var footnotes_header = $('<h3></h3');
-    footnotes_header.text('Footnotes');
-    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
-
-    // move appendix-bottom entries to the bottom
-    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
-    $('.appendix-bottom').remove();
-
-    // remove appendix if it's empty
-    if ($('.d-appendix').children().length === 0)
-      $('.d-appendix').remove();
-
-    // prepend separator above appendix
-    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
-
-    // trim code
-    $('pre>code').each(function(i, val) {
-      $(this).html($.trim($(this).html()));
-    });
-
-    // move posts-container right before article
-    $('.posts-container').insertBefore($('.d-article'));
-
-    $('body').addClass('downlevel');
-
-    on_load_complete();
-  }
-
-
-  function init_common() {
-
-    // jquery plugin to change element types
-    (function($) {
-      $.fn.changeElementType = function(newType) {
-        var attrs = {};
-
-        $.each(this[0].attributes, function(idx, attr) {
-          attrs[attr.nodeName] = attr.nodeValue;
-        });
-
-        this.replaceWith(function() {
-          return $("<" + newType + "/>", attrs).append($(this).contents());
-        });
-      };
-    })(jQuery);
-
-    // prevent underline for linked images
-    $('a > img').parent().css({'border-bottom' : 'none'});
-
-    // mark non-body figures created by knitr chunks as 100% width
-    $('.layout-chunk').each(function(i, val) {
-      var figures = $(this).find('img, .html-widget');
-      if ($(this).attr('data-layout') !== "l-body") {
-        figures.css('width', '100%');
-      } else {
-        figures.css('max-width', '100%');
-        figures.filter("[width]").each(function(i, val) {
-          var fig = $(this);
-          fig.css('width', fig.attr('width') + 'px');
-        });
-
-      }
-    });
-
-    // auto-append index.html to post-preview links in file: protocol
-    // and in rstudio ide preview
-    $('.post-preview').each(function(i, val) {
-      if (window.location.protocol === "file:")
-        $(this).attr('href', $(this).attr('href') + "index.html");
-    });
-
-    // get rid of index.html references in header
-    if (window.location.protocol !== "file:") {
-      $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
-      });
-    }
-
-    // add class to pandoc style tables
-    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
-    $('.kable-table').children('table').addClass('pandoc-table');
-
-    // add figcaption style to table captions
-    $('caption').parent('table').addClass("figcaption");
-
-    // initialize posts list
-    if (window.init_posts_list)
-      window.init_posts_list();
-
-    // implmement disqus comment link
-    $('.disqus-comment-count').click(function() {
-      window.headroom_prevent_pin = true;
-      $('#disqus_thread').toggleClass('hidden');
-      if (!$('#disqus_thread').hasClass('hidden')) {
-        var offset = $(this).offset();
-        $(window).resize();
-        $('html, body').animate({
-          scrollTop: offset.top - 35
-        });
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    if (is_downlevel_browser())
-      init_downlevel();
-    else
-      window.addEventListener('WebComponentsReady', init_distill);
-  });
-
-  </script>
-
-  <!--/radix_placeholder_distill-->
-  <script src="network-status_files/header-attrs-2.14/header-attrs.js"></script>
-  <script src="network-status_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <script src="network-status_files/popper-2.6.0/popper.min.js"></script>
-  <link href="network-status_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
-  <link href="network-status_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
-  <script src="network-status_files/tippy-6.2.7/tippy.umd.min.js"></script>
-  <script src="network-status_files/anchor-4.2.2/anchor.min.js"></script>
-  <script src="network-status_files/bowser-1.9.3/bowser.min.js"></script>
-  <script src="network-status_files/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="network-status_files/distill-2.2.21/template.v2.js"></script>
-  <!--radix_placeholder_site_in_header-->
-  <!--/radix_placeholder_site_in_header-->
-
-
-</head>
-
-<body>
-
-<!--radix_placeholder_front_matter-->
-
-<script id="distill-front-matter" type="text/json">
-{"title":"Network Status and Centrality","description":"Who are the key actors in the football network? What makes them the key actors","authors":[{"author":"Isha Akshita Mahajan","authorURL":"#","affiliation":"UMass Amherst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-05-09T00:00:00.000-04:00","citationText":"Mahajan, 2022"}
-</script>
-
-<!--/radix_placeholder_front_matter-->
-<!--radix_placeholder_navigation_before_body-->
-<!--/radix_placeholder_navigation_before_body-->
-<!--radix_placeholder_site_before_body-->
-<!--/radix_placeholder_site_before_body-->
-
-<div class="d-title">
-<h1>Network Status and Centrality</h1>
-<!--radix_placeholder_categories-->
-<!--/radix_placeholder_categories-->
-<p><p>Who are the key actors in the football network? What makes them the key actors</p></p>
-</div>
-
-<div class="d-byline">
-  Isha Akshita Mahajan  (UMass Amherst)
-  
-<br/>2022-05-09
-</div>
-
-<div class="d-article">
-<h2 id="assignment-description">Assignment Description</h2>
-<p>Calculate closeness, betweenness and eigenvector centrality measures for your network data, and bonachic-power if possible. Compare these measures to basic degree centrality measures. Try to interpret the results. Are there any interesting patterns in the distribution of measures or correlations between them that provide insight into the measures?</p>
-<p>You may also want to identify whether the same node(s) are more/less central using the different measures, and see if you can find any patterns in the results based on which nodes are high/low on each measures. Discuss (with any related evidence) whether or not the node(s) behavior is in line with or violates expectations based on the degree centrality measure, comparing across those measures using a data frame similar to that constructed in the syntax. Be sure to share your assignment with group members for comments.</p>
-<h2 id="eigenvector-centrality">Eigenvector Centrality</h2>
-<p>The eigenvector centrality determines how important the neighborhood of the nodes is in the network. The higher the eigenvalue centrality, the more important the neighbors of that node are with respect to other nodes in the network. (Jackson 08) The eigenvalues also take into account the proximity of the node to many other important nodes in the network.</p>
-<p>AS Roma has the highest eigenvalue in the network. This can be an additional support to our previous speculation on how AS Roma might influential in the influx and outflow of football talent as they are well connected to the other influential nodes in our football transfer network.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/centr_eigen.html'>centr_eigen</a></span><span class='op'>(</span><span class='va'>ig</span>,directed<span class='op'>=</span><span class='cn'>T</span><span class='op'>)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/centr_eigen.html'>centr_eigen</a></span><span class='op'>(</span><span class='va'>ig</span>,directed<span class='op'>=</span><span class='cn'>T</span><span class='op'>)</span>
 <span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>eigen</span> <span class='op'>&lt;-</span> <span class='va'>temp</span><span class='op'>$</span><span class='va'>vector</span>
 <span class='co'>#arrange descending and return top 5 nodes</span>
 <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>eigen</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                         name degree indegree outdegree     eigen
+</code></pre></div>
+
+```
+                         name degree indegree outdegree     eigen
 AS Roma               AS Roma     78       39        39 1.0000000
 Genoa CFC           Genoa CFC     73       46        27 0.9612356
 Inter Milan       Inter Milan     68       32        36 0.8787351
 ACF Fiorentina ACF Fiorentina     66       38        28 0.7988873
-US Sassuolo       US Sassuolo     70       35        35 0.7789739</code></pre>
+US Sassuolo       US Sassuolo     70       35        35 0.7789739
+```
+
 </div>
-<h2 id="derived-and-reflected-centrality">Derived and Reflected Centrality</h2>
-<p>We compute the derived and reflected Eigenvector centrality to better understand whether the influence is more observed in the neighborhood of the nodes or is it more observed on the strength of the node itself.</p>
+
+
+## Derived and Reflected Centrality
+
+ We compute the derived and reflected Eigenvector centrality to better understand whether the influence is more observed in the neighborhood of the nodes or is it more observed on the strength of the node itself. 
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html'>as_adjacency_matrix</a></span><span class='op'>(</span><span class='va'>ig</span>, attr <span class='op'>=</span> <span class='st'>"weight"</span><span class='op'>)</span><span class='op'>)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html'>as_adjacency_matrix</a></span><span class='op'>(</span><span class='va'>ig</span>, attr <span class='op'>=</span> <span class='st'>"weight"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'>#square the adjacency matrix</span>
 <span class='va'>matsq</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/r/base/matmult.html'>%*%</a></span> <span class='va'>matrix</span>
 <span class='co'>#Calculate the proportion of reflected centrality.</span>
@@ -1522,81 +68,97 @@ US Sassuolo       US Sassuolo     70       35        35 0.7789739</code></pre>
 <span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>dc</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/is.finite.html'>is.nan</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>dc</span><span class='op'>)</span>,<span class='fl'>1</span>,<span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>dc</span><span class='op'>)</span>
 <span class='co'>#Calculate received eigenvalue centrality</span>
 <span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>eigen.dc</span><span class='op'>&lt;-</span><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>eigen</span><span class='op'>*</span><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>dc</span>
-</code></pre>
+</code></pre></div>
+
 </div>
-</div>
+
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span>,<span class='va'>name</span><span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Chelsea FC"</span>,<span class='st'>"FC Barcelona"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                     name degree indegree outdegree     eigen
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span>,<span class='va'>name</span><span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Chelsea FC"</span>,<span class='st'>"FC Barcelona"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre></div>
+
+```
+                     name degree indegree outdegree     eigen
 FC Barcelona FC Barcelona     59       21        38 0.2704215
 Chelsea FC     Chelsea FC     48       12        36 0.2449357
                     rc   eigen.rc        dc  eigen.dc
 FC Barcelona 0.2218696 0.05999830 0.7781304 0.2104232
-Chelsea FC   0.2352494 0.05762098 0.7647506 0.1873148</code></pre>
+Chelsea FC   0.2352494 0.05762098 0.7647506 0.1873148
+```
+
 </div>
+
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>##cen &lt;- eigen_centrality(ig, directed = TRUE)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='co'>##cen &lt;- eigen_centrality(ig, directed = TRUE)</span>
 <span class='co'>#cen$vector</span>
-</code></pre>
+</code></pre></div>
+
 </div>
-</div>
+
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>name</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>key</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
-</code></pre>
+</code></pre></div>
+<img src="network-status_files/figure-html5/unnamed-chunk-6-1.png" width="624" />
+
 </div>
-<p><img src="network-status_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
-</div>
+
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#build on the dataframe</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#build on the dataframe</span>
 <span class='va'>temp</span><span class='op'>&lt;-</span><span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>degree</span>,<span class='va'>indegree</span>,<span class='va'>outdegree</span>,<span class='va'>eigen</span>,<span class='va'>eigen.rc</span>,<span class='va'>eigen.dc</span><span class='op'>)</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
   <span class='fu'><a href='https://corrr.tidymodels.org/reference/correlate.html'>correlate</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
   <span class='fu'><a href='https://corrr.tidymodels.org/reference/rearrange.html'>rearrange</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+</code></pre></div>
+
 </div>
-</div>
+
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://corrr.tidymodels.org/reference/fashion.html'>fashion</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>       term outdegree degree indegree eigen.rc eigen.dc eigen
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://corrr.tidymodels.org/reference/fashion.html'>fashion</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span>
+</code></pre></div>
+
+```
+       term outdegree degree indegree eigen.rc eigen.dc eigen
 1 outdegree              .94      .79      .67      .67   .69
 2    degree       .94             .95      .73      .79   .80
 3  indegree       .79    .95               .70      .82   .82
 4  eigen.rc       .67    .73      .70               .82   .86
 5  eigen.dc       .67    .79      .82      .82           1.00
-6     eigen       .69    .80      .82      .86     1.00      </code></pre>
+6     eigen       .69    .80      .82      .86     1.00      
+```
+
 </div>
+
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://corrr.tidymodels.org/reference/rplot.html'>rplot</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://corrr.tidymodels.org/reference/rplot.html'>rplot</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span>
+</code></pre></div>
+<img src="network-status_files/figure-html5/unnamed-chunk-9-1.png" width="624" />
+
 </div>
-<p><img src="network-status_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
-</div>
-<h2 id="betweeness-centrality">Betweeness Centrality</h2>
-<p>Betweeness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes.</p>
+
+
+## Betweeness Centrality
+
+Betweeness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes.
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>betweeness</span> <span class='op'>&lt;-</span> <span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/betweenness.html'>betweenness</a></span><span class='op'>(</span><span class='va'>ig</span>, directed<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>betweeness</span> <span class='op'>&lt;-</span> <span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/betweenness.html'>betweenness</a></span><span class='op'>(</span><span class='va'>ig</span>, directed<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>transfer.nodes</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
 <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>betweeness</span><span class='op'>)</span><span class='op'>)</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
 <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                                 name degree indegree outdegree
+</code></pre></div>
+
+```
+                                 name degree indegree outdegree
 UC Sampdoria             UC Sampdoria     57       32        25
 Olympiacos Piraeus Olympiacos Piraeus     41       19        22
 Genoa CFC                   Genoa CFC     73       46        27
@@ -1613,27 +175,35 @@ UC Sampdoria       0.5771352   45262.42
 Olympiacos Piraeus 0.1514443   43409.28
 Genoa CFC          0.8766619   34603.48
 ACF Fiorentina     0.7050706   31710.00
-Hellas Verona      0.6415485   31489.50</code></pre>
+Hellas Verona      0.6415485   31489.50
+```
+
 </div>
-<h2 id="network-constraint">Network Constraint</h2>
+
+
+## Network Constraint 
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>constraint</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/constraint.html'>constraint</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>constraint</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/constraint.html'>constraint</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre></div>
+
 </div>
-</div>
-<h2 id="authority">Authority</h2>
-<p>Authorities are those actors which get many incoming links from hubs, presumably because of their high quality relevant information. (Klien 16) In this case Juventus, Chelsea, Barcelona,PSG, Manchester United and Athleteco have the highest authority scores. This means that these clubs are attracting talent from the hubs like Real Madrid, which we will see includes Eden Hazard’s transfer in 2019</p>
+
+
+## Authority 
+
+Authorities are those actors which get many incoming links from hubs, presumably because of their high quality relevant information. (Klien 16) In this case Juventus, Chelsea, Barcelona,PSG, Manchester United and Athleteco have the highest authority scores. This means that these clubs are attracting talent from the hubs like Real Madrid, which we will see includes Eden Hazard's transfer in 2019
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>authority</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/authority_score.html'>authority_score</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>vector</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>authority</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/authority_score.html'>authority_score</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>vector</span>
 
 <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>authority</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                                   name degree indegree outdegree
+</code></pre></div>
+
+```
+                                   name degree indegree outdegree
 Juventus FC                 Juventus FC     68       27        41
 Chelsea FC                   Chelsea FC     48       12        36
 FC Barcelona               FC Barcelona     59       21        38
@@ -1653,17 +223,23 @@ Chelsea FC          0.1873148    470.000 0.10431587 0.7752539
 FC Barcelona        0.2104232   4600.083 0.09625534 0.7566895
 Paris Saint-Germain 0.2926900   1106.000 0.11810230 0.6491154
 Manchester United   0.1530515   1222.500 0.09350633 0.5523492
-Atlético de Madrid  0.2847998   1422.662 0.09802569 0.5507481</code></pre>
+Atlético de Madrid  0.2847998   1422.662 0.09802569 0.5507481
+```
+
 </div>
-<h2 id="hubs">Hubs</h2>
-<p>Many Ties to Peripheral Actors</p>
+
+
+## Hubs 
+
+Many Ties to Peripheral Actors 
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>hub_score</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/hub_score.html'>hub_score</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>vector</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>hub_score</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/hub_score.html'>hub_score</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>vector</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                               name degree indegree outdegree
+</code></pre></div>
+
+```
+                               name degree indegree outdegree
 Aston Villa             Aston Villa     35       27         8
 Inter Milan             Inter Milan     68       32        36
 Borussia Dortmund Borussia Dortmund     45       18        27
@@ -1683,49 +259,65 @@ Inter Milan         2799.590 0.09623411 0.26367856 0.7339420
 Borussia Dortmund   2073.000 0.06401961 0.14776045 0.5191494
 ACF Fiorentina     31709.998 0.11085545 0.06147522 0.4296561
 Real Madrid         4185.762 0.10787227 0.39259852 1.0000000
-RB Leipzig          2936.417 0.09094430 0.10029228 0.3521672</code></pre>
+RB Leipzig          2936.417 0.09094430 0.10029228 0.3521672
+```
+
 </div>
-<p>Consider Real Madrid a hub given that their hub_score is 1. We can confirm this by looking at higher eigenvector derived centrality and lower reflected centrality.</p>
-<h2 id="bridges">Bridges</h2>
-<p>A few ties to central actors =</p>
+
+
+Consider Real Madrid a hub given that their hub_score is 1. We can confirm this by looking at higher eigenvector derived centrality and lower reflected centrality. 
+
+## Bridges 
+
+A few ties to central actors =
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/articulation_points.html'>bridges</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>+ 238/4386 edges from 2d317e1 (vertex names):
- [1] Maccabi Haifa      -&gt;Levski Sofia           
- [2] SC Farense         -&gt;Vancouver Whitecaps FC 
- [3] Moreirense FC      -&gt;Al-Batin FC            
- [4] Grenoble Foot 38   -&gt;FC Famalicão           
- [5] CA Fénix           -&gt;FC Famalicão           
- [6] Maccabi Netanya    -&gt;Hapoel Beer Sheva      
- [7] Ironi Kiryat Shmona-&gt;Hapoel Beer Sheva      
- [8] Hapoel Haifa       -&gt;Hapoel Beer Sheva      
- [9] FC Basel 1893 U18  -&gt;Juventus Primavera     
-[10] Amiens SC U19      -&gt;Manchester United Youth
-+ ... omitted several edges</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bridges</span> <span class='op'>&lt;-</span> <span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/articulation_points.html'>bridges</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre></div>
+
+```
++ 238/4386 edges from 2d317e1 (vertex names):
+ [1] Maccabi Haifa      ->Levski Sofia           
+ [2] SC Farense         ->Vancouver Whitecaps FC 
+ [3] Moreirense FC      ->Al-Batin FC            
+ [4] Grenoble Foot 38   ->FC Famalicão           
+ [5] CA Fénix           ->FC Famalicão           
+ [6] Maccabi Netanya    ->Hapoel Beer Sheva      
+ [7] Ironi Kiryat Shmona->Hapoel Beer Sheva      
+ [8] Hapoel Haifa       ->Hapoel Beer Sheva      
+ [9] FC Basel 1893 U18  ->Juventus Primavera     
+[10] Amiens SC U19      ->Manchester United Youth
++ ... omitted several edges
+```
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bridges</span> <span class='op'>&lt;-</span> <span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>name</span> <span class='op'>==</span> <span class='st'>"Maccabi Haifa"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bridges</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                       name degree indegree outdegree        eigen rc
+</code></pre></div>
+
+```
+                       name degree indegree outdegree        eigen rc
 Maccabi Haifa Maccabi Haifa      1        0         1 5.035081e-18  0
               eigen.rc dc     eigen.dc betweeness constraint
 Maccabi Haifa        0  1 5.035081e-18          0          1
               authority hub_score
-Maccabi Haifa         0         0</code></pre>
+Maccabi Haifa         0         0
+```
+
 </div>
-<p>We test the understanding whether these teams actually serve as bridges in the network. By looking at the derived and reflected centrality scores, we see that the the reflected centrality for Maccabi Haifa is low while the derived centrality is high, thereby making it a bridge.</p>
-<h2 id="correlations-for-centrality-measures">Correlations for Centrality Measures</h2>
+
+
+We test the understanding whether these teams actually serve as bridges in the network. By looking at the derived and reflected centrality scores, we see that the the reflected centrality for Maccabi Haifa is low while the derived centrality is high, thereby making it a bridge. 
+
+
+## Correlations for Centrality Measures 
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                               name degree indegree outdegree
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span><span class='op'>)</span>
+</code></pre></div>
+
+```
+                               name degree indegree outdegree
 Aston Villa             Aston Villa     35       27         8
 Inter Milan             Inter Milan     68       32        36
 Borussia Dortmund Borussia Dortmund     45       18        27
@@ -1745,33 +337,38 @@ Inter Milan         2799.590 0.09623411 0.26367856 0.7339420
 Borussia Dortmund   2073.000 0.06401961 0.14776045 0.5191494
 ACF Fiorentina     31709.998 0.11085545 0.06147522 0.4296561
 Real Madrid         4185.762 0.10787227 0.39259852 1.0000000
-RB Leipzig          2936.417 0.09094430 0.10029228 0.3521672</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>cor</span><span class='op'>&lt;-</span><span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
+RB Leipzig          2936.417 0.09094430 0.10029228 0.3521672
+```
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>cor</span><span class='op'>&lt;-</span><span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>degree</span>,<span class='va'>eigen</span>,<span class='va'>betweeness</span>, <span class='va'>authority</span>, <span class='va'>hub_score</span><span class='op'>)</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
   <span class='fu'><a href='https://corrr.tidymodels.org/reference/correlate.html'>correlate</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
   <span class='fu'><a href='https://corrr.tidymodels.org/reference/rearrange.html'>rearrange</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='https://corrr.tidymodels.org/reference/rplot.html'>rplot</a></span><span class='op'>(</span><span class='va'>cor</span><span class='op'>)</span>
-</code></pre>
+</code></pre></div>
+<img src="network-status_files/figure-html5/unnamed-chunk-15-1.png" width="624" />
+
 </div>
-<p><img src="network-status_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
-</div>
-<h2 id="brokerage">Brokerage</h2>
+
+
+## Brokerage 
+
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tempo</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/sna/man/brokerage.html'>brokerage</a></span><span class='op'>(</span><span class='va'>network</span>, cl  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/vertex_attr.html'>get.vertex.attribute</a></span><span class='op'>(</span><span class='va'>network</span>,<span class='st'>"league"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>raw.nli</span><span class='op'>)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tempo</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/sna/man/brokerage.html'>brokerage</a></span><span class='op'>(</span><span class='va'>network</span>, cl  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/vertex_attr.html'>get.vertex.attribute</a></span><span class='op'>(</span><span class='va'>network</span>,<span class='st'>"league"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>raw.nli</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>tempo</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                  w_I w_O b_IO b_OI b_O   t
+</code></pre></div>
+
+```
+                  w_I w_O b_IO b_OI b_O   t
 Aston Villa       209   0    0    0   0 209
 Inter Milan       925   0    0    0   0 925
 Borussia Dortmund 416   0    0    0   0 416
 ACF Fiorentina    897   0    0    0   0 897
 Real Madrid       420   0    0    0   0 420
-RB Leipzig        410   0    0    0   0 410</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>&lt;-</span><span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
+RB Leipzig        410   0    0    0   0 410
+```
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>&lt;-</span><span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
 <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>broker.tot <span class='op'>=</span> <span class='va'>tempo</span><span class='op'>$</span><span class='va'>t</span>, <span class='co'># AS ROMA, AS Monaco, US Sassuolo, Genoa CFC, Atlanta BC</span>
        broker.coord <span class='op'>=</span> <span class='va'>tempo</span><span class='op'>$</span><span class='va'>w_I</span>,
        broker.itin <span class='op'>=</span> <span class='va'>tempo</span><span class='op'>$</span><span class='va'>w_O</span>, <span class='co'># Aston Villa, Inter Milan, Borussia Dortmund, ACF florentina</span>
@@ -1780,9 +377,10 @@ RB Leipzig        410   0    0    0   0 410</code></pre>
        broker.lia <span class='op'>=</span> <span class='va'>tempo</span><span class='op'>$</span><span class='va'>b_O</span><span class='op'>)</span>
 <span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>broker.tot</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                                                                                 name
+</code></pre></div>
+
+```
+                                                                                 name
 AS Roma                                                                       AS Roma
 AS Monaco                                                                   AS Monaco
 US Sassuolo                                                               US Sassuolo
@@ -1798,7 +396,7 @@ UC Sampdoria                                                             UC Samp
 Sevilla FC                                                                 Sevilla FC
 AC Milan                                                                     AC Milan
 FC Barcelona                                                             FC Barcelona
-Brighton &amp; Hove Albion                                         Brighton &amp; Hove Albion
+Brighton & Hove Albion                                         Brighton & Hove Albion
 Olympique Lyon                                                         Olympique Lyon
 Villarreal CF                                                           Villarreal CF
 LOSC Lille                                                                 LOSC Lille
@@ -2153,7 +751,7 @@ AC Perugia Calcio                                                   AC Perugia C
 Club Atlético Belgrano                                         Club Atlético Belgrano
 Athletic Bilbao                                                       Athletic Bilbao
 Al-Rayyan SC                                                             Al-Rayyan SC
-CA Newell&#39;s Old Boys                                             CA Newell&#39;s Old Boys
+CA Newell's Old Boys                                             CA Newell's Old Boys
 SpVgg Greuther Fürth                                             SpVgg Greuther Fürth
 Puebla FC                                                                   Puebla FC
 FC Bayern Munich II                                               FC Bayern Munich II
@@ -2227,7 +825,7 @@ Oeste Futebol Clube (SP)                                     Oeste Futebol Clube
 Olympique de Marseille B                                     Olympique de Marseille B
 Junior FC                                                                   Junior FC
 FC Paços de Ferreira                                             FC Paços de Ferreira
-Johor Darul Ta&#39;zim                                                 Johor Darul Ta&#39;zim
+Johor Darul Ta'zim                                                 Johor Darul Ta'zim
 Pescara Primavera                                                   Pescara Primavera
 Albacete Balompié                                                   Albacete Balompié
 SK Dnipro-1                                                               SK Dnipro-1
@@ -2440,8 +1038,8 @@ FC Thun                                                                       FC
 West Bromwich Albion U18                                     West Bromwich Albion U18
 SSD Palermo                                                               SSD Palermo
 ADO Den Haag                                                             ADO Den Haag
-Shaanxi Chang&#39;an Athletic                                   Shaanxi Chang&#39;an Athletic
-Club Atlético Newell&#39;s Old Boys II                 Club Atlético Newell&#39;s Old Boys II
+Shaanxi Chang'an Athletic                                   Shaanxi Chang'an Athletic
+Club Atlético Newell's Old Boys II                 Club Atlético Newell's Old Boys II
 Audax Italiano                                                         Audax Italiano
 FC Nordsjaelland Youth                                         FC Nordsjaelland Youth
 Atlético de Madrid B                                             Atlético de Madrid B
@@ -2472,7 +1070,7 @@ CD Palestino                                                             CD Pale
 Excelsior Rotterdam                                               Excelsior Rotterdam
 IF Brommapojkarna                                                   IF Brommapojkarna
 Team Vaud U18                                                           Team Vaud U18
-CD O&#39;Higgins                                                             CD O&#39;Higgins
+CD O'Higgins                                                             CD O'Higgins
 CD 1º de Agosto                                                       CD 1º de Agosto
 Júbilo Iwata                                                             Júbilo Iwata
 PSV Eindhoven U21                                                   PSV Eindhoven U21
@@ -2635,7 +1233,7 @@ Al-Wahda Mekka                                                         Al-Wahda 
 GNK Dinamo Zagreb II                                             GNK Dinamo Zagreb II
 Sassuolo Primavera                                                 Sassuolo Primavera
 Dalian Yifang                                                           Dalian Yifang
-Guangzhou R&amp;F                                                           Guangzhou R&amp;F
+Guangzhou R&F                                                           Guangzhou R&F
 Genoa Primavera                                                       Genoa Primavera
 Chicago Fire                                                             Chicago Fire
 Zhejiang Greentown                                                 Zhejiang Greentown
@@ -2646,7 +1244,7 @@ Büyüksehir Belediye Erzurumspor                       Büyüksehir Belediye Er
 Ajman Club                                                                 Ajman Club
 Arka Gdynia                                                               Arka Gdynia
 Kuwait SC                                                                   Kuwait SC
-Brighton &amp; Hove Albion U23                                 Brighton &amp; Hove Albion U23
+Brighton & Hove Albion U23                                 Brighton & Hove Albion U23
 CD Nacional                                                               CD Nacional
 KSC Lokeren (- 2020)                                             KSC Lokeren (- 2020)
 SV Darmstadt 98                                                       SV Darmstadt 98
@@ -2666,7 +1264,7 @@ UC Sampdoria                                   57       32        25
 Sevilla FC                                     58       36        22
 AC Milan                                       60       38        22
 FC Barcelona                                   59       21        38
-Brighton &amp; Hove Albion                         51       30        21
+Brighton & Hove Albion                         51       30        21
 Olympique Lyon                                 53       21        32
 Villarreal CF                                  50       24        26
 LOSC Lille                                     49       18        31
@@ -3021,7 +1619,7 @@ AC Perugia Calcio                               5        3         2
 Club Atlético Belgrano                          5        1         4
 Athletic Bilbao                                 5        4         1
 Al-Rayyan SC                                    5        4         1
-CA Newell&#39;s Old Boys                            4        1         3
+CA Newell's Old Boys                            4        1         3
 SpVgg Greuther Fürth                            4        2         2
 Puebla FC                                       4        2         2
 FC Bayern Munich II                             4        1         3
@@ -3095,7 +1693,7 @@ Oeste Futebol Clube (SP)                        2        1         1
 Olympique de Marseille B                        2        1         1
 Junior FC                                       5        1         4
 FC Paços de Ferreira                            2        1         1
-Johor Darul Ta&#39;zim                              2        1         1
+Johor Darul Ta'zim                              2        1         1
 Pescara Primavera                               3        1         2
 Albacete Balompié                               2        1         1
 SK Dnipro-1                                     2        1         1
@@ -3308,8 +1906,8 @@ FC Thun                                         2        0         2
 West Bromwich Albion U18                        1        0         1
 SSD Palermo                                     1        0         1
 ADO Den Haag                                    3        0         3
-Shaanxi Chang&#39;an Athletic                       1        0         1
-Club Atlético Newell&#39;s Old Boys II              2        0         2
+Shaanxi Chang'an Athletic                       1        0         1
+Club Atlético Newell's Old Boys II              2        0         2
 Audax Italiano                                  1        0         1
 FC Nordsjaelland Youth                          1        0         1
 Atlético de Madrid B                            2        0         2
@@ -3340,7 +1938,7 @@ CD Palestino                                    1        0         1
 Excelsior Rotterdam                             1        0         1
 IF Brommapojkarna                               1        0         1
 Team Vaud U18                                   1        0         1
-CD O&#39;Higgins                                    1        0         1
+CD O'Higgins                                    1        0         1
 CD 1º de Agosto                                 1        0         1
 Júbilo Iwata                                    1        0         1
 PSV Eindhoven U21                               1        0         1
@@ -3503,7 +2101,7 @@ Al-Wahda Mekka                                  6        6         0
 GNK Dinamo Zagreb II                            1        1         0
 Sassuolo Primavera                              1        1         0
 Dalian Yifang                                   3        3         0
-Guangzhou R&amp;F                                   6        6         0
+Guangzhou R&F                                   6        6         0
 Genoa Primavera                                 1        1         0
 Chicago Fire                                    2        2         0
 Zhejiang Greentown                              2        2         0
@@ -3514,7 +2112,7 @@ Büyüksehir Belediye Erzurumspor                 2        2         0
 Ajman Club                                      1        1         0
 Arka Gdynia                                     1        1         0
 Kuwait SC                                       1        1         0
-Brighton &amp; Hove Albion U23                      1        1         0
+Brighton & Hove Albion U23                      1        1         0
 CD Nacional                                     1        1         0
 KSC Lokeren (- 2020)                            1        1         0
 SV Darmstadt 98                                 1        1         0
@@ -3534,7 +2132,7 @@ UC Sampdoria                               6.156139e-01 0.0625045237
 Sevilla FC                                 5.337859e-01 0.0771943132
 AC Milan                                   7.611737e-01 0.1259772387
 FC Barcelona                               2.704215e-01 0.2218695856
-Brighton &amp; Hove Albion                     1.191690e-01 0.1120999023
+Brighton & Hove Albion                     1.191690e-01 0.1120999023
 Olympique Lyon                             2.396670e-01 0.1223346203
 Villarreal CF                              2.558042e-01 0.0951563725
 LOSC Lille                                 7.554311e-02 0.1937598369
@@ -3889,7 +2487,7 @@ AC Perugia Calcio                          8.396056e-02 0.0085969500
 Club Atlético Belgrano                     3.526998e-18 1.0000000000
 Athletic Bilbao                            6.779399e-02 0.1155205324
 Al-Rayyan SC                               1.991844e-02 0.0578625916
-CA Newell&#39;s Old Boys                       1.543586e-03 0.0073383524
+CA Newell's Old Boys                       1.543586e-03 0.0073383524
 SpVgg Greuther Fürth                       1.258957e-02 0.0074620465
 Puebla FC                                  4.962109e-03 0.1246805062
 FC Bayern Munich II                        3.065703e-03 0.0460829493
@@ -3963,7 +2561,7 @@ Oeste Futebol Clube (SP)                   2.278690e-03 0.0076498088
 Olympique de Marseille B                   1.579418e-02 0.1568627451
 Junior FC                                  1.102422e-02 0.0261324042
 FC Paços de Ferreira                       7.794133e-04 0.1038152089
-Johor Darul Ta&#39;zim                         3.915445e-18 1.0000000000
+Johor Darul Ta'zim                         3.915445e-18 1.0000000000
 Pescara Primavera                          2.970208e-18 1.0000000000
 Albacete Balompié                          5.295758e-02 0.0046761749
 SK Dnipro-1                                2.781899e-18 0.0308529946
@@ -4176,8 +2774,8 @@ FC Thun                                    5.035081e-18 0.0000000000
 West Bromwich Albion U18                   5.035081e-18 0.0000000000
 SSD Palermo                                5.035081e-18 0.0000000000
 ADO Den Haag                               5.035081e-18 0.0000000000
-Shaanxi Chang&#39;an Athletic                  5.035081e-18 0.0000000000
-Club Atlético Newell&#39;s Old Boys II         5.035081e-18 0.0000000000
+Shaanxi Chang'an Athletic                  5.035081e-18 0.0000000000
+Club Atlético Newell's Old Boys II         5.035081e-18 0.0000000000
 Audax Italiano                             5.035081e-18 0.0000000000
 FC Nordsjaelland Youth                     5.035081e-18 0.0000000000
 Atlético de Madrid B                       5.035081e-18 0.0000000000
@@ -4208,7 +2806,7 @@ CD Palestino                               5.035081e-18 0.0000000000
 Excelsior Rotterdam                        5.035081e-18 0.0000000000
 IF Brommapojkarna                          5.035081e-18 0.0000000000
 Team Vaud U18                              5.035081e-18 0.0000000000
-CD O&#39;Higgins                               5.035081e-18 0.0000000000
+CD O'Higgins                               5.035081e-18 0.0000000000
 CD 1º de Agosto                            5.035081e-18 0.0000000000
 Júbilo Iwata                               5.035081e-18 0.0000000000
 PSV Eindhoven U21                          5.035081e-18 0.0000000000
@@ -4371,7 +2969,7 @@ Al-Wahda Mekka                             2.024886e-02 0.0549110488
 GNK Dinamo Zagreb II                       3.112667e-18 0.2483443709
 Sassuolo Primavera                         2.329035e-04 0.0625000000
 Dalian Yifang                              3.091410e-02 0.0895262781
-Guangzhou R&amp;F                              3.551716e-02 0.0938775510
+Guangzhou R&F                              3.551716e-02 0.0938775510
 Genoa Primavera                            4.150491e-18 1.0000000000
 Chicago Fire                               1.284757e-02 0.0101370231
 Zhejiang Greentown                         3.400203e-03 0.0216637782
@@ -4382,7 +2980,7 @@ Büyüksehir Belediye Erzurumspor            5.971192e-04 0.0923566879
 Ajman Club                                 2.486693e-18 0.1683114035
 Arka Gdynia                                6.508902e-04 0.0002237637
 Kuwait SC                                  7.394550e-19 1.0000000000
-Brighton &amp; Hove Albion U23                 3.615235e-18 1.0000000000
+Brighton & Hove Albion U23                 3.615235e-18 1.0000000000
 CD Nacional                                4.526536e-18 1.0000000000
 KSC Lokeren (- 2020)                       3.864858e-03 0.0103686636
 SV Darmstadt 98                            1.028071e-02 0.0008467401
@@ -4402,7 +3000,7 @@ UC Sampdoria                               3.847865e-02 0.9374955
 Sevilla FC                                 4.120524e-02 0.9228057
 AC Milan                                   9.589057e-02 0.8740228
 FC Barcelona                               5.999830e-02 0.7781304
-Brighton &amp; Hove Albion                     1.335884e-02 0.8879001
+Brighton & Hove Albion                     1.335884e-02 0.8879001
 Olympique Lyon                             2.931957e-02 0.8776654
 Villarreal CF                              2.434140e-02 0.9048436
 LOSC Lille                                 1.463722e-02 0.8062402
@@ -4757,7 +3355,7 @@ AC Perugia Calcio                          7.218047e-04 0.9914031
 Club Atlético Belgrano                     3.526998e-18 0.0000000
 Athletic Bilbao                            7.831598e-03 0.8844795
 Al-Rayyan SC                               1.152533e-03 0.9421374
-CA Newell&#39;s Old Boys                       1.132738e-05 0.9926616
+CA Newell's Old Boys                       1.132738e-05 0.9926616
 SpVgg Greuther Fürth                       9.394396e-05 0.9925380
 Puebla FC                                  6.186783e-04 0.8753195
 FC Bayern Munich II                        1.412766e-04 0.9539171
@@ -4831,7 +3429,7 @@ Oeste Futebol Clube (SP)                   1.743154e-05 0.9923502
 Olympique de Marseille B                   2.477518e-03 0.8431373
 Junior FC                                  2.880895e-04 0.9738676
 FC Paços de Ferreira                       8.091496e-05 0.8961848
-Johor Darul Ta&#39;zim                         3.915445e-18 0.0000000
+Johor Darul Ta'zim                         3.915445e-18 0.0000000
 Pescara Primavera                          2.970208e-18 0.0000000
 Albacete Balompié                          2.476389e-04 0.9953238
 SK Dnipro-1                                8.582993e-20 0.9691470
@@ -5044,8 +3642,8 @@ FC Thun                                    0.000000e+00 1.0000000
 West Bromwich Albion U18                   0.000000e+00 1.0000000
 SSD Palermo                                0.000000e+00 1.0000000
 ADO Den Haag                               0.000000e+00 1.0000000
-Shaanxi Chang&#39;an Athletic                  0.000000e+00 1.0000000
-Club Atlético Newell&#39;s Old Boys II         0.000000e+00 1.0000000
+Shaanxi Chang'an Athletic                  0.000000e+00 1.0000000
+Club Atlético Newell's Old Boys II         0.000000e+00 1.0000000
 Audax Italiano                             0.000000e+00 1.0000000
 FC Nordsjaelland Youth                     0.000000e+00 1.0000000
 Atlético de Madrid B                       0.000000e+00 1.0000000
@@ -5076,7 +3674,7 @@ CD Palestino                               0.000000e+00 1.0000000
 Excelsior Rotterdam                        0.000000e+00 1.0000000
 IF Brommapojkarna                          0.000000e+00 1.0000000
 Team Vaud U18                              0.000000e+00 1.0000000
-CD O&#39;Higgins                               0.000000e+00 1.0000000
+CD O'Higgins                               0.000000e+00 1.0000000
 CD 1º de Agosto                            0.000000e+00 1.0000000
 Júbilo Iwata                               0.000000e+00 1.0000000
 PSV Eindhoven U21                          0.000000e+00 1.0000000
@@ -5239,7 +3837,7 @@ Al-Wahda Mekka                             1.111886e-03 0.9450890
 GNK Dinamo Zagreb II                       7.730132e-19 0.7516556
 Sassuolo Primavera                         1.455647e-05 0.9375000
 Dalian Yifang                              2.767625e-03 0.9104737
-Guangzhou R&amp;F                              3.334264e-03 0.9061224
+Guangzhou R&F                              3.334264e-03 0.9061224
 Genoa Primavera                            4.150491e-18 0.0000000
 Chicago Fire                               1.302362e-04 0.9898630
 Zhejiang Greentown                         7.366125e-05 0.9783362
@@ -5250,7 +3848,7 @@ Büyüksehir Belediye Erzurumspor            5.514795e-05 0.9076433
 Ajman Club                                 4.185388e-19 0.8316886
 Arka Gdynia                                1.456456e-07 0.9997762
 Kuwait SC                                  7.394550e-19 0.0000000
-Brighton &amp; Hove Albion U23                 3.615235e-18 0.0000000
+Brighton & Hove Albion U23                 3.615235e-18 0.0000000
 CD Nacional                                4.526536e-18 0.0000000
 KSC Lokeren (- 2020)                       4.007341e-05 0.9896313
 SV Darmstadt 98                            8.705090e-06 0.9991533
@@ -5270,7 +3868,7 @@ UC Sampdoria                               5.771352e-01 45262.41667
 Sevilla FC                                 4.925807e-01  2208.00000
 AC Milan                                   6.652832e-01 12066.25000
 FC Barcelona                               2.104232e-01  4600.08333
-Brighton &amp; Hove Albion                     1.058102e-01  8217.16667
+Brighton & Hove Albion                     1.058102e-01  8217.16667
 Olympique Lyon                             2.103474e-01  5360.32857
 Villarreal CF                              2.314628e-01  2908.59524
 LOSC Lille                                 6.090589e-02  5069.16667
@@ -5625,7 +4223,7 @@ AC Perugia Calcio                          8.323875e-02   133.50000
 Club Atlético Belgrano                     0.000000e+00   473.00000
 Athletic Bilbao                            5.996239e-02     0.00000
 Al-Rayyan SC                               1.876591e-02     0.00000
-CA Newell&#39;s Old Boys                       1.532259e-03  2225.00000
+CA Newell's Old Boys                       1.532259e-03  2225.00000
 SpVgg Greuther Fürth                       1.249563e-02   106.00000
 Puebla FC                                  4.343431e-03     3.50000
 FC Bayern Munich II                        2.924426e-03   246.50000
@@ -5699,7 +4297,7 @@ Oeste Futebol Clube (SP)                   2.261258e-03   815.00000
 Olympique de Marseille B                   1.331666e-02     0.00000
 Junior FC                                  1.073613e-02     0.00000
 FC Paços de Ferreira                       6.984984e-04     0.00000
-Johor Darul Ta&#39;zim                         0.000000e+00   472.00000
+Johor Darul Ta'zim                         0.000000e+00   472.00000
 Pescara Primavera                          0.000000e+00   472.00000
 Albacete Balompié                          5.270994e-02    70.90000
 SK Dnipro-1                                2.696069e-18     2.00000
@@ -5912,8 +4510,8 @@ FC Thun                                    5.035081e-18     0.00000
 West Bromwich Albion U18                   5.035081e-18     0.00000
 SSD Palermo                                5.035081e-18     0.00000
 ADO Den Haag                               5.035081e-18     0.00000
-Shaanxi Chang&#39;an Athletic                  5.035081e-18     0.00000
-Club Atlético Newell&#39;s Old Boys II         5.035081e-18     0.00000
+Shaanxi Chang'an Athletic                  5.035081e-18     0.00000
+Club Atlético Newell's Old Boys II         5.035081e-18     0.00000
 Audax Italiano                             5.035081e-18     0.00000
 FC Nordsjaelland Youth                     5.035081e-18     0.00000
 Atlético de Madrid B                       5.035081e-18     0.00000
@@ -5944,7 +4542,7 @@ CD Palestino                               5.035081e-18     0.00000
 Excelsior Rotterdam                        5.035081e-18     0.00000
 IF Brommapojkarna                          5.035081e-18     0.00000
 Team Vaud U18                              5.035081e-18     0.00000
-CD O&#39;Higgins                               5.035081e-18     0.00000
+CD O'Higgins                               5.035081e-18     0.00000
 CD 1º de Agosto                            5.035081e-18     0.00000
 Júbilo Iwata                               5.035081e-18     0.00000
 PSV Eindhoven U21                          5.035081e-18     0.00000
@@ -6107,7 +4705,7 @@ Al-Wahda Mekka                             1.913697e-02     0.00000
 GNK Dinamo Zagreb II                       2.339653e-18     0.00000
 Sassuolo Primavera                         2.183470e-04     0.00000
 Dalian Yifang                              2.814648e-02     0.00000
-Guangzhou R&amp;F                              3.218290e-02     0.00000
+Guangzhou R&F                              3.218290e-02     0.00000
 Genoa Primavera                            0.000000e+00     0.00000
 Chicago Fire                               1.271734e-02     0.00000
 Zhejiang Greentown                         3.326542e-03     0.00000
@@ -6118,7 +4716,7 @@ Büyüksehir Belediye Erzurumspor            5.419713e-04     0.00000
 Ajman Club                                 2.068154e-18     0.00000
 Arka Gdynia                                6.507446e-04     0.00000
 Kuwait SC                                  0.000000e+00     0.00000
-Brighton &amp; Hove Albion U23                 0.000000e+00     0.00000
+Brighton & Hove Albion U23                 0.000000e+00     0.00000
 CD Nacional                                0.000000e+00     0.00000
 KSC Lokeren (- 2020)                       3.824784e-03     0.00000
 SV Darmstadt 98                            1.027201e-02     0.00000
@@ -6138,7 +4736,7 @@ UC Sampdoria                               0.08933990 7.394686e-02
 Sevilla FC                                 0.06241627 2.166867e-01
 AC Milan                                   0.10417468 3.736780e-01
 FC Barcelona                               0.09625534 7.566895e-01
-Brighton &amp; Hove Albion                     0.07120161 5.528377e-02
+Brighton & Hove Albion                     0.07120161 5.528377e-02
 Olympique Lyon                             0.06857349 8.046626e-02
 Villarreal CF                              0.05567064 8.293195e-02
 LOSC Lille                                 0.09758776 1.918183e-02
@@ -6493,7 +5091,7 @@ AC Perugia Calcio                          0.66637951 5.884041e-03
 Club Atlético Belgrano                     0.34131109 0.000000e+00
 Athletic Bilbao                            0.47929802 6.817902e-03
 Al-Rayyan SC                               0.28315567 2.807480e-03
-CA Newell&#39;s Old Boys                       0.53214686 2.037684e-07
+CA Newell's Old Boys                       0.53214686 2.037684e-07
 SpVgg Greuther Fürth                       0.47652191 1.373195e-04
 Puebla FC                                  0.28812063 1.142314e-06
 FC Bayern Munich II                        0.27824140 1.168673e-05
@@ -6567,7 +5165,7 @@ Oeste Futebol Clube (SP)                   0.52231981 1.006541e-04
 Olympique de Marseille B                   0.93032370 1.216761e-04
 Junior FC                                  0.28624464 2.124923e-04
 FC Paços de Ferreira                       0.50000000 4.174430e-06
-Johor Darul Ta&#39;zim                         0.68185703 0.000000e+00
+Johor Darul Ta'zim                         0.68185703 0.000000e+00
 Pescara Primavera                          0.72222222 0.000000e+00
 Albacete Balompié                          0.50000000 3.651473e-03
 SK Dnipro-1                                0.94641295 5.099234e-07
@@ -6780,8 +5378,8 @@ FC Thun                                    1.00000000 0.000000e+00
 West Bromwich Albion U18                   1.00000000 0.000000e+00
 SSD Palermo                                1.00000000 0.000000e+00
 ADO Den Haag                               0.41358025 0.000000e+00
-Shaanxi Chang&#39;an Athletic                  1.00000000 0.000000e+00
-Club Atlético Newell&#39;s Old Boys II         0.68650061 0.000000e+00
+Shaanxi Chang'an Athletic                  1.00000000 0.000000e+00
+Club Atlético Newell's Old Boys II         0.68650061 0.000000e+00
 Audax Italiano                             1.00000000 0.000000e+00
 FC Nordsjaelland Youth                     1.00000000 0.000000e+00
 Atlético de Madrid B                       0.59860382 0.000000e+00
@@ -6812,7 +5410,7 @@ CD Palestino                               1.00000000 0.000000e+00
 Excelsior Rotterdam                        1.00000000 0.000000e+00
 IF Brommapojkarna                          1.00000000 0.000000e+00
 Team Vaud U18                              1.00000000 0.000000e+00
-CD O&#39;Higgins                               1.00000000 0.000000e+00
+CD O'Higgins                               1.00000000 0.000000e+00
 CD 1º de Agosto                            1.00000000 0.000000e+00
 Júbilo Iwata                               1.00000000 0.000000e+00
 PSV Eindhoven U21                          1.00000000 0.000000e+00
@@ -6975,7 +5573,7 @@ Al-Wahda Mekka                             0.20673079 1.204436e-03
 GNK Dinamo Zagreb II                       1.00000000 2.252245e-10
 Sassuolo Primavera                         1.00000000 2.141652e-07
 Dalian Yifang                              0.48209366 1.318934e-02
-Guangzhou R&amp;F                              0.20383945 1.048081e-03
+Guangzhou R&F                              0.20383945 1.048081e-03
 Genoa Primavera                            1.00000000 0.000000e+00
 Chicago Fire                               0.57561728 2.808419e-04
 Zhejiang Greentown                         0.55555556 7.771215e-05
@@ -6986,7 +5584,7 @@ Büyüksehir Belediye Erzurumspor            0.59183673 4.702930e-06
 Ajman Club                                 1.00000000 2.661164e-09
 Arka Gdynia                                1.00000000 2.918894e-06
 Kuwait SC                                  1.00000000 0.000000e+00
-Brighton &amp; Hove Albion U23                 1.00000000 0.000000e+00
+Brighton & Hove Albion U23                 1.00000000 0.000000e+00
 CD Nacional                                1.00000000 0.000000e+00
 KSC Lokeren (- 2020)                       1.00000000 3.923876e-05
 SV Darmstadt 98                            1.00000000 1.562018e-05
@@ -7006,7 +5604,7 @@ UC Sampdoria                               1.429975e-01        698
 Sevilla FC                                 2.846475e-01        689
 AC Milan                                   2.379642e-01        678
 FC Barcelona                               5.920389e-01        677
-Brighton &amp; Hove Albion                     9.775777e-02        599
+Brighton & Hove Albion                     9.775777e-02        599
 Olympique Lyon                             2.789629e-01        593
 Villarreal CF                              1.016220e-01        568
 LOSC Lille                                 3.607409e-01        539
@@ -7361,7 +5959,7 @@ AC Perugia Calcio                          1.937804e-02          4
 Club Atlético Belgrano                     2.366414e-03          4
 Athletic Bilbao                            2.381620e-01          4
 Al-Rayyan SC                               4.962623e-04          4
-CA Newell&#39;s Old Boys                       2.558084e-06          3
+CA Newell's Old Boys                       2.558084e-06          3
 SpVgg Greuther Fürth                       1.848232e-04          3
 Puebla FC                                  1.037077e-05          3
 FC Bayern Munich II                        6.766059e-05          3
@@ -7435,7 +6033,7 @@ Oeste Futebol Clube (SP)                   4.191719e-05          1
 Olympique de Marseille B                   2.209785e-05          1
 Junior FC                                  7.940534e-04          1
 FC Paços de Ferreira                       1.277772e-04          1
-Johor Darul Ta&#39;zim                         4.796047e-07          1
+Johor Darul Ta'zim                         4.796047e-07          1
 Pescara Primavera                          2.530434e-04          1
 Albacete Balompié                          1.354772e-06          1
 SK Dnipro-1                                4.360533e-05          1
@@ -7648,8 +6246,8 @@ FC Thun                                    2.518134e-05          0
 West Bromwich Albion U18                   3.690993e-06          0
 SSD Palermo                                8.995914e-06          0
 ADO Den Haag                               3.775013e-05          0
-Shaanxi Chang&#39;an Athletic                  0.000000e+00          0
-Club Atlético Newell&#39;s Old Boys II         2.570174e-06          0
+Shaanxi Chang'an Athletic                  0.000000e+00          0
+Club Atlético Newell's Old Boys II         2.570174e-06          0
 Audax Italiano                             6.422545e-09          0
 FC Nordsjaelland Youth                     0.000000e+00          0
 Atlético de Madrid B                       5.061996e-04          0
@@ -7680,7 +6278,7 @@ CD Palestino                               3.489434e-06          0
 Excelsior Rotterdam                        2.514979e-04          0
 IF Brommapojkarna                          8.995914e-06          0
 Team Vaud U18                              1.735063e-04          0
-CD O&#39;Higgins                               5.730712e-07          0
+CD O'Higgins                               5.730712e-07          0
 CD 1º de Agosto                            0.000000e+00          0
 Júbilo Iwata                               1.453511e-05          0
 PSV Eindhoven U21                          3.448894e-05          0
@@ -7843,7 +6441,7 @@ Al-Wahda Mekka                             0.000000e+00          0
 GNK Dinamo Zagreb II                       0.000000e+00          0
 Sassuolo Primavera                         0.000000e+00          0
 Dalian Yifang                              0.000000e+00          0
-Guangzhou R&amp;F                              0.000000e+00          0
+Guangzhou R&F                              0.000000e+00          0
 Genoa Primavera                            0.000000e+00          0
 Chicago Fire                               0.000000e+00          0
 Zhejiang Greentown                         0.000000e+00          0
@@ -7854,7 +6452,7 @@ Büyüksehir Belediye Erzurumspor            0.000000e+00          0
 Ajman Club                                 0.000000e+00          0
 Arka Gdynia                                0.000000e+00          0
 Kuwait SC                                  0.000000e+00          0
-Brighton &amp; Hove Albion U23                 0.000000e+00          0
+Brighton & Hove Albion U23                 0.000000e+00          0
 CD Nacional                                0.000000e+00          0
 KSC Lokeren (- 2020)                       0.000000e+00          0
 SV Darmstadt 98                            0.000000e+00          0
@@ -7874,7 +6472,7 @@ UC Sampdoria                                        698           0
 Sevilla FC                                          689           0
 AC Milan                                            678           0
 FC Barcelona                                        677           0
-Brighton &amp; Hove Albion                              599           0
+Brighton & Hove Albion                              599           0
 Olympique Lyon                                      593           0
 Villarreal CF                                       568           0
 LOSC Lille                                          539           0
@@ -8229,7 +6827,7 @@ AC Perugia Calcio                                     4           0
 Club Atlético Belgrano                                4           0
 Athletic Bilbao                                       4           0
 Al-Rayyan SC                                          4           0
-CA Newell&#39;s Old Boys                                  3           0
+CA Newell's Old Boys                                  3           0
 SpVgg Greuther Fürth                                  3           0
 Puebla FC                                             3           0
 FC Bayern Munich II                                   3           0
@@ -8303,7 +6901,7 @@ Oeste Futebol Clube (SP)                              1           0
 Olympique de Marseille B                              1           0
 Junior FC                                             1           0
 FC Paços de Ferreira                                  1           0
-Johor Darul Ta&#39;zim                                    1           0
+Johor Darul Ta'zim                                    1           0
 Pescara Primavera                                     1           0
 Albacete Balompié                                     1           0
 SK Dnipro-1                                           1           0
@@ -8516,8 +7114,8 @@ FC Thun                                               0           0
 West Bromwich Albion U18                              0           0
 SSD Palermo                                           0           0
 ADO Den Haag                                          0           0
-Shaanxi Chang&#39;an Athletic                             0           0
-Club Atlético Newell&#39;s Old Boys II                    0           0
+Shaanxi Chang'an Athletic                             0           0
+Club Atlético Newell's Old Boys II                    0           0
 Audax Italiano                                        0           0
 FC Nordsjaelland Youth                                0           0
 Atlético de Madrid B                                  0           0
@@ -8548,7 +7146,7 @@ CD Palestino                                          0           0
 Excelsior Rotterdam                                   0           0
 IF Brommapojkarna                                     0           0
 Team Vaud U18                                         0           0
-CD O&#39;Higgins                                          0           0
+CD O'Higgins                                          0           0
 CD 1º de Agosto                                       0           0
 Júbilo Iwata                                          0           0
 PSV Eindhoven U21                                     0           0
@@ -8711,7 +7309,7 @@ Al-Wahda Mekka                                        0           0
 GNK Dinamo Zagreb II                                  0           0
 Sassuolo Primavera                                    0           0
 Dalian Yifang                                         0           0
-Guangzhou R&amp;F                                         0           0
+Guangzhou R&F                                         0           0
 Genoa Primavera                                       0           0
 Chicago Fire                                          0           0
 Zhejiang Greentown                                    0           0
@@ -8722,7 +7320,7 @@ Büyüksehir Belediye Erzurumspor                       0           0
 Ajman Club                                            0           0
 Arka Gdynia                                           0           0
 Kuwait SC                                             0           0
-Brighton &amp; Hove Albion U23                            0           0
+Brighton & Hove Albion U23                            0           0
 CD Nacional                                           0           0
 KSC Lokeren (- 2020)                                  0           0
 SV Darmstadt 98                                       0           0
@@ -8742,7 +7340,7 @@ UC Sampdoria                                        0           0
 Sevilla FC                                          0           0
 AC Milan                                            0           0
 FC Barcelona                                        0           0
-Brighton &amp; Hove Albion                              0           0
+Brighton & Hove Albion                              0           0
 Olympique Lyon                                      0           0
 Villarreal CF                                       0           0
 LOSC Lille                                          0           0
@@ -9097,7 +7695,7 @@ AC Perugia Calcio                                   0           0
 Club Atlético Belgrano                              0           0
 Athletic Bilbao                                     0           0
 Al-Rayyan SC                                        0           0
-CA Newell&#39;s Old Boys                                0           0
+CA Newell's Old Boys                                0           0
 SpVgg Greuther Fürth                                0           0
 Puebla FC                                           0           0
 FC Bayern Munich II                                 0           0
@@ -9171,7 +7769,7 @@ Oeste Futebol Clube (SP)                            0           0
 Olympique de Marseille B                            0           0
 Junior FC                                           0           0
 FC Paços de Ferreira                                0           0
-Johor Darul Ta&#39;zim                                  0           0
+Johor Darul Ta'zim                                  0           0
 Pescara Primavera                                   0           0
 Albacete Balompié                                   0           0
 SK Dnipro-1                                         0           0
@@ -9384,8 +7982,8 @@ FC Thun                                             0           0
 West Bromwich Albion U18                            0           0
 SSD Palermo                                         0           0
 ADO Den Haag                                        0           0
-Shaanxi Chang&#39;an Athletic                           0           0
-Club Atlético Newell&#39;s Old Boys II                  0           0
+Shaanxi Chang'an Athletic                           0           0
+Club Atlético Newell's Old Boys II                  0           0
 Audax Italiano                                      0           0
 FC Nordsjaelland Youth                              0           0
 Atlético de Madrid B                                0           0
@@ -9416,7 +8014,7 @@ CD Palestino                                        0           0
 Excelsior Rotterdam                                 0           0
 IF Brommapojkarna                                   0           0
 Team Vaud U18                                       0           0
-CD O&#39;Higgins                                        0           0
+CD O'Higgins                                        0           0
 CD 1º de Agosto                                     0           0
 Júbilo Iwata                                        0           0
 PSV Eindhoven U21                                   0           0
@@ -9579,7 +8177,7 @@ Al-Wahda Mekka                                      0           0
 GNK Dinamo Zagreb II                                0           0
 Sassuolo Primavera                                  0           0
 Dalian Yifang                                       0           0
-Guangzhou R&amp;F                                       0           0
+Guangzhou R&F                                       0           0
 Genoa Primavera                                     0           0
 Chicago Fire                                        0           0
 Zhejiang Greentown                                  0           0
@@ -9590,7 +8188,7 @@ Büyüksehir Belediye Erzurumspor                     0           0
 Ajman Club                                          0           0
 Arka Gdynia                                         0           0
 Kuwait SC                                           0           0
-Brighton &amp; Hove Albion U23                          0           0
+Brighton & Hove Albion U23                          0           0
 CD Nacional                                         0           0
 KSC Lokeren (- 2020)                                0           0
 SV Darmstadt 98                                     0           0
@@ -9610,7 +8208,7 @@ UC Sampdoria                                        0
 Sevilla FC                                          0
 AC Milan                                            0
 FC Barcelona                                        0
-Brighton &amp; Hove Albion                              0
+Brighton & Hove Albion                              0
 Olympique Lyon                                      0
 Villarreal CF                                       0
 LOSC Lille                                          0
@@ -9965,7 +8563,7 @@ AC Perugia Calcio                                   0
 Club Atlético Belgrano                              0
 Athletic Bilbao                                     0
 Al-Rayyan SC                                        0
-CA Newell&#39;s Old Boys                                0
+CA Newell's Old Boys                                0
 SpVgg Greuther Fürth                                0
 Puebla FC                                           0
 FC Bayern Munich II                                 0
@@ -10039,7 +8637,7 @@ Oeste Futebol Clube (SP)                            0
 Olympique de Marseille B                            0
 Junior FC                                           0
 FC Paços de Ferreira                                0
-Johor Darul Ta&#39;zim                                  0
+Johor Darul Ta'zim                                  0
 Pescara Primavera                                   0
 Albacete Balompié                                   0
 SK Dnipro-1                                         0
@@ -10252,8 +8850,8 @@ FC Thun                                             0
 West Bromwich Albion U18                            0
 SSD Palermo                                         0
 ADO Den Haag                                        0
-Shaanxi Chang&#39;an Athletic                           0
-Club Atlético Newell&#39;s Old Boys II                  0
+Shaanxi Chang'an Athletic                           0
+Club Atlético Newell's Old Boys II                  0
 Audax Italiano                                      0
 FC Nordsjaelland Youth                              0
 Atlético de Madrid B                                0
@@ -10284,7 +8882,7 @@ CD Palestino                                        0
 Excelsior Rotterdam                                 0
 IF Brommapojkarna                                   0
 Team Vaud U18                                       0
-CD O&#39;Higgins                                        0
+CD O'Higgins                                        0
 CD 1º de Agosto                                     0
 Júbilo Iwata                                        0
 PSV Eindhoven U21                                   0
@@ -10447,7 +9045,7 @@ Al-Wahda Mekka                                      0
 GNK Dinamo Zagreb II                                0
 Sassuolo Primavera                                  0
 Dalian Yifang                                       0
-Guangzhou R&amp;F                                       0
+Guangzhou R&F                                       0
 Genoa Primavera                                     0
 Chicago Fire                                        0
 Zhejiang Greentown                                  0
@@ -10458,30 +9056,22 @@ Büyüksehir Belediye Erzurumspor                     0
 Ajman Club                                          0
 Arka Gdynia                                         0
 Kuwait SC                                           0
-Brighton &amp; Hove Albion U23                          0
+Brighton & Hove Albion U23                          0
 CD Nacional                                         0
 KSC Lokeren (- 2020)                                0
-SV Darmstadt 98                                     0</code></pre>
-</div>
-<p>AS Roma plays a role of coordinator in the network which means that many ties go to and from AS Roma. This is in alignment with the degrees of the network as we saw earlier and the Eigenvector centrality which was also the highest for AS Roma in the network.</p>
-<p>Aston Villa is an iterant broker in the network.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<!--radix_placeholder_article_footer-->
-<!--/radix_placeholder_article_footer-->
-</div>
+SV Darmstadt 98                                     0
+```
 
-<div class="d-appendix">
 </div>
 
 
-<!--radix_placeholder_site_after_body-->
-<!--/radix_placeholder_site_after_body-->
-<!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
-<!--/radix_placeholder_appendices-->
-<!--radix_placeholder_navigation_after_body-->
-<!--/radix_placeholder_navigation_after_body-->
+AS Roma plays a role of coordinator in the network which means that many ties go to and from AS Roma. This is in alignment with the degrees of the network as we saw earlier and the Eigenvector centrality which was also the highest for AS Roma in the network. 
 
-</body>
+Aston Villa is an iterant broker in the network. 
 
-</html>
+
+
+
+
+```{.r .distill-force-highlighting-css}
+```
