@@ -18,17 +18,15 @@ Calculate closeness, betweenness and eigenvector centrality measures for your ne
 You may also want to identify whether the same node(s) are more/less central using the different measures, and see if you can find any patterns in the results based on which nodes are high/low on each measures. Discuss (with any related evidence) whether or not the node(s) behavior is in line with or violates expectations based on the degree centrality measure, comparing across those measures using a data frame similar to that constructed in the syntax. Be sure to share your assignment with group members for comments.
 
 
-
 ## Eigenvector Centrality
 
 The eigenvector centrality determines how important the neighborhood of the nodes is in the network. The higher the eigenvalue centrality, the more important the neighbors of that node are with respect to other nodes in the network. (Jackson 08) The eigenvalues also take into account the proximity of the node to many other important nodes in the network. 
 
-AS Roma has the highest eigenvalue in the network. This can be an additional support to our previous speculation on how AS Roma might influencial in the influx and outflow of football talent as they are well connected to the other influential nodes in our football transfer network. 
+AS Roma has the highest eigenvalue in the network. This can be an additional support to our previous speculation on how AS Roma might influential in the influx and outflow of football talent as they are well connected to the other influential nodes in our football transfer network. 
 
-```{r}
-#add eigenvector centrality to node measures
-temp <- centr_eigen(ig,directed=T)
-transfer.nodes$eigen<-temp$vector
+```{r warning=FALSE}
+temp <- igraph::centr_eigen(ig,directed=T)
+transfer.nodes$eigen <- temp$vector
 #arrange descending and return top 5 nodes
 arrange(transfer.nodes, desc(eigen)) %>%
   slice(1:5)
