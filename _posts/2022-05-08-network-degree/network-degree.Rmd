@@ -3,7 +3,7 @@ title: "Network Degree"
 description: |
   Network Degree of Football Networks
 author:
-  - name: Isha Akshita Mahajan
+  - name: Isha Akshita Mahajan, Ankit Kumar
     affiliation: UMass Amherst
 date: 2022-05-08
 output:
@@ -60,7 +60,6 @@ summary(ig)
 #convert ig network into intergraph object to coerce with statnet
 network <- intergraph::asNetwork(ig) 
 ```
-
 
 
 ## Density 
