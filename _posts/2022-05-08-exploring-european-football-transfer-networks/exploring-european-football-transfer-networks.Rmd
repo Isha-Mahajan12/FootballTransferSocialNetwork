@@ -15,7 +15,7 @@ output:
 
 ## Load Required Packages 
 
-```{r}
+```{r collapse=TRUE, warning=FALSE}
 library(igraph)
 library(tidyverse)
 library(corrr)
@@ -31,10 +31,9 @@ library(kableExtra)
 
 I begin by converting the data into an edgelist format. I select the club from and club to columns which are our nodes in this case. The relationship that I'm interested in is where from and where to has the majority of transfers taken place across various places. After selecting the from and to columns, I select the players, the transfer fee and the season in which the transfer took place. I also remove loan and free transfer as they don't seem relevant at the moment. 
 
-```{r}
+```{r collapse=TRUE}
 #load data from CSV
 transfers <- read_csv("/Users/isha/Desktop/GitHub/transfernetworks.csv")
-head(transfers)
 #select relevant data for edgelist format
 data <- transfers %>% 
   select(club_from, club_to, name,fee) %>% 
@@ -45,21 +44,15 @@ data$fee <- as.numeric(data$fee)
 data <- data %>% 
 filter(fee != is.na(fee))
 any(is.na(data$fee))
-```
-
-```{r}
-#create league names as node attributes
-#node1 <- transfers$league_from
-#node2 <- transfers$league_to
-#nodes <- c(node1, node2)
-#node_attr <- unique(nodes)
+head(data)
+kable(head(data))
 ```
 
 ## Create Edgelist (Part 1)
 
 The edgelist I created consists of 867 nodes and 4386 ties. The edge attributes are the players who are being transferred. The weight of the edges is the fee for which they were transferred. The edgelist is directed because the players are transferring from one team to another. 
 
-```{r}
+```{r collapse = TRUE}
 #convert data into matrix format
 data.mat <- as.matrix(data)
 #create igraph object from data
@@ -74,14 +67,9 @@ ig <- set_edge_attr(ig, "weight", value = na.omit(data$fee))
 ig <- delete_edge_attr(ig, "fee")
 #check summary of the igraph object
 summary(ig)
-```
-
-
-Here's an attempt to plot the network
-
-```{r}
 #convert ig network into intergraph object to coerce with statnet
 network <- intergraph::asNetwork(ig) 
+network
 ```
 
 ```{r}
@@ -103,21 +91,20 @@ vcount(ig)
 ecount(ig)
 ```
 
-The network consists of 867 nodes and 4386 edges. This means that there are 867 football clubs in our network and we are going to be expl
+The network consists of 867 nodes and 4386 edges. This means that there are 867 football clubs in our network and we are going to be explore the transfer of players that has taken place in the last four years i.e 8 transfer windows. 
 
 ```{r}
 # look at the dyad census
 dyad_census(ig)
 ```
 
-**There are 201 mutual, 3468 asymmetrical and 371742 dyads. Elaborate Explanation**
+**There are 201 mutual, 3468 asymmetrical and 371742 dyads**
 
 ```{r}
 triad_census(ig)
 triangles(ig)
 ```
 
-**Add Explanation**
 
 ```{r}
 is_directed(ig)
@@ -129,7 +116,7 @@ The results suggest that the network is directed, i.e players are transferring f
 
 The network is weighted. The weight of the transfer is the fee for which the transfer was made. 
 
-The network is not bipartite which mean that they transfers are not in sets- there is a flow of players. 
+The network is not bipartite which mean that they transfers are not in sets- there is a flow of transfers of players in the network.
 
 
 ## Transitivity
@@ -148,30 +135,26 @@ the average transitivity 0.1058294 is the transitivity of the local triad cluste
 
 ## Path Lengths 
 
-The average path length in the weighted network is 5689620. **Add Interpretation**
+The average path length in the weighted network is 5689620.
 
 ```{r}
 average.path.length(ig)
 ```
 
-The distances function enables us to look at the distance travelled between two nodes. Let's explore some distances between football clubs of various leagues.
+The shortest_paths function enables us to look at the shortest parts between two nodes. Let's explore some shortest between football clubs of various leagues.
 
 ```{r}
-shortest_paths(ig,"Chelsea FC", "Liverpool FC")
+shortest_paths(ig,"Chelsea FC", "Liverpool FC")$vpath[[1]]
+shortest_paths(ig, "FC Porto", "Juventus FC")$vpath[[1]]
+shortest_paths(ig, "Bayern Munich", "Aston Villa")$vpath[[1]]
 ```
 
-The distance between Liverpool FC and FC Porto is approximately 5 nodes. 
 
 ```{r}
 distances(ig,"Chelsea FC", "Real Madrid")
-```
-
-The distance between Chelsea FC and Real Madrid is 3.8 nodes. 
-
-
-```{r}
 distances(ig, "Bayern Munich", "Chelsea FC")
 ```
+
 
 ```{r}
 average.path.length(ig)
@@ -184,27 +167,17 @@ The distance between Chelsea and FC Barcelona is 1.6 nodes.
 ```{r}
 names(igraph::components(ig))
 igraph::components(ig)$no
-igraph::components(ig)$membership
 igraph::components(ig)$csize
+#igraph::components(ig)$membership
 ```
 
 There are 20 components in this network. The largest component consists of 829 nodes and the rest nineteen components comprise of two nodes each.
 
-```{r}
-gd <- all_shortest_paths(ig,"Chelsea FC","FC Barcelona", weights = NA)
-gd$nrgeo# geodesic distance. 
-```
 
-**Add further Interpretation**
-
-## Testing Different Layouts for Network Visualizations
+## Network Visualizations - an attempt
 
 ```{r}
 plot(ig, vertex.label.color = "black")
-```
-
-```{r}
-plot(ig, layout_with_graphopt(ig))
 ```
 
 ```{r}
