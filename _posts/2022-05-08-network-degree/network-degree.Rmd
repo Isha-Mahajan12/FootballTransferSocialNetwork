@@ -19,6 +19,50 @@ Briefly describe the dataset you are using: identify initial network format, des
 Provide at least two or three noteworthy results, including the relevant statistics and interpretation. For example, explaining which node(s) are most central and which are least central. Discuss (with any related evidence) whether or not the node(s) behavior is in line with or violates expectations based on the degree centrality measure. What do you make of network density and centralization measures?
 
 
+```{r include=FALSE}
+library(igraph)
+library(tidyverse)
+library(corrr)
+library(intergraph)
+library(statnet)
+library(network)
+library(sna)
+library(ggplot2)
+library(kableExtra)
+
+#load data from CSV
+transfers <- read_csv("/Users/isha/Desktop/GitHub/transfernetworks.csv")
+head(transfers)
+#select relevant data for edgelist format
+data <- transfers %>% 
+  select(club_from, club_to, name,fee) %>% 
+  filter(fee != "free transfer") %>% 
+  filter(fee != "loan transfer") %>% 
+  filter (fee != 0)
+data$fee <- as.numeric(data$fee) 
+data <- data %>% 
+filter(fee != is.na(fee))
+any(is.na(data$fee))
+#convert data into matrix format
+data.mat <- as.matrix(data)
+#create igraph object from data
+ig <- graph_from_data_frame(data.mat, directed = TRUE)
+# add edge attribute weight i.e transfer fee
+ig <- set_edge_attr(ig, "weight", value = na.omit(data$fee))
+# add edge attribute season of transfer
+#ig<-  set_edge_attr(ig, "season", value = na.omit(data$season))
+# add node attribute i.e league the club belongs to
+#set_vertex_attr(ig,"league" ,value = node_attr)
+#delete edge attribute that was automatically being created in addition to weight
+ig <- delete_edge_attr(ig, "fee")
+#check summary of the igraph object
+summary(ig)
+#convert ig network into intergraph object to coerce with statnet
+network <- intergraph::asNetwork(ig) 
+```
+
+
+
 ## Density 
 
 ```{r}

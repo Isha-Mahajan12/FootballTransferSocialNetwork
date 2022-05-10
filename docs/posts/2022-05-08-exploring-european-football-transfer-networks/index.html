@@ -1,0 +1,4218 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+<title>Football Networks: Exploring European Football Transfer Networks</title>
+
+<meta property="description" itemprop="description" content="Exploring a network of football teams and the transactions they made from 2018-2021. &#10;An Edgelist maybe?"/>
+
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2022-05-08"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-05-08"/>
+<meta name="article:author" content="Isha Akshita Mahajan"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="Football Networks: Exploring European Football Transfer Networks"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="Exploring a network of football teams and the transactions they made from 2018-2021. &#10;An Edgelist maybe?"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Football Networks"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:title" content="Football Networks: Exploring European Football Transfer Networks"/>
+<meta property="twitter:description" content="Exploring a network of football teams and the transactions they made from 2018-2021. &#10;An Edgelist maybe?"/>
+
+<!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Exploring European Football Transfer Networks"]},{"type":"character","attributes":{},"value":["Exploring a network of football teams and the transactions they made from 2018-2021. \nAn Edgelist maybe?"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Isha Akshita Mahajan"]},{"type":"character","attributes":{},"value":["UMass Amherst"]}]}]},{"type":"character","attributes":{},"value":["2022-05-08"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-20-1.png","exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-21-1.png","exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-22-1.png","exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-6-1.png","exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-7-1.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+<meta name="distill:offset" content="../.."/>
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      tolerance: 5,
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #0F2E3D;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative; min-height: 500px; }
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
+</style>
+
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+<script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+<script type="application/javascript">
+
+function getMeta(metaName) {
+  var metas = document.getElementsByTagName('meta');
+  for (let i = 0; i < metas.length; i++) {
+    if (metas[i].getAttribute('name') === metaName) {
+      return metas[i].getAttribute('content');
+    }
+  }
+  return '';
+}
+
+function offsetURL(url) {
+  var offset = getMeta('distill:offset');
+  return offset ? offset + '/' + url : url;
+}
+
+function createFuseIndex() {
+
+  // create fuse index
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
+  var fuse = new window.Fuse([], options);
+
+  // fetch the main search.json
+  return fetch(offsetURL('search.json'))
+    .then(function(response) {
+      if (response.status == 200) {
+        return response.json().then(function(json) {
+          // index main articles
+          json.articles.forEach(function(article) {
+            fuse.add(article);
+          });
+          // download collections and index their articles
+          return Promise.all(json.collections.map(function(collection) {
+            return fetch(offsetURL(collection)).then(function(response) {
+              if (response.status === 200) {
+                return response.json().then(function(articles) {
+                  articles.forEach(function(article) {
+                    fuse.add(article);
+                  });
+                })
+              } else {
+                return Promise.reject(
+                  new Error('Unexpected status from search index request: ' +
+                            response.status)
+                );
+              }
+            });
+          })).then(function() {
+            return fuse;
+          });
+        });
+
+      } else {
+        return Promise.reject(
+          new Error('Unexpected status from search index request: ' +
+                      response.status)
+        );
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", function (event) {
+
+  // get search element (bail if we don't have one)
+  var searchEl = window.document.getElementById('distill-search');
+  if (!searchEl)
+    return;
+
+  createFuseIndex()
+    .then(function(fuse) {
+
+      // make search box visible
+      searchEl.classList.remove('hidden');
+
+      // initialize autocomplete
+      var options = {
+        autoselect: true,
+        hint: false,
+        minLength: 2,
+      };
+      window.autocomplete(searchEl, options, [{
+        source: function(query, callback) {
+          const searchOptions = {
+            isCaseSensitive: false,
+            shouldSort: true,
+            minMatchCharLength: 2,
+            limit: 10,
+          };
+          var results = fuse.search(query, searchOptions);
+          callback(results
+            .map(function(result) { return result.item; })
+          );
+        },
+        templates: {
+          suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
+            var html = `
+              <div class="search-item">
+                <h3>${suggestion.title}</h3>
+                <div class="search-item-description">
+                  ${suggestion.description || ''}
+                </div>
+                <div class="search-item-preview">
+                  ${img}
+                </div>
+              </div>
+            `;
+            return html;
+          }
+        }
+      }]).on('autocomplete:selected', function(event, suggestion) {
+        window.location.href = offsetURL(suggestion.path);
+      });
+      // remove inline display style on autocompleter (we want to
+      // manage responsive display via css)
+      $('.algolia-autocomplete').css("display", "");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
+
+/* Algolioa Autocomplete */
+
+.algolia-autocomplete {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: sub;
+  background-color: white;
+  color: black;
+  padding: 6px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  border-radius: 6px;
+  border: 1px #0F2E3D solid;
+  width: 180px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-nav .algolia-autocomplete {
+    display: none;
+    visibility: hidden;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete {
+    display: inline-block;
+    visibility: visible;
+  }
+  .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+    margin-left: 0;
+    width: 400px;
+    max-height: 400px;
+  }
+}
+
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+  width: 90%;
+  outline: none;
+  border: none;
+}
+
+.algolia-autocomplete .aa-hint {
+  color: #999;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+  width: 550px;
+  max-height: 70vh;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding: 5px;
+  margin-top: 3px;
+  margin-left: -150px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+  cursor: pointer;
+  padding: 5px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
+  margin-block-start: 0;
+  margin-block-end: 5px;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+  display: inline-block;
+  overflow: hidden;
+  height: 2.8em;
+  width: 80%;
+  margin-right: 4%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+  display: inline-block;
+  width: 15%;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+  height: 3em;
+  width: auto;
+  display: none;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+  display: initial;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+</style>
+
+
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+d-byline .byline {
+  grid-template-columns: 2fr 2fr;
+}
+
+d-byline .byline h3 {
+  margin-block-start: 1.5em;
+}
+
+d-byline .byline .authors-affiliations h3 {
+  margin-block-start: 0.5em;
+}
+
+.authors-affiliations .orcid-id {
+  width: 16px;
+  height:16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
+
+d-title .dt-tags {
+  margin-top: 1em;
+  grid-column: text;
+}
+
+.dt-tags .dt-tag {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0em 0.4em;
+  margin-right: 0.5em;
+  margin-bottom: 0.4em;
+  font-size: 70%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+d-article table.gt_table td,
+d-article table.gt_table th {
+  border-bottom: none;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+d-article {
+  padding-top: 2.5rem;
+  padding-bottom: 30px;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article h2 {
+  margin: 1rem 0 1.5rem 0;
+}
+
+d-article h3 {
+  margin-top: 1.5rem;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+/* Tweak code blocks */
+
+d-article div.sourceCode code,
+d-article pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: auto;
+}
+
+d-article div.sourceCode {
+  background-color: white;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+d-article pre {
+  font-size: 12px;
+  color: black;
+  background: none;
+  margin-top: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+d-article pre a {
+  border-bottom: none;
+}
+
+d-article pre a:hover {
+  border-bottom: none;
+  text-decoration: underline;
+}
+
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
+@media(min-width: 768px) {
+
+d-article pre,
+d-article div.sourceCode,
+d-article div.sourceCode pre {
+  overflow: visible !important;
+}
+
+d-article div.sourceCode pre {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+d-article pre {
+  font-size: 14px;
+}
+
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for d-contents */
+
+.d-contents {
+  grid-column: text;
+  color: rgba(0,0,0,0.8);
+  font-size: 0.9em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 0.25em;
+  justify-self: start;
+}
+
+@media(min-width: 1000px) {
+  .d-contents.d-contents-float {
+    height: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-self: center;
+    padding-right: 3em;
+    padding-left: 2em;
+  }
+}
+
+.d-contents nav h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.d-contents li {
+  list-style-type: none
+}
+
+.d-contents nav > ul {
+  padding-left: 0;
+}
+
+.d-contents ul {
+  padding-left: 1em
+}
+
+.d-contents nav ul li {
+  margin-top: 0.6em;
+  margin-bottom: 0.2em;
+}
+
+.d-contents nav a {
+  font-size: 13px;
+  border-bottom: none;
+  text-decoration: none
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.d-contents nav a:hover {
+  text-decoration: underline solid rgba(0, 0, 0, 0.6)
+}
+
+.d-contents nav > ul > li > a {
+  font-weight: 600;
+}
+
+.d-contents nav > ul > li > ul {
+  font-weight: inherit;
+}
+
+.d-contents nav > ul > li > ul > li {
+  margin-top: 0.2em;
+}
+
+
+.d-contents nav ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+.d-article-with-toc h2:nth-child(2) {
+  margin-top: 0;
+}
+
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure img {
+  width: 100%;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+/* Citations */
+
+d-article .citation {
+  color: inherit;
+  cursor: inherit;
+}
+
+div.hanging-indent{
+  margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
+}
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Include appendix styles here so they can be overridden */
+
+d-appendix {
+  contain: layout style;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-top: 60px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+d-appendix h3 {
+  grid-column: page-start / text-start;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
+}
+
+d-appendix ol {
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
+}
+
+d-appendix li {
+  margin-bottom: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: text;
+}
+
+d-appendix > d-footnote-list,
+d-appendix > d-citation-list,
+d-appendix > distill-appendix {
+  grid-column: screen;
+}
+
+/* Include footnote styles here so they can be overridden */
+
+d-footnote-list {
+  contain: layout style;
+}
+
+d-footnote-list > * {
+  grid-column: text;
+}
+
+d-footnote-list a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+
+/* Anchor.js */
+
+.anchorjs-link {
+  /*transition: all .25s linear; */
+  text-decoration: none;
+  border-bottom: none;
+}
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+.sidebar-section.custom {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.custom p {
+  margin-bottom: 0.5em;
+}
+
+/* Styles for listing layout (hide title) */
+.layout-listing d-title, .layout-listing .d-title {
+  display: none;
+}
+
+/* Styles for posts lists (not auto-injected) */
+
+
+.posts-with-sidebar {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.posts-list .description h2,
+.posts-list .description p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.posts-list .description h2 {
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.posts-list h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+.posts-list {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+.post-preview-last {
+  border-bottom: none !important;
+}
+
+.posts-list .posts-list-caption {
+  grid-column: screen;
+  font-weight: 400;
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.posts-list .post-preview .thumbnail {
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
+.posts-list .metadata > * {
+  display: inline-block;
+}
+
+.posts-list .metadata .publishedDate {
+  margin-right: 2em;
+}
+
+.posts-list .metadata .dt-authors {
+  display: block;
+  margin-top: 0.3em;
+  margin-right: 2em;
+}
+
+.posts-list .dt-tags {
+  display: block;
+  line-height: 1em;
+}
+
+.posts-list .dt-tags .dt-tag {
+  display: inline-block;
+  color: rgba(0,0,0,0.6);
+  padding: 0.3em 0.4em;
+  margin-right: 0.2em;
+  margin-bottom: 0.4em;
+  font-size: 60%;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.posts-list img {
+  opacity: 1;
+}
+
+.posts-list img[data-src] {
+  opacity: 0;
+}
+
+.posts-more {
+  clear: both;
+}
+
+
+.posts-sidebar {
+  font-size: 16px;
+}
+
+.posts-sidebar h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.categories ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.categories li>a {
+  border-bottom: none;
+}
+
+.categories li>a:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.categories .active {
+  font-weight: 600;
+}
+
+.categories .category-count {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview h2 {
+    font-size: 26px;
+  }
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 30%;
+    margin-bottom: 0;
+  }
+  .posts-list .post-preview .description {
+    float: left;
+    width: 45%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 20%;
+    margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+  .posts-with-sidebar .posts-list {
+    float: left;
+    width: 75%;
+  }
+  .posts-with-sidebar .posts-sidebar {
+    float: right;
+    width: 20%;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.downlevel .posts-list .post-preview {
+  color: inherit;
+}
+
+
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // add anchors
+  if (window.anchors) {
+    window.anchors.options.placement = 'left';
+    window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+  }
+
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  // move refs into #references-listing
+  $('#references-listing').replaceWith($('#refs'));
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-contents a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // remove code block used to force  highlighting css
+  $('.distill-force-highlighting-css').parent().remove();
+
+  // remove empty line numbers inserted by pandoc when using a
+  // custom syntax highlighting theme
+  $('code.sourceCode a:empty').remove();
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // article with toc class
+    $('.d-contents').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // add orcid ids
+    $('.authors-affiliations').find('.author').each(function(i, el) {
+      var orcid_id = front_matter.authors[i].orcidID;
+      if (orcid_id) {
+        var a = $('<a></a>');
+        a.attr('href', 'https://orcid.org/' + orcid_id);
+        var img = $('<img></img>');
+        img.addClass('orcid-id');
+        img.attr('alt', 'ORCID ID');
+        img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+        a.append(img);
+        $(this).append(a);
+      }
+    });
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // remove d-appendix and d-footnote-list local styles
+    $('d-appendix > style:first-child').remove();
+    $('d-footnote-list > style:first-child').remove();
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-contents').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Exploring European Football Transfer Networks","description":"Exploring a network of football teams and the transactions they made from 2018-2021. \nAn Edgelist maybe?","authors":[{"author":"Isha Akshita Mahajan","authorURL":"#","affiliation":"UMass Amherst","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-05-08T00:00:00.000-04:00","citationText":"Mahajan, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="../../index.html" class="title">Football Networks</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Home</a>
+<a href="../../about.html">About</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Exploring European Football Transfer Networks</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>Exploring a network of football teams and the transactions they made from 2018-2021. An Edgelist maybe?</p></p>
+</div>
+
+<div class="d-byline">
+  Isha Akshita Mahajan  (UMass Amherst)
+  
+<br/>2022-05-08
+</div>
+
+<div class="d-article">
+<h2 id="load-required-packages">Load Required Packages</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://igraph.org'>igraph</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/corrr'>corrr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://mbojan.github.io/intergraph'>intergraph</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://statnet.org'>statnet</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://statnet.org/'>network</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://statnet.org'>sna</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="load-the-data">Load the data</h2>
+<p>I begin by converting the data into an edgelist format. I select the club from and club to columns which are our nodes in this case. The relationship that I’m interested in is where from and where to has the majority of transfers taken place across various places. After selecting the from and to columns, I select the players, the transfer fee and the season in which the transfer took place. I also remove loan and free transfer as they don’t seem relevant at the moment.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#load data from CSV</span>
+<span class='va'>transfers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"/Users/isha/Desktop/GitHub/transfernetworks.csv"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>transfers</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 × 12
+  name  position   age market_value country_from league_from club_from
+  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;    
+1 Jack… Left Wi…    25 65000000     England      Premier Le… Aston Vi…
+2 Rome… Centre-…    28 100000000    Italy        Serie A     Inter Mi…
+3 Jado… Left Wi…    21 100000000    Germany      Bundesliga  Borussia…
+4 Duša… Centre-…    22 70000000     Italy        Serie A     ACF Fior…
+5 Lion… Right W…    34 80000000     Spain        LaLiga      FC Barce…
+6 Raph… Centre-…    28 70000000     Spain        LaLiga      Real Mad…
+# … with 5 more variables: country_to &lt;chr&gt;, league_to &lt;chr&gt;,
+#   club_to &lt;chr&gt;, fee &lt;chr&gt;, year &lt;dbl&gt;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#select relevant data for edgelist format</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>transfers</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>club_from</span>, <span class='va'>club_to</span>, <span class='va'>name</span>,<span class='va'>fee</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fee</span> <span class='op'>!=</span> <span class='st'>"free transfer"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fee</span> <span class='op'>!=</span> <span class='st'>"loan transfer"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span> <span class='op'>(</span><span class='va'>fee</span> <span class='op'>!=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>data</span><span class='op'>$</span><span class='va'>fee</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>fee</span><span class='op'>)</span> 
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fee</span> <span class='op'>!=</span> <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>fee</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>fee</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#create league names as node attributes</span>
+<span class='co'>#node1 &lt;- transfers$league_from</span>
+<span class='co'>#node2 &lt;- transfers$league_to</span>
+<span class='co'>#nodes &lt;- c(node1, node2)</span>
+<span class='co'>#node_attr &lt;- unique(nodes)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="create-edgelist-part-1">Create Edgelist (Part 1)</h2>
+<p>The edgelist I created consists of 867 nodes and 4386 ties. The edge attributes are the players who are being transferred. The weight of the edges is the fee for which they were transferred. The edgelist is directed because the players are transferring from one team to another.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#convert data into matrix format</span>
+<span class='va'>data.mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+<span class='co'>#create igraph object from data</span>
+<span class='va'>ig</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html'>graph_from_data_frame</a></span><span class='op'>(</span><span class='va'>data.mat</span>, directed <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='co'># add edge attribute weight i.e transfer fee</span>
+<span class='va'>ig</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/set_edge_attr.html'>set_edge_attr</a></span><span class='op'>(</span><span class='va'>ig</span>, <span class='st'>"weight"</span>, value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>fee</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># add edge attribute season of transfer</span>
+<span class='co'>#ig&lt;-  set_edge_attr(ig, "season", value = na.omit(data$season))</span>
+<span class='co'># add node attribute i.e league the club belongs to</span>
+<span class='co'>#set_vertex_attr(ig,"league" ,value = node_attr)</span>
+<span class='co'>#delete edge attribute that was automatically being created in addition to weight</span>
+<span class='va'>ig</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/delete_edge_attr.html'>delete_edge_attr</a></span><span class='op'>(</span><span class='va'>ig</span>, <span class='st'>"fee"</span><span class='op'>)</span>
+<span class='co'>#check summary of the igraph object</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>IGRAPH a9507fb DNW- 867 4386 -- 
++ attr: name (v/c), name (e/c), weight (e/n)</code></pre>
+</div>
+<p>Here’s an attempt to plot the network</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#convert ig network into intergraph object to coerce with statnet</span>
+<span class='va'>network</span> <span class='op'>&lt;-</span> <span class='fu'>intergraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/intergraph/man/asNetwork.html'>asNetwork</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#plot intergraph object</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>network</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#plot igraph object </span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+</div>
+<h2 id="exploring-network-structures">Exploring Network Structures</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#count the number of nodes</span>
+<span class='fu'><a href='https://rdrr.io/pkg/igraph/man/gorder.html'>vcount</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 867</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># count the number of edges</span>
+<span class='fu'><a href='https://rdrr.io/pkg/igraph/man/gsize.html'>ecount</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 4386</code></pre>
+</div>
+<p>The network consists of 867 nodes and 4386 edges. This means that there are 867 football clubs in our network and we are going to be expl</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># look at the dyad census</span>
+<span class='fu'><a href='https://rdrr.io/pkg/igraph/man/dyad_census.html'>dyad_census</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>$mut
+[1] 201
+
+$asym
+[1] 3468
+
+$null
+[1] 371742</code></pre>
+</div>
+<p><strong>There are 201 mutual, 3468 asymmetrical and 371742 dyads. Elaborate Explanation</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/triad_census.html'>triad_census</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> [1] 105140687   2584373    450247     12854     17067     27123
+ [7]      4389      3716      1486       339       380       182
+[13]       194       306       134        28</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/count_triangles.html'>triangles</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>+ 8007/867 vertices, named, from a9507fb:
+   [1] SL Benfica                      
+   [2] Borussia Dortmund               
+   [3] Eintracht Frankfurt             
+   [4] SL Benfica                      
+   [5] Borussia Dortmund               
+   [6] PSV Eindhoven                   
+   [7] SL Benfica                      
+   [8] Borussia Dortmund               
+   [9] CA Boca Juniors                 
+  [10] SL Benfica                      
++ ... omitted several vertices</code></pre>
+</div>
+<p><strong>Add Explanation</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/is_directed.html'>is_directed</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/is_weighted.html'>is_weighted</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/make_bipartite_graph.html'>is_bipartite</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] FALSE</code></pre>
+</div>
+<p>The results suggest that the network is directed, i.e players are transferring from one club to another.</p>
+<p>The network is weighted. The weight of the transfer is the fee for which the transfer was made.</p>
+<p>The network is not bipartite which mean that they transfers are not in sets- there is a flow of players.</p>
+<h2 id="transitivity">Transitivity</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#get global clustering cofficient: igraph</span>
+<span class='fu'><a href='https://rdrr.io/pkg/igraph/man/transitivity.html'>transitivity</a></span><span class='op'>(</span><span class='va'>ig</span>, type<span class='op'>=</span><span class='st'>"global"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.1088854</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#get average local clustering coefficient: igraph</span>
+<span class='fu'><a href='https://rdrr.io/pkg/igraph/man/transitivity.html'>transitivity</a></span><span class='op'>(</span><span class='va'>ig</span>, type<span class='op'>=</span><span class='st'>"average"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.1058294</code></pre>
+</div>
+<p>The global transitivity of the graph is 0.1088854 which is the ratio of triangles connected to triangles</p>
+<p>the average transitivity 0.1058294 is the transitivity of the local triad clusters, i.e. the ratio of local triangles to all connected triangles.</p>
+<h2 id="path-lengths">Path Lengths</h2>
+<p>The average path length in the weighted network is 5689620. <strong>Add Interpretation</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/distances.html'>average.path.length</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 5689620</code></pre>
+</div>
+<p>The distances function enables us to look at the distance travelled between two nodes. Let’s explore some distances between football clubs of various leagues.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/distances.html'>shortest_paths</a></span><span class='op'>(</span><span class='va'>ig</span>,<span class='st'>"Chelsea FC"</span>, <span class='st'>"Liverpool FC"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>$vpath
+$vpath[[1]]
++ 6/867 vertices, named, from a9507fb:
+[1] Chelsea FC        Spartak Moscow    SC Freiburg      
+[4] 1.FC Union Berlin FC Schalke 04     Liverpool FC     
+
+
+$epath
+NULL
+
+$predecessors
+NULL
+
+$inbound_edges
+NULL</code></pre>
+</div>
+<p>The distance between Liverpool FC and FC Porto is approximately 5 nodes.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/distances.html'>distances</a></span><span class='op'>(</span><span class='va'>ig</span>,<span class='st'>"Chelsea FC"</span>, <span class='st'>"Real Madrid"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>           Real Madrid
+Chelsea FC       8e+05</code></pre>
+</div>
+<p>The distance between Chelsea FC and Real Madrid is 3.8 nodes.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/distances.html'>distances</a></span><span class='op'>(</span><span class='va'>ig</span>, <span class='st'>"Bayern Munich"</span>, <span class='st'>"Chelsea FC"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>              Chelsea FC
+Bayern Munich    1050000</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/distances.html'>average.path.length</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 5689620</code></pre>
+</div>
+<p>The distance between Chelsea and FC Barcelona is 1.6 nodes.</p>
+<h2 id="component-structure">Component Structure</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/components.html'>components</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;membership&quot; &quot;csize&quot;      &quot;no&quot;        </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/components.html'>components</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>no</span>
+</code></pre>
+</div>
+<pre><code>[1] 20</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/components.html'>components</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>membership</span>
+</code></pre>
+</div>
+<pre><code>                               Aston Villa 
+                                         1 
+                               Inter Milan 
+                                         1 
+                         Borussia Dortmund 
+                                         1 
+                            ACF Fiorentina 
+                                         1 
+                               Real Madrid 
+                                         1 
+                                RB Leipzig 
+                                         1 
+                              FC Barcelona 
+                                         1 
+                    Brighton &amp; Hove Albion 
+                                         1 
+                           Manchester City 
+                                         1 
+                          Stade Rennais FC 
+                                         1 
+                                  FC Porto 
+                                         1 
+                       Eintracht Frankfurt 
+                                         1 
+                               Juventus FC 
+                                         1 
+                            Olympique Lyon 
+                                         1 
+                                Chelsea FC 
+                                         1 
+                               Sporting CP 
+                                         1 
+                        Atlético de Madrid 
+                                         1 
+                              Norwich City 
+                                         1 
+                            Udinese Calcio 
+                                         1 
+                         Tottenham Hotspur 
+                                         1 
+                       Bayer 04 Leverkusen 
+                                         1 
+                                Everton FC 
+                                         1 
+                         Red Bull Salzburg 
+                                         1 
+                             PSV Eindhoven 
+                                         1 
+                               CSKA Moscow 
+                                         1 
+                                Burnley FC 
+                                         1 
+                                Hertha BSC 
+                                         1 
+                                Sevilla FC 
+                                         1 
+                                  SS Lazio 
+                                         1 
+                            Southampton FC 
+                                         1 
+                                Arsenal FC 
+                                         1 
+                         Manchester United 
+                                         1 
+                          Sheffield United 
+                                         1 
+                                LOSC Lille 
+                                         1 
+                  Borussia Mönchengladbach 
+                                         1 
+                            Brescia Calcio 
+                                         1 
+                             Hellas Verona 
+                                         1 
+                  Sport Club Internacional 
+                                         1 
+                             FC Schalke 04 
+                                         1 
+                            FC Barcelona B 
+                                         1 
+                       Real Betis Balompié 
+                                         1 
+                               Atalanta BC 
+                                         1 
+                      Zenit St. Petersburg 
+                                         1 
+                       Paris Saint-Germain 
+                                         1 
+                                 Fulham FC 
+                                         1 
+                           AFC Bournemouth 
+                                         1 
+                               Dynamo Kyiv 
+                                         1 
+                            Chelsea FC U23 
+                                         1 
+                            Club Brugge KV 
+                                         1 
+                             VfB Stuttgart 
+                                         1 
+                            Ajax Amsterdam 
+                                         1 
+              Clube de Regatas do Flamengo 
+                                         1 
+                           Bologna FC 1909 
+                                         1 
+                                 Getafe CF 
+                                         1 
+                            CA River Plate 
+                                         1 
+                                 FC Empoli 
+                                         1 
+                        CA Vélez Sarsfield 
+                                         1 
+                             VfL Wolfsburg 
+                                         1 
+                         GNK Dinamo Zagreb 
+                                         1 
+                                SL Benfica 
+                                         1 
+                      West Bromwich Albion 
+                                         1 
+                          Blackburn Rovers 
+                                         1 
+                      RC Strasbourg Alsace 
+                                         1 
+                                SCO Angers 
+                                         1 
+                            Leicester City 
+                                         1 
+                                   AS Roma 
+                                         1 
+                            RSC Anderlecht 
+                                         1 
+                                  KAA Gent 
+                                         1 
+                                   RC Lens 
+                                         1 
+                                AZ Alkmaar 
+                                         1 
+                                 Celtic FC 
+                                         1 
+                              Liverpool FC 
+                                         1 
+                                 FC Dallas 
+                                         1 
+                            Standard Liège 
+                                         1 
+                   Wolverhampton Wanderers 
+                                         1 
+                           Montpellier HSC 
+                                         1 
+                               Rubin Kazan 
+                                         1 
+             Sociedade Esportiva Palmeiras 
+                                         1 
+                                 AS Monaco 
+                                         1 
+          Grêmio Foot-Ball Porto Alegrense 
+                                         1 
+                          FC Nordsjaelland 
+                                         1 
+                         Stade Brestois 29 
+                                         1 
+                             FC Basel 1893 
+                                         1 
+                               SC Freiburg 
+                                         1 
+                                Reading FC 
+                                         1 
+                          Lokomotiv Moscow 
+                                         1 
+                                Stoke City 
+                                         1 
+                                Rangers FC 
+                                         1 
+                               Stade Reims 
+                                         1 
+                  Fluminense Football Club 
+                                         1 
+                                1. FC Köln 
+                                         1 
+                      Vitória Guimarães SC 
+                                         1 
+                                 FK Rostov 
+                                         1 
+                    Vitória Guimarães SC B 
+                                         1 
+                               US Sassuolo 
+                                         1 
+                             FC Copenhagen 
+                                         1 
+                         PAOK Thessaloniki 
+                                         1 
+                                 FC Nantes 
+                                         1 
+                                  SC Braga 
+                                         1 
+               Club Atlético Independiente 
+                                         1 
+                       Feyenoord Rotterdam 
+                                         1 
+                                 Santos FC 
+                                         1 
+                       Red Bull Bragantino 
+                                         1 
+                          SV Werder Bremen 
+                                         1 
+                              FC Porto U19 
+                                         1 
+                            Pogon Szczecin 
+                                         1 
+                            1.FSV Mainz 05 
+                                         1 
+                          SK Slavia Prague 
+                                         1 
+                              UC Sampdoria 
+                                         1 
+                           Cagliari Calcio 
+                                         1 
+                             Fenerbahce SK 
+                                         1 
+                            Spartak Moscow 
+                                         1 
+                             Santos Laguna 
+                                         1 
+                       Club Atlético Lanús 
+                                         1 
+              Sharjah Cultural Sports Club 
+                                         1 
+                                   FC Metz 
+                                         1 
+                            FC Midtjylland 
+                                         1 
+                                FC Lorient 
+                                         1 
+                           Orlando City SC 
+                                         1 
+                              Guangzhou FC 
+                                         1 
+                         1.FC Union Berlin 
+                                         1 
+                         Atlanta United FC 
+                                         1 
+                           West Ham United 
+                                         1 
+                             Shanghai Port 
+                                         1 
+                       Olympique Marseille 
+                                         1 
+                                  AC Milan 
+                                         1 
+                        Leicester City U23 
+                                         1 
+                     FC Girondins Bordeaux 
+                                         1 
+                              RCD Mallorca 
+                                         1 
+                        Real Valladolid CF 
+                                         1 
+                    New England Revolution 
+                                         1 
+                                 Hatayspor 
+                                         1 
+                               KV Mechelen 
+                                         1 
+                        Olympiacos Piraeus 
+                                         1 
+                             RSC Charleroi 
+                                         1 
+                    Clube Atlético Mineiro 
+                                         1 
+                       Manchester City U23 
+                                         1 
+                    Club Atlético Talleres 
+                                         1 
+                              CD Cruz Azul 
+                                         1 
+                                 Amiens SC 
+                                         1 
+                              Rapid Vienna 
+                                         1 
+                                FC Crotone 
+                                         1 
+                              FK Krasnodar 
+                                         1 
+                             Dynamo Moscow 
+                                         1 
+                               FC Toulouse 
+                                         1 
+                                 Torino FC 
+                                         1 
+                               FC Augsburg 
+                                         1 
+                                 Genoa CFC 
+                                         1 
+                              Hamburger SV 
+                                         1 
+                                Bröndby IF 
+                                         1 
+                                Watford FC 
+                                         1 
+               Royale Union Saint Gilloise 
+                                         1 
+                         Atlas Guadalajara 
+                                         1 
+                             SC Heerenveen 
+                                         1 
+                                      SPAL 
+                                         1 
+           Atletico River Plate Montevideo 
+                                         1 
+                                CF América 
+                                         1 
+                                  OGC Nice 
+                                         1 
+                         Parma Calcio 1913 
+                                         1 
+                      Delfino Pescara 1936 
+                                         1 
+                          Shakhtar Donetsk 
+                                         1 
+                               Trabzonspor 
+                                         1 
+                                  Malmö FF 
+                                         1 
+                          New York City FC 
+                                         1 
+                            BSC Young Boys 
+                                         1 
+                              FC Famalicão 
+                                         1 
+                               CA Banfield 
+                                         1 
+                               D.C. United 
+                                         1 
+                             SK Sturm Graz 
+                                         1 
+                            IFK Norrköping 
+                                         1 
+                     Universitatea Craiova 
+                                         1 
+                          HNK Hajduk Split 
+                                         1 
+                              CF Monterrey 
+                                         1 
+                                CA Peñarol 
+                                         1 
+                                FC Utrecht 
+                                         1 
+                              FC Groningen 
+                                         1 
+                 Club Athletico Paranaense 
+                                         1 
+                                   SM Caen 
+                                         1 
+                      Sporting Kansas City 
+                                         1 
+                                CF Pachuca 
+                                         1 
+                                 SD Huesca 
+                                         1 
+                               Mazatlán FC 
+                                         1 
+                               Valencia CF 
+                                         1 
+                           CA Boca Juniors 
+                                         1 
+                            Los Angeles FC 
+                                         1 
+                       Oud-Heverlee Leuven 
+                                         1 
+                          Frosinone Calcio 
+                                         1 
+              Club Estudiantes de La Plata 
+                                         1 
+                   São Paulo Futebol Clube 
+                                         1 
+                               Vissel Kobe 
+                                         1 
+                         Atlético Nacional 
+                                         1 
+           Sport Club Corinthians Paulista 
+                                         1 
+                         Rakow Czestochowa 
+                                         1 
+                          Sparta Rotterdam 
+                                         1 
+                             FK Bodø/Glimt 
+                                         1 
+                        Ural Yekaterinburg 
+                                         1 
+                    Istanbul Basaksehir FK 
+                                         1 
+                              Cardiff City 
+                                         1 
+                                UD Almería 
+                                         1 
+                             Bayern Munich 
+                                         1 
+                               Tigres UANL 
+                                         1 
+                           Nîmes Olympique 
+                                         1 
+                             Villarreal CF 
+                                         1 
+                          Deportivo Alavés 
+                                         1 
+                                SSC Napoli 
+                                         1 
+                      CA Newell&#39;s Old Boys 
+                                         1 
+                         Huddersfield Town 
+                                         1 
+                                HNK Gorica 
+                                         1 
+                        Club Cerro Porteño 
+                                         1 
+                        CA Rosario Central 
+                                         1 
+                          Royal Antwerp FC 
+                                         1 
+                                SC Farense 
+                                         1 
+                    Cruzeiro Esporte Clube 
+                                         1 
+                            Vejle Boldklub 
+                                         1 
+                               KV Oostende 
+                                         1 
+                                 Dijon FCO 
+                                         1 
+                          Fatih Karagümrük 
+                                         1 
+                              Swansea City 
+                                         1 
+                         Red Star Belgrade 
+                                         1 
+                               Hammarby IF 
+                                         1 
+                           Deportes Tolima 
+                                         1 
+                                FC Porto B 
+                                         1 
+                       Maccabi Petah Tikva 
+                                         1 
+                      NK Lokomotiva Zagreb 
+                                         1 
+                                Alanyaspor 
+                                         1 
+                           Sarpsborg 08 FF 
+                                         1 
+                           Ferencvárosi TC 
+                                         1 
+                        Twente Enschede FC 
+                                         1 
+                                UNAM Pumas 
+                                         1 
+                            Inter Miami CF 
+                                         1 
+                        Defensa y Justicia 
+                                         1 
+                              Juventus U23 
+                                         1 
+                          Middlesbrough FC 
+                                         1 
+                                  CA Colon 
+                                         1 
+                         FC Erzgebirge Aue 
+                                         1 
+                            1.FC Nuremberg 
+                                         1 
+                                  Hebei FC 
+                                         1 
+                    Club Libertad Asunción 
+                                         1 
+                        CD América de Cali 
+                                         1 
+                       Esporte Clube Bahia 
+                                         1 
+                              Charlotte FC 
+                                         1 
+                           Chicago Fire FC 
+                                         1 
+                               Hannover 96 
+                                         1 
+                      SpVgg Greuther Fürth 
+                                         1 
+                         Willem II Tilburg 
+                                         1 
+                         FC Lausanne-Sport 
+                                         1 
+                               FC Volendam 
+                                         1 
+                               IF Elfsborg 
+                                         1 
+                          GD Estoril Praia 
+                                         1 
+                               Kayserispor 
+                                         1 
+                             Spezia Calcio 
+                                         1 
+                          Liverpool FC U23 
+                                         1 
+                              Club Tijuana 
+                                         1 
+                Hokkaido Consadole Sapporo 
+                                         1 
+                                 BK Häcken 
+                                         1 
+                            CD Santa Clara 
+                                         1 
+                              Arsenal Tula 
+                                         1 
+                 CA San Lorenzo de Almagro 
+                                         1 
+                               Lech Poznan 
+                                         1 
+                             Moreirense FC 
+                                         1 
+                                Granada CF 
+                                         1 
+                              Derby County 
+                                         1 
+                     AA Argentinos Juniors 
+                                         1 
+                                Toronto FC 
+                                         1 
+                       TSG 1899 Hoffenheim 
+                                         1 
+                              Hibernian FC 
+                                         1 
+                             Club Nacional 
+                                         1 
+                        Raja Club Athletic 
+                                         1 
+                                Paradou AC 
+                                         1 
+                       Club Atlético Unión 
+                                         1 
+                            Legia Warszawa 
+                                         1 
+                                Danubio FC 
+                                         1 
+                   Independiente del Valle 
+                                         1 
+                             Beijing Guoan 
+                                         1 
+                      Shakhtar Donetsk U19 
+                                         1 
+                               Envigado FC 
+                                         1 
+                            FC Utrecht U21 
+                                         1 
+                                CSKA-Sofia 
+                                         1 
+                         Kawasaki Frontale 
+                                         1 
+                            Stabæk Fotball 
+                                         1 
+                              MTK Budapest 
+                                         1 
+             Club de Regatas Vasco da Gama 
+                                         1 
+                             Akhmat Grozny 
+                                         1 
+                     Al-Shabab FC (Riyadh) 
+                                         1 
+                               Club Necaxa 
+                                         1 
+                            Millonarios FC 
+                                         1 
+                      Real Madrid Castilla 
+                                         1 
+                             Piast Gliwice 
+                                         1 
+                               Antalyaspor 
+                                         1 
+                        New York Red Bulls 
+                                         1 
+                           Colorado Rapids 
+                                         1 
+                                Rio Ave FC 
+                                         1 
+                              SL Benfica B 
+                                         1 
+                        Philadelphia Union 
+                                         1 
+                        Ludogorets Razgrad 
+                                         1 
+                            Dinamo Tbilisi 
+                                         1 
+                       Minnesota United FC 
+                                         1 
+                              Brentford FC 
+                                         1 
+                     Club Atlético Huracán 
+                                         1 
+                                      FCSB 
+                                         1 
+                     Krylya Sovetov Samara 
+                                         1 
+                          Pordenone Calcio 
+                                         1 
+                                 LDU Quito 
+                                         1 
+                                   Göztepe 
+                                         1 
+                            Unión Española 
+                                         1 
+                                 NK Osijek 
+                                         1 
+                         Club Alianza Lima 
+                                         1 
+                      FC Nordsjaelland U19 
+                                         1 
+                           Portimonense SC 
+                                         1 
+                         Slovan Bratislava 
+                                         1 
+                            Roma Primavera 
+                                         1 
+                                HNK Rijeka 
+                                         1 
+                           SC Paderborn 07 
+                                         1 
+                         Sint-Truidense VV 
+                                         1 
+                                CD Leganés 
+                                         1 
+                                 VVV-Venlo 
+                                         1 
+                                 Puebla FC 
+                                         1 
+                       FC Bayern Munich II 
+                                         1 
+                            Djurgårdens IF 
+                                         1 
+                     Al-Jazira (Abu Dhabi) 
+                                         1 
+                          SV Zulte Waregem 
+                                         1 
+                            Gil Vicente FC 
+                                         1 
+           Associação Atlética Ponte Preta 
+                                         1 
+                               Boavista FC 
+                                         1 
+                        Los Angeles Galaxy 
+                                         1 
+                          Portland Timbers 
+                                         1 
+                                  KRC Genk 
+                                         1 
+                              Nashville SC 
+                                         1 
+                      Borussia Dortmund II 
+                                         1 
+                                 Aarhus GF 
+                                         1 
+                   Liverpool FC Montevideo 
+                                         1 
+                             Lechia Gdansk 
+                                         1 
+                              Altinordu FK 
+                                         1 
+                                Al-Ettifaq 
+                                         1 
+                                VfL Bochum 
+                                         1 
+                             Columbus Crew 
+                                         1 
+                                  Elche CF 
+                                         1 
+                              Wisla Kraków 
+                                         1 
+                          Maccabi Tel Aviv 
+                                         1 
+                          AC Sparta Prague 
+                                         1 
+                         Al-Ittihad Jeddah 
+                                         1 
+                                MSK Zilina 
+                                         1 
+                      Sport Club do Recife 
+                                         1 
+                               AC Le Havre 
+                                         1 
+                                  US Lecce 
+                                         1 
+                                Palermo FC 
+                                         1 
+                              FK Cukaricki 
+                                         1 
+                             Calcio Padova 
+                                         1 
+                                  Molde FK 
+                                         1 
+                                 AIK Solna 
+                                         1 
+                             AS Cittadella 
+                                         1 
+                         Vålerenga Fotball 
+                                         1 
+                           MOL Fehérvár FC 
+                                         1 
+                               Hércules CF 
+                                         1 
+                           Milan Primavera 
+                                         1 
+                       DAC Dunajska Streda 
+                                         1 
+                   Fortaleza Esporte Clube 
+                                         1 
+         Associação Chapecoense de Futebol 
+                                         1 
+                       FC Sheriff Tiraspol 
+                                         1 
+                                 Sivasspor 
+                                         1 
+                                 Bursaspor 
+                                         1 
+                                AEK Athens 
+                                         1 
+                                 Girona FC 
+                                         1 
+                         FC Viktoria Plzen 
+                                         1 
+                            Belenenses SAD 
+                                         1 
+                                      LASK 
+                                         1 
+             Botafogo de Futebol e Regatas 
+                                         1 
+                    Vancouver Whitecaps FC 
+                                         1 
+                    Club Atlético Platense 
+                                         1 
+                    FC Sochaux-Montbéliard 
+                                         1 
+                  FC Admira Wacker Mödling 
+                                         1 
+                     Club Atlético Atlanta 
+                                         1 
+                             Górnik Zabrze 
+                                         1 
+                       Atlético de Rafaela 
+                                         1 
+                     Club Atlético Tucuman 
+                                         1 
+                        FC St. Gallen 1879 
+                                         1 
+                             CSD Colo Colo 
+                                         1 
+                               Racing Club 
+                                         1 
+                          Galatasaray A.S. 
+                                         1 
+                               CD Feirense 
+                                         1 
+                            FC Dinamo 1948 
+                                         1 
+                      Montevideo Wanderers 
+                                         1 
+                                  LKS Lodz 
+                                         1 
+                             Celta de Vigo 
+                                         1 
+                           Al Qadisiyah FC 
+                                         1 
+                              Esteghlal FC 
+                                         1 
+                                 Konyaspor 
+                                         1 
+                          Benevento Calcio 
+                                         1 
+                                 Kasimpasa 
+                                         1 
+                                Luton Town 
+                                         1 
+                         Arminia Bielefeld 
+                                         1 
+                               FK Orenburg 
+                                         1 
+                          Yeni Malatyaspor 
+                                         1 
+                      Atlético de San Luis 
+                                         1 
+                    Deportivo de La Coruña 
+                                         1 
+                              Ipswich Town 
+                                         1 
+                              Club Guaraní 
+                                         1 
+                                  SD Eibar 
+                                         1 
+                          Wydad Casablanca 
+                                         1 
+                                NK Maribor 
+                                         1 
+                           Odense Boldklub 
+                                         1 
+                       Peterborough United 
+                                         1 
+                          Olimpia Asunción 
+                                         1 
+                       Ceará Sporting Club 
+                                         1 
+                        Deportes La Serena 
+                                         1 
+                          Grenoble Foot 38 
+                                         1 
+                                 AE Larisa 
+                                         2 
+                SK Dynamo Ceske Budejovice 
+                                         1 
+                           Valenciennes FC 
+                                         1 
+                           Pohang Steelers 
+                                         1 
+                  Oeste Futebol Clube (SP) 
+                                         1 
+                       Chamois Niortais FC 
+                                         1 
+                              IFK Göteborg 
+                                         1 
+               Tombense Futebol Clube (MG) 
+                                         1 
+                         FC Slovan Liberec 
+                                         1 
+                            Austria Vienna 
+                                         1 
+                             Holstein Kiel 
+                                         1 
+                       FK Radnik Surdulica 
+                                         1 
+                          Shandong Taishan 
+                                         1 
+                                 FC Lugano 
+                                         1 
+                       FK TSC Backa Topola 
+                                         1 
+                     Jagiellonia Bialystok 
+                                         1 
+                 Atlético Clube Goianiense 
+                                         1 
+                                 FK Aktobe 
+                                         3 
+                          AS Saint-Étienne 
+                                         1 
+                       Dalian Professional 
+                                         1 
+                            Crystal Palace 
+                                         1 
+                             Real Sociedad 
+                                         1 
+                       Queens Park Rangers 
+                                         1 
+                    RCD Espanyol Barcelona 
+                                         1 
+                         Nottingham Forest 
+                                         1 
+                       US Salernitana 1919 
+                                         1 
+                           Birmingham City 
+                                         1 
+                        Juventus Primavera 
+                                         1 
+                          Clermont Foot 63 
+                                         1 
+                      FK Partizan Belgrade 
+                                         1 
+                        Ajax Amsterdam U21 
+                                         1 
+                               KV Kortrijk 
+                                         1 
+                        Fortuna Düsseldorf 
+                                         1 
+                                Levante UD 
+                                         1 
+                                 FC Zürich 
+                                         1 
+                   Coritiba Foot Ball Club 
+                                         1 
+                            Kashiwa Reysol 
+                                         1 
+                            Wolfsberger AC 
+                                         1 
+                      1.FC Heidenheim 1846 
+                                         1 
+                Três Passos Atlético Clube 
+                                         1 
+                               CD Tenerife 
+                                         1 
+                            Zaglebie Lubin 
+                                         1 
+                  FC Paris Saint-Germain B 
+                                         1 
+                             Real Zaragoza 
+                                         1 
+                    Jeonbuk Hyundai Motors 
+                                         1 
+                         FC Basel 1893 U18 
+                                         1 
+                              Club León FC 
+                                         1 
+                                  CA Fénix 
+                                         1 
+                           Heracles Almelo 
+                                         1 
+                FC Sochaux-Montbéliard U19 
+                                         4 
+                          Beitar Jerusalem 
+                                         1 
+                         Houston Dynamo FC 
+                                         1 
+                              Querétaro FC 
+                                         1 
+                              Bristol City 
+                                         1 
+                          Shanghai Shenhua 
+                                         1 
+                                   FC Sion 
+                                         1 
+                              NEC Nijmegen 
+                                         1 
+                                    FK Ufa 
+                                         1 
+                              ESTAC Troyes 
+                                         1 
+                            Wigan Athletic 
+                                         1 
+                               AS Monaco B 
+                                         1 
+                          Derby County U18 
+                                         5 
+                               Aberdeen FC 
+                                         1 
+                               Pyramids FC 
+                                         1 
+                                 FC Luzern 
+                                         1 
+                  Olympique de Marseille B 
+                                         1 
+                             Motherwell FC 
+                                         1 
+                                CA Osasuna 
+                                         1 
+                   Juventud de Las Piedras 
+                                         1 
+                          Asteras Tripolis 
+                                         1 
+               CD Godoy Cruz Antonio Tomba 
+                                         1 
+                             Amiens SC U19 
+                                         1 
+                             Persepolis FC 
+                                         1 
+                             Oxford United 
+                                         1 
+                GDSC Alvarenga Futebol SAD 
+                                         1 
+                   Grasshopper Club Zurich 
+                                         1 
+                          Apollon Limassol 
+                                         1 
+             Chongqing Liangjiang Athletic 
+                                         1 
+                            Guangzhou City 
+                                         1 
+                                  Wuhan FC 
+                                         1 
+                      Shanghai Shenhua U19 
+                                         1 
+                     Genclerbirligi Ankara 
+                                         1 
+                           Helsingborgs IF 
+                                         1 
+                                Le Mans FC 
+                                         1 
+                         Valencia Mestalla 
+                                         1 
+                               SönderjyskE 
+                                         1 
+                                Zamalek SC 
+                                         1 
+                         Preston North End 
+                                         1 
+                            1.FC Magdeburg 
+                                         1 
+                            Deportivo Cali 
+                                         1 
+                         Hebei FC Reserves 
+                                         1 
+                               Yokohama FC 
+                                         1 
+                             Livingston FC 
+                                         1 
+                               Barnsley FC 
+                                         1 
+                         Charlton Athletic 
+                                         1 
+                               HNK Sibenik 
+                                         1 
+                            Al-Ahli Jeddah 
+                                         1 
+                                 Junior FC 
+                                         1 
+                        Urawa Red Diamonds 
+                                         1 
+                       1.FC Kaiserslautern 
+                                         1 
+                                Aalborg BK 
+                                         1 
+                         Cherno More Varna 
+                                         1 
+                            Everton FC U23 
+                                         1 
+                                AC Horsens 
+                                         6 
+                                TP Mazembe 
+                                         1 
+                                 NAC Breda 
+                                         1 
+                                 Hull City 
+                                         1 
+                                 Málaga CF 
+                                         1 
+                            LB Châteauroux 
+                                         1 
+                      FC Paços de Ferreira 
+                                         1 
+                         NK Istra 1961 U17 
+                                         7 
+                        SpVgg Unterhaching 
+                                         1 
+                    Barcelona SC Guayaquil 
+                                         1 
+                      Royal Excel Mouscron 
+                                         1 
+                        Pakhtakor Tashkent 
+                                         1 
+                             FC Cincinnati 
+                                         1 
+                             Meizhou Hakka 
+                                         1 
+                             Astra Giurgiu 
+                                         1 
+                            Paris FC Youth 
+                                         1 
+                            Beerschot V.A. 
+                                         1 
+                             El Ahly Cairo 
+                                         1 
+                    Zenit 2 St. Petersburg 
+                                         1 
+         Serra Macaense Futebol Clube (RJ) 
+                                         1 
+                            Arsenal FC U18 
+                                         8 
+                    Heart of Midlothian FC 
+                                         1 
+                     FC Viitorul Constanta 
+                                         1 
+                                 FC Astana 
+                                         1 
+                          Doncaster Rovers 
+                                         1 
+                        Budapest Honvéd FC 
+                                         1 
+                              Silkeborg IF 
+                                         1 
+                      FC Pro Vercelli 1892 
+                                         1 
+                             UD Las Palmas 
+                                         1 
+                           Fortuna Sittard 
+                                         1 
+                             APOEL Nicosia 
+                                         1 
+                      Instituto AC Córdoba 
+                                         1 
+                            Rayo Vallecano 
+                                         1 
+                            Cosenza Calcio 
+                                         1 
+                       Real Salt Lake City 
+                                         1 
+                                  CFR Cluj 
+                                         1 
+                 Club Universidad de Chile 
+                                         1 
+                                PEC Zwolle 
+                                         1 
+                        Shakhter Soligorsk 
+                                         1 
+                           Hammarby IF U19 
+                                         1 
+                                  Altay SK 
+                                         1 
+                              FC St. Pauli 
+                                         1 
+                          Spartaks Jurmala 
+                                         1 
+                           Desna Chernigiv 
+                                         1 
+                          Napoli Primavera 
+                                         9 
+                                Randers FC 
+                                         1 
+                        Würzburger Kickers 
+                                         1 
+                   Esporte Clube Juventude 
+                                         1 
+                                AC Ajaccio 
+                                         1 
+                         Aris Thessaloniki 
+                                         1 
+                            Hertha BSC U19 
+                                         1 
+                                PFK Tambov 
+                                         1 
+                            Bristol Rovers 
+                                         1 
+                             Cercle Brugge 
+                                         1 
+                        SK Sigma Olomouc B 
+                                         1 
+                                 GD Chaves 
+                                         1 
+                                 Lyngby BK 
+                                         1 
+                   CD Universidad Católica 
+                                         1 
+                                Esbjerg fB 
+                                         1 
+                              Levski Sofia 
+                                         1 
+                         CA River Plate II 
+                                         1 
+                             1.FC Slovacko 
+                                         1 
+                             Östersunds FK 
+                                         1 
+                        Wellington Phoenix 
+                                         1 
+                              Rosenborg BK 
+                                         1 
+                                  FC Tokyo 
+                                         1 
+                    Club Deportivo Riestra 
+                                         1 
+                        Johor Darul Ta&#39;zim 
+                                         1 
+                          Newcastle United 
+                                         1 
+                              Al-Duhail SC 
+                                         1 
+                                 Empoli FC 
+                                         1 
+                Shanghai Greenland Shenhua 
+                                         1 
+                              Leeds United 
+                                         1 
+                                AJ Auxerre 
+                                         1 
+                               EA Guingamp 
+                                         1 
+                     Deportivo Guadalajara 
+                                         1 
+                               FC Sion U21 
+                                         1 
+                                  Paris FC 
+                                         1 
+                       Goiás Esporte Clube 
+                                         1 
+          Universidad San Martín de Porres 
+                                         1 
+                          Columbus Crew SC 
+                                         1 
+       Club de Gimnasia y Esgrima La Plata 
+                                         1 
+                             AS Monaco U19 
+                                        10 
+                          FC Barcelona U18 
+                                        11 
+                           Caykur Rizespor 
+                                         1 
+                                  Cádiz CF 
+                                         1 
+                             Shanghai SIPG 
+                                         1 
+                         FK Mlada Boleslav 
+                                         1 
+               Tiburones Rojos de Veracruz 
+                                         1 
+                       Sheffield Wednesday 
+                                         1 
+                                 CS Emelec 
+                                         1 
+                       Al-Wasl Sports Club 
+                                         1 
+                             Al-Taawoun FC 
+                                         1 
+                             Chievo Verona 
+                                         1 
+                                   FC Thun 
+                                         1 
+                            Sporting Gijón 
+                                         1 
+                          Monarcas Morelia 
+                                         1 
+                  West Bromwich Albion U18 
+                                         1 
+                             Coventry City 
+                                         1 
+                               SSD Palermo 
+                                         1 
+                       Club Atlético Tigre 
+                                         1 
+                              ADO Den Haag 
+                                         1 
+                 Shaanxi Chang&#39;an Athletic 
+                                        12 
+                             Portsmouth FC 
+                                         1 
+                               Besiktas JK 
+                                         1 
+                         SG Dynamo Dresden 
+                                         1 
+                           Al-Hilal Riyadh 
+                                         1 
+                           Esperance Tunis 
+                                         1 
+        Club Atlético Newell&#39;s Old Boys II 
+                                         1 
+                         Pescara Primavera 
+                                         1 
+                            Audax Italiano 
+                                         1 
+                    FC Nordsjaelland Youth 
+                                        13 
+                      Atlético de Madrid B 
+                                         1 
+                             SV Sandhausen 
+                                         1 
+                      Karpaty Lviv (-2021) 
+                                         1 
+                               FK Jablonec 
+                                         1 
+                       SSV Jahn Regensburg 
+                                         1 
+                            Sunderland AFC 
+                                         1 
+                           Parma Primavera 
+                                         1 
+                          Waasland-Beveren 
+                                         1 
+                          Empoli Primavera 
+                                         1 
+                           Lyngby BK Youth 
+                                         1 
+                           Albirex Niigata 
+                                         1 
+                    Montevideo City Torque 
+                                         1 
+                   Tianjin Tianhai (-2019) 
+                                         1 
+                   Chongqing Dangdai Lifan 
+                                         1 
+                       Hebei China Fortune 
+                                         1 
+                 Shanghai Shenhua Reserves 
+                                         1 
+               Guangzhou Evergrande Taobao 
+                                         1 
+                         Bologna Primavera 
+                                         1 
+                           Changchun Yatai 
+                                         1 
+                              Tianjin Teda 
+                                         1 
+             Tianjin Jinmen Tiger Reserves 
+                                        14 
+                         AC Perugia Calcio 
+                                         1 
+                            NK Domzale U17 
+                                         1 
+                        Vitória Setúbal FC 
+                                         1 
+                                Córdoba CF 
+                                         1 
+                             Zorya Lugansk 
+                                         1 
+                            Arsenal FC U23 
+                                         1 
+                         CD Atlético Huila 
+                                         1 
+                                 KAS Eupen 
+                                         1 
+                            Osmanlispor FK 
+                                         1 
+                    Criciúma Esporte Clube 
+                                         1 
+                           Sporting CP U23 
+                                         1 
+                       AD São Caetano (SP) 
+                                         1 
+                             Dinamo Moscow 
+                                         1 
+                         Al-Faisaly Harmah 
+                                         1 
+                          Rotherham United 
+                                         1 
+                      Bnei Yehuda Tel Aviv 
+                                         1 
+                              CD Palestino 
+                                         1 
+                               Shenzhen FC 
+                                         1 
+                       Excelsior Rotterdam 
+                                         1 
+                         IF Brommapojkarna 
+                                         1 
+                         Hapoel Beer Sheva 
+                                         1 
+                             Team Vaud U18 
+                                         1 
+                              CD O&#39;Higgins 
+                                         1 
+                               Gamba Osaka 
+                                         1 
+                                Venezia FC 
+                                         1 
+                           CD 1º de Agosto 
+                                        15 
+                              Júbilo Iwata 
+                                         1 
+                         PSV Eindhoven U21 
+                                         1 
+                         Albacete Balompié 
+                                         1 
+                            Leixões SC U23 
+                                         1 
+                               Red Star FC 
+                                         1 
+                                CD Tondela 
+                                         1 
+                    Eintracht Braunschweig 
+                                         1 
+                                Ismaily SC 
+                                         1 
+                              Al-Shorta SC 
+                                         1 
+                             Al-Nassr Riad 
+                                         1 
+                            Virtus Entella 
+                                         1 
+                      Cimarrones de Sonora 
+                                         1 
+                         Guayaquil City FC 
+                                         1 
+                           Shimizu S-Pulse 
+                                         1 
+                    Club Atlético Aldosivi 
+                                         1 
+                    Club Atlético Belgrano 
+                                         1 
+                 Zhejiang Energy Greentown 
+                                         1 
+                             Fulham FC U18 
+                                         1 
+                           Athletic Bilbao 
+                                         1 
+                            Jiangsu Suning 
+                                         1 
+                                US Palermo 
+                                         1 
+                               Millwall FC 
+                                         1 
+                             Ascoli Calcio 
+                                         1 
+                          FC Ingolstadt 04 
+                                         1 
+                               SK Dnipro-1 
+                                         1 
+                    Renaissance de Berkane 
+                                         1 
+                              Al-Rayyan SC 
+                                         1 
+                              Gyeongnam FC 
+                                         1 
+                          Deportivo Toluca 
+                                         1 
+                           CA Boston River 
+                                         1 
+                                  Cracovia 
+                                         1 
+                                 Al-Ain FC 
+                                         1 
+                                   Real SC 
+                                         1 
+                       Sampdoria Primavera 
+                                         1 
+                               Wisla Plock 
+                                         1 
+                           Kashima Antlers 
+                                         1 
+                    SpVgg Unterhaching U19 
+                                         1 
+                      Mamelodi Sundowns FC 
+                                         1 
+                             Huachipato FC 
+                                         1 
+                             Tema Youth SC 
+                                         1 
+                            Chelsea FC U18 
+                                         1 
+                    Extremadura UD (-2022) 
+                                         1 
+                     Esporte Clube Vitória 
+                                         1 
+                         Venezia Primavera 
+                                        16 
+                          Guizhou Hengfeng 
+                                         1 
+                            Masr El Makasa 
+                                         1 
+                             Beijing Renhe 
+                                         1 
+         Shijiazhuang Ever Bright Reserves 
+                                         1 
+                               Liaoning FC 
+                                         1 
+                           Montreal Impact 
+                                         1 
+                          Shanghai Shenxin 
+                                         1 
+                     Arminia Bielefeld U19 
+                                         1 
+                          Sportivo Luqueño 
+                                         1 
+                              Istanbulspor 
+                                         1 
+                                   CD Lugo 
+                                         1 
+                             Yanbian Funde 
+                                         1 
+                      Panathinaikos Athens 
+                                         1 
+                                 Sydney FC 
+                                         1 
+                     SCG Muangthong United 
+                                         1 
+                  Slaven Belupo Koprivnica 
+                                         1 
+                     Tottenham Hotspur U23 
+                                         1 
+                               FK Vozdovac 
+                                         1 
+                    Defensor Sporting Club 
+                                         1 
+                    Independiente Medellín 
+                                         1 
+                        Regal Bukarest U19 
+                                        17 
+                              MSV Duisburg 
+                                         1 
+                             FC Nantes U17 
+                                         1 
+                          RCD Mallorca U19 
+                                         1 
+                          Sevilla Atlético 
+                                         1 
+Asociación Atlética Argentinos Juniors U20 
+                                         1 
+                                AS Trencin 
+                                         1 
+                               Once Caldas 
+                                         1 
+                     NK Olimpija Ljubljana 
+                                         1 
+                           Maccabi Netanya 
+                                         1 
+                    Club Nacional Asunción 
+                                         1 
+                              Henan Jianye 
+                                         1 
+                             Maccabi Haifa 
+                                         1 
+                    Independiente Santa Fe 
+                                         1 
+                               Akhisarspor 
+                                         1 
+                              Stevenage FC 
+                                         1 
+                          Spezia Primavera 
+                                         1 
+                       Ironi Kiryat Shmona 
+                                         1 
+                  Etoile Sportive du Sahel 
+                                        18 
+                                 FUS Rabat 
+                                         1 
+                       Yokohama F. Marinos 
+                                         1 
+                             Ulsan Hyundai 
+                                         1 
+                           Daejeon Citizen 
+                                         1 
+                              1.FK Pribram 
+                                         1 
+                              CA Rentistas 
+                                         1 
+                            Hapoel Raanana 
+                                         1 
+                            Genoa Under 17 
+                                         1 
+                       Club Africain Tunis 
+                                         1 
+                  Royal Excel Mouscron U21 
+                                         1 
+                       Jönköpings Södra IF 
+                                        19 
+                             Wadi Degla FC 
+                                         1 
+                           CF Monterrey II 
+                                         1 
+                                  Enppi SC 
+                                         1 
+                        Lokomotiv Tashkent 
+                                        20 
+                              BATE Borisov 
+                                         1 
+                         Melbourne City FC 
+                                         1 
+                      FK Napredak Krusevac 
+                                         1 
+                  CA Central Córdoba (SdE) 
+                                         1 
+                                 Qadsia SC 
+                                         1 
+                              Hapoel Haifa 
+                                         1 
+                             Dinamo Batumi 
+                                         1 
+                           Sporting CP U19 
+                                         1 
+                     Al-Wahda FC Abu Dhabi 
+                                         1 
+                               Al-Arabi SC 
+                                         1 
+                                 Austin FC 
+                                         1 
+                         Wuhan Three Towns 
+                                         1 
+                           Adana Demirspor 
+                                         1 
+                            Vitesse Arnhem 
+                                         1 
+                                  FC Sochi 
+                                         1 
+                                 Lommel SK 
+                                         1 
+                            Nagoya Grampus 
+                                         1 
+                      San Jose Earthquakes 
+                                         1 
+                                FC Baniyas 
+                                         1 
+                                  AC Monza 
+                                         1 
+                   Hellas Verona Primavera 
+                                         1 
+                               CF Montréal 
+                                         1 
+                       Al-Ittihad Kalba SC 
+                                         1 
+                 Cuiabá Esporte Clube (MT) 
+                                         1 
+                        Pisa Sporting Club 
+                                         1 
+                               Al-Hazem SC 
+                                         1 
+                   FC Shabab Al-Ahli Dubai 
+                                         1 
+                                 FC Juárez 
+                                         1 
+                              US Cremonese 
+                                         1 
+                                   Al-Raed 
+                                         1 
+                          Metalist Kharkiv 
+                                         1 
+                                 FK Khimki 
+                                         1 
+                               Al-Fayha FC 
+                                         1 
+                       Seattle Sounders FC 
+                                         1 
+                            Brentford FC B 
+                                         1 
+                      Olympiacos Piraeus B 
+                                         2 
+                        Puskás Akadémia FC 
+                                         1 
+                             Slask Wroclaw 
+                                         1 
+                            Tobol Kostanay 
+                                         3 
+                      Tianjin Jinmen Tiger 
+                                         1 
+                                Al-Sadd SC 
+                                         1 
+                     Manchester United U18 
+                                         4 
+                          Liverpool FC U18 
+                                         5 
+                            MKE Ankaragücü 
+                                         1 
+                              UD Almería B 
+                                         1 
+                                    Al-Ain 
+                                         1 
+                           Al-Nasr (Dubai) 
+                                         1 
+                      Shenzhen FC Reserves 
+                                         1 
+                               Al-Batin FC 
+                                         1 
+                              AC Pisa 1909 
+                                         1 
+                    Henan Songshan Longmen 
+                                         1 
+                                  Damac FC 
+                                         1 
+                                  Ajax U18 
+                                         6 
+                           Villarreal CF B 
+                                         1 
+                 AKA Red Bull Salzburg U18 
+                                         7 
+                         Lion City Sailors 
+                                         1 
+                               Zhejiang FC 
+                                         1 
+                          Tokushima Vortis 
+                                         1 
+ Asociación Atlética Argentinos Juniors II 
+                                         1 
+                          Leeds United U23 
+                                         8 
+                      Fiorentina Primavera 
+                                         1 
+                          Torino Primavera 
+                                         9 
+                                Al-Khor SC 
+                                         1 
+                             Al-Gharafa SC 
+                                         1 
+                                  FC Emmen 
+                                         1 
+                             Kairat Almaty 
+                                         1 
+                                Samsunspor 
+                                         1 
+                          Dundee United FC 
+                                         1 
+                           Real Sociedad B 
+                                        10 
+                                 Lazio U19 
+                                        11 
+                   Shandong Luneng Taishan 
+                                         1 
+                                  Qatar SC 
+                                         1 
+                  Shijiazhuang Ever Bright 
+                                        12 
+                        Ajax Amsterdam U17 
+                                        13 
+                          Spartak 2 Moscow 
+                                         1 
+                       West Ham United U23 
+                                         1 
+               Dalian Professional Reserve 
+                                         1 
+                    Beijing Guoan Reserves 
+                                        14 
+                                Wuhan Zall 
+                                         1 
+                              Gaziantep FK 
+                                         1 
+                     Inter Milan Primavera 
+                                         1 
+                              LOSC Lille B 
+                                        15 
+                            Al-Wahda Mekka 
+                                         1 
+                      GNK Dinamo Zagreb II 
+                                         1 
+                        Sassuolo Primavera 
+                                         1 
+                             Dalian Yifang 
+                                         1 
+                             Guangzhou R&amp;F 
+                                         1 
+                           Genoa Primavera 
+                                        16 
+                              Chicago Fire 
+                                         1 
+                        Zhejiang Greentown 
+                                         1 
+                         Juventus Under 17 
+                                        17 
+                   Manchester United Youth 
+                                         1 
+                               MOL Vidi FC 
+                                         1 
+           Büyüksehir Belediye Erzurumspor 
+                                         1 
+                                Ajman Club 
+                                         1 
+                               Arka Gdynia 
+                                         1 
+                                 Kuwait SC 
+                                        18 
+                Brighton &amp; Hove Albion U23 
+                                        19 
+                               CD Nacional 
+                                        20 
+                      KSC Lokeren (- 2020) 
+                                         1 
+                           SV Darmstadt 98 
+                                         1 </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/components.html'>components</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>csize</span>
+</code></pre>
+</div>
+<pre><code> [1] 829   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2
+[17]   2   2   2   2</code></pre>
+</div>
+<p>There are 20 components in this network. The largest component consists of 829 nodes and the rest nineteen components comprise of two nodes each.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>gd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/distances.html'>all_shortest_paths</a></span><span class='op'>(</span><span class='va'>ig</span>,<span class='st'>"Chelsea FC"</span>,<span class='st'>"FC Barcelona"</span>, weights <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
+<span class='va'>gd</span><span class='op'>$</span><span class='va'>nrgeo</span><span class='co'># geodesic distance. </span>
+</code></pre>
+</div>
+<pre><code>  [1]  3  1  0  6  2  1  7  4  3  5  1 20 14  1  1  2  2  3  2  4  3
+ [22]  1  1  5  2  2  7 28  1  2  1  8  0  0  3  0  5  0  2  0  1  3
+ [43]  1 12  1  3  0  0  1  5  1  1  8  6  1  4  0  0  0  9  2  0  0
+ [64]  0  9  1  2  1  0  0  1  6  0  6 13  1  4 11  2  2  0  2  1  4
+ [85]  1  3  0  0  0  1  0  2  0  0 11  0  1  1  1  0  2  1  6  1  0
+[106]  0  4  0  8  8  1  2  0  0  1  2  1  2  0  0  0  0  1  0  8  4
+[127]  0  4  2  3  1  0  0  4  0  1  0  0  0  0  0  4  1  4  0  2  2
+[148] 19  0  0  1  0  0  0 25  0  0  5 12  1  0  1  0  0  1  0  0  0
+[169]  0  1  0  0  0  0  0  0  3  1  0  2  2  0  1  0  0  0  4  0  1
+[190]  1  0  4  0  0  0  0  0  3  1  5  0  1 11  1  1  0  2  0  0  0
+[211]  0  0  2  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0
+[232]  0  1  0  0  0  0  0  0  0  1  1  1  0  0  0  0  0  0  4  8  0
+[253]  1  0  0  0  0  0  0  0  3  1  0  0  0  0  0  0  0  0  0  0  0
+[274]  4  0  0  0  0  0  0  0  0  2  0  0  0  0  0  0  0  0  0  0  0
+[295]  0  0  0  0  0  0  2  0  0  0  0  0  0  0  1  0  0  0  0  0  2
+[316]  0  0  0  0  0  0  0  0  1  0  1  0  0  0  0  0  0  0  0  0  0
+[337]  2  0  0  0  1  0  0  0  3  0  0  0  0  0  0  0  0  0  0  0  0
+[358]  0  0  0  0  4  2  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[379]  8  0  0  0  0  1  0  0  0  4  0  0  0  0  0  0  0  0  0  1  0
+[400]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[421]  0  0  0  0  1  0  1  4  1  1  1  0  0  0  0  1  0  0  0  7  0
+[442]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0
+[463]  0  0  3  0  0  0  0  0  0  0  0  2  0  0  0  0  0  0  0  0  0
+[484]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  2  0
+[505]  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0
+[526]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  2  0  1  0  0
+[547]  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0
+[568]  0  0  0  0  0  0  0  0  0  0  7  0  2  1  1  0  0  0  0  0  0
+[589]  0  0  0  0  0  0  0  1  0  0  0  0  0  0  4  0  0  0  0  0  0
+[610]  0  0  0  0  1  0  2  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[631]  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0
+[652]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0
+[673]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  2  1  1  0  0  0  0
+[694]  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[715]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[736]  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0
+[757]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[778]  0  0  0  0  2  0  0  0  0  1  0  0  1  0  0  0  0  1  0  0  0
+[799]  1  0  0  0  0  0  0  1  0  0  0  0  0  0  1  0  0  0  0  0  0
+[820]  0  0  0  0  0  0  0  0  0  0  2  0  0  0  0  0  0  0  0  0  0
+[841]  1  0  0  0  0  0  0  0  1  0  0  1  1  0  0  0  0  0  0  0  0
+[862]  0  0  0  0  0  0</code></pre>
+</div>
+<p><strong>Add further Interpretation</strong></p>
+<h2 id="testing-different-layouts-for-network-visualizations">Testing Different Layouts for Network Visualizations</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ig</span>, vertex.label.color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-20-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ig</span>, <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/layout_with_graphopt.html'>layout_with_graphopt</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-21-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/layout_nicely.html'>layout_nicely</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
+<span class='va'>w1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/E.html'>E</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>names</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ig</span>, 
+        vertex.label.color <span class='op'>=</span> <span class='st'>"black"</span>, 
+        edge.color <span class='op'>=</span> <span class='st'>'black'</span>,
+        edge.width <span class='op'>=</span> <span class='va'>w1</span>,
+        layout <span class='op'>=</span> <span class='va'>m1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="exploring-european-football-transfer-networks_files/figure-html5/unnamed-chunk-22-1.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
