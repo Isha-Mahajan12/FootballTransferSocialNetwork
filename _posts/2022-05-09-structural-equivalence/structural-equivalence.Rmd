@@ -3,7 +3,7 @@ title: "Structural Equivalence and Blockmodels"
 description: |
   Denodgrams and blocks
 author:
-  - name: Isha Akshita Mahajan, Ankit Kumar
+  - name: Isha Mahajan, Ankit Kumar
     affiliation: UMass Amherst
 date: 2022-05-09
 output:
@@ -98,7 +98,7 @@ network.exp.19
 ```{r}
 matrix.exp.19 <- as.matrix(as_adjacency_matrix(ig.exp.19, attr = "weight"))
 transfer.se.exp<-equiv.clust(matrix.exp.19, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
-plot(transfer.se.exp,labels=transfer.se.exp$glabels)
+plot(transfer.se.exp,labels=transfer.se.exp$glabels, cex = 0.2, main="Cluster Dendrogram Expensive 2019 Transfers-  Hamming (Average)")
 rect.hclust(transfer.se.exp$cluster, k = 3) 
 ```
 
@@ -126,7 +126,7 @@ network.med.19
 ```{r}
 matrix.med.19 <- as.matrix(as_adjacency_matrix(ig.med.19, attr = "weight"))
 transfer.se.med<-equiv.clust(matrix.med.19, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
-plot(transfer.se.med,labels=transfer.se.med$glabels)
+plot(transfer.se.med,labels=transfer.se.med$glabels, cex = 0.2, main="Cluster Dendrogram Medium 2019 Transfers - Hamming (Average)")
 rect.hclust(transfer.se.med$cluster, k = 3) 
 ```
 
@@ -154,7 +154,7 @@ network.sm.19
 ```{r}
 matrix.sm.19 <- as.matrix(as_adjacency_matrix(ig.sm.19, attr = "weight"))
 transfer.se.sm<-equiv.clust(matrix.sm.19, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
-plot(transfer.se.sm,labels=transfer.se.sm$glabels)
+plot(transfer.se.sm,labels=transfer.se.sm$glabels,cex = 0.2, main="Cluster Dendrogram Small 2019 Transfers - Hamming (Average)")
 rect.hclust(transfer.se.sm$cluster, k = 3) 
 ```
 
