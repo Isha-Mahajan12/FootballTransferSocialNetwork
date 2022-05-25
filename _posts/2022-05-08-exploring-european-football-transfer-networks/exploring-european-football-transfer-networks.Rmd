@@ -44,7 +44,6 @@ data$fee <- as.numeric(data$fee)
 data <- data %>% 
 filter(fee != is.na(fee))
 any(is.na(data$fee))
-head(data)
 kable(head(data))
 ```
 
@@ -75,11 +74,6 @@ network
 ```{r}
 #plot intergraph object
 plot(network)
-```
-
-```{r}
-#plot igraph object 
-plot(ig)
 ```
 
 ## Exploring Network Structures 
@@ -172,41 +166,4 @@ igraph::components(ig)$csize
 ```
 
 There are 20 components in this network. The largest component consists of 829 nodes and the rest nineteen components comprise of two nodes each.
-
-
-## Network Visualizations - an attempt
-
-```{r}
-plot(ig, vertex.label.color = "black")
-```
-
-```{r}
-m1 <- layout_nicely(ig)
-w1 <- E(ig)$names
-plot(ig, 
-        vertex.label.color = "black", 
-        edge.color = 'black',
-        edge.width = w1,
-        layout = m1)
-```
-
-
-```{r}
-library(ggraph)
-ggraph(ig, layout = "with_kk" )+
-  geom_edge_link(aes(alpha = weight))+
-  geom_node_point(aes(size = strength(ig)))
-```
-
-
-```{r}
-library(visNetwork)
-data_2 <- toVisNetworkData(ig)
-
-visNetwork(nodes = data_2$nodes, edges = data_2$edges, width = 300, height = 300) %>% 
-visIgraphLayout(layout = "layout_with_kk") %>% 
-visOptions(highlightNearest = TRUE) %>% 
-visOptions(nodesIdSelection = TRUE) %>% 
-visOptions(selectedBy = "group")
-```
 

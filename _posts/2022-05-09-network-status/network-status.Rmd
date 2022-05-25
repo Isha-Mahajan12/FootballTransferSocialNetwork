@@ -78,8 +78,8 @@ transfer.nodes<-transfer.nodes %>%
 temp <- igraph::centr_eigen(ig,directed=T)
 transfer.nodes$eigen <- temp$vector
 #arrange descending and return top 5 nodes
-arrange(transfer.nodes, desc(eigen)) %>%
-  slice(1:5)
+h <- arrange(transfer.nodes, desc(eigen))
+kable(head(h))
 ```
 
 ## Derived and Reflected Centrality
@@ -114,12 +114,14 @@ filter(transfer.nodes,name%in%c("Chelsea FC","FC Barcelona"))
 ```
 
 ```{r}
+library(ggthemes)
 transfer.nodes%>%
   select(-name) %>% 
   gather() %>% 
   ggplot(aes(value)) +
     geom_histogram() +
-    facet_wrap(~key, scales = "free")
+    facet_wrap(~key, scales = "free")+
+    theme_minimal()
 ```
 
 ```{r}
@@ -164,7 +166,7 @@ transfer.nodes$authority <- authority_score(ig)$vector
 
 a <- transfer.nodes %>% 
   arrange(desc(authority))
-head(a)
+kable(head(a))
 ```
 
 ## Hubs 
@@ -173,7 +175,7 @@ Many Ties to Peripheral Actors
 
 ```{r}
 transfer.nodes$hub_score <- hub_score(ig)$vector
-head(transfer.nodes)
+kable(head(transfer.nodes))
 ```
 
 Consider Real Madrid a hub given that their hub_score is 1. We can confirm this by looking at higher eigenvector derived centrality and lower reflected centrality. 
@@ -186,7 +188,7 @@ A few ties to central actors =
 bridges(ig)
 bridges <- transfer.nodes %>% 
   filter(name == "Maccabi Haifa")
-head(bridges)
+kable(head(bridges))
 ```
 
 We test the understanding whether these teams actually serve as bridges in the network. By looking at the derived and reflected centrality scores, we see that the the reflected centrality for Maccabi Haifa is low while the derived centrality is high, thereby making it a bridge. 
@@ -218,7 +220,7 @@ mutate(broker.tot = tempo$t, # AS ROMA, AS Monaco, US Sassuolo, Genoa CFC, Atlan
 broker <- transfer.nodes %>% 
   arrange(desc(broker.tot)) %>% 
   slice(1:10)
-kable(broker)
+kable(head(broker))
 ```
 
 AS Roma plays a role of coordinator in the network which means that many ties go to and from AS Roma. This is in alignment with the degrees of the network as we saw earlier and the Eigenvector centrality which was also the highest for AS Roma in the network. 

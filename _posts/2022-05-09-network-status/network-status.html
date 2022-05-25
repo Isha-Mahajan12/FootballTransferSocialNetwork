@@ -1492,16 +1492,155 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'>igraph</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/centr_eigen.html'>centr_eigen</a></span><span class='op'>(</span><span class='va'>ig</span>,directed<span class='op'>=</span><span class='cn'>T</span><span class='op'>)</span>
 <span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>eigen</span> <span class='op'>&lt;-</span> <span class='va'>temp</span><span class='op'>$</span><span class='va'>vector</span>
 <span class='co'>#arrange descending and return top 5 nodes</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>eigen</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
+<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>eigen</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                         name degree indegree outdegree     eigen
-AS Roma               AS Roma     78       39        39 1.0000000
-Genoa CFC           Genoa CFC     73       46        27 0.9612356
-Inter Milan       Inter Milan     68       32        36 0.8787351
-ACF Fiorentina ACF Fiorentina     66       38        28 0.7988873
-US Sassuolo       US Sassuolo     70       35        35 0.7789739</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+degree
+</th>
+<th style="text-align:right;">
+indegree
+</th>
+<th style="text-align:right;">
+outdegree
+</th>
+<th style="text-align:right;">
+eigen
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AS Roma
+</td>
+<td style="text-align:left;">
+AS Roma
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Genoa CFC
+</td>
+<td style="text-align:left;">
+Genoa CFC
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.9612356
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Inter Milan
+</td>
+<td style="text-align:left;">
+Inter Milan
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0.8787351
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ACF Fiorentina
+</td>
+<td style="text-align:left;">
+ACF Fiorentina
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+0.7988873
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+US Sassuolo
+</td>
+<td style="text-align:left;">
+US Sassuolo
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+0.7789739
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AC Milan
+</td>
+<td style="text-align:left;">
+AC Milan
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+0.7611737
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <h2 id="derived-and-reflected-centrality">Derived and Reflected Centrality</h2>
 <p>We compute the derived and reflected Eigenvector centrality to better understand whether the influence is more observed in the neighborhood of the nodes or is it more observed on the strength of the node itself.</p>
@@ -1546,12 +1685,14 @@ Chelsea FC   0.2352494 0.05762098 0.7647506 0.1873148</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jrnold/ggthemes'>ggthemes</a></span><span class='op'>)</span>
+<span class='va'>transfer.nodes</span><span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>name</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>key</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>key</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span><span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="network-status_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
@@ -1630,60 +1771,623 @@ Hellas Verona      0.6415485   31489.50</code></pre>
 
 <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>authority</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                                   name degree indegree outdegree
-Juventus FC                 Juventus FC     68       27        41
-Chelsea FC                   Chelsea FC     48       12        36
-FC Barcelona               FC Barcelona     59       21        38
-Paris Saint-Germain Paris Saint-Germain     37       17        20
-Manchester United     Manchester United     29       15        14
-Atlético de Madrid   Atlético de Madrid     48       26        22
-                        eigen        rc   eigen.rc        dc
-Juventus FC         0.6770212 0.2150981 0.14562594 0.7849019
-Chelsea FC          0.2449357 0.2352494 0.05762098 0.7647506
-FC Barcelona        0.2704215 0.2218696 0.05999830 0.7781304
-Paris Saint-Germain 0.3905048 0.2504831 0.09781486 0.7495169
-Manchester United   0.1991738 0.2315679 0.04612226 0.7684321
-Atlético de Madrid  0.3488429 0.1835874 0.06404317 0.8164126
-                     eigen.dc betweeness constraint authority
-Juventus FC         0.5313953  20394.667 0.10137186 1.0000000
-Chelsea FC          0.1873148    470.000 0.10431587 0.7752539
-FC Barcelona        0.2104232   4600.083 0.09625534 0.7566895
-Paris Saint-Germain 0.2926900   1106.000 0.11810230 0.6491154
-Manchester United   0.1530515   1222.500 0.09350633 0.5523492
-Atlético de Madrid  0.2847998   1422.662 0.09802569 0.5507481</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+degree
+</th>
+<th style="text-align:right;">
+indegree
+</th>
+<th style="text-align:right;">
+outdegree
+</th>
+<th style="text-align:right;">
+eigen
+</th>
+<th style="text-align:right;">
+rc
+</th>
+<th style="text-align:right;">
+eigen.rc
+</th>
+<th style="text-align:right;">
+dc
+</th>
+<th style="text-align:right;">
+eigen.dc
+</th>
+<th style="text-align:right;">
+betweeness
+</th>
+<th style="text-align:right;">
+constraint
+</th>
+<th style="text-align:right;">
+authority
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Juventus FC
+</td>
+<td style="text-align:left;">
+Juventus FC
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+0.6770212
+</td>
+<td style="text-align:right;">
+0.2150981
+</td>
+<td style="text-align:right;">
+0.1456259
+</td>
+<td style="text-align:right;">
+0.7849019
+</td>
+<td style="text-align:right;">
+0.5313953
+</td>
+<td style="text-align:right;">
+20394.667
+</td>
+<td style="text-align:right;">
+0.1013719
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chelsea FC
+</td>
+<td style="text-align:left;">
+Chelsea FC
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0.2449357
+</td>
+<td style="text-align:right;">
+0.2352494
+</td>
+<td style="text-align:right;">
+0.0576210
+</td>
+<td style="text-align:right;">
+0.7647506
+</td>
+<td style="text-align:right;">
+0.1873148
+</td>
+<td style="text-align:right;">
+470.000
+</td>
+<td style="text-align:right;">
+0.1043159
+</td>
+<td style="text-align:right;">
+0.7752539
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FC Barcelona
+</td>
+<td style="text-align:left;">
+FC Barcelona
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+0.2704215
+</td>
+<td style="text-align:right;">
+0.2218696
+</td>
+<td style="text-align:right;">
+0.0599983
+</td>
+<td style="text-align:right;">
+0.7781304
+</td>
+<td style="text-align:right;">
+0.2104232
+</td>
+<td style="text-align:right;">
+4600.083
+</td>
+<td style="text-align:right;">
+0.0962553
+</td>
+<td style="text-align:right;">
+0.7566895
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paris Saint-Germain
+</td>
+<td style="text-align:left;">
+Paris Saint-Germain
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+0.3905048
+</td>
+<td style="text-align:right;">
+0.2504831
+</td>
+<td style="text-align:right;">
+0.0978149
+</td>
+<td style="text-align:right;">
+0.7495169
+</td>
+<td style="text-align:right;">
+0.2926900
+</td>
+<td style="text-align:right;">
+1106.000
+</td>
+<td style="text-align:right;">
+0.1181023
+</td>
+<td style="text-align:right;">
+0.6491154
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Manchester United
+</td>
+<td style="text-align:left;">
+Manchester United
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0.1991738
+</td>
+<td style="text-align:right;">
+0.2315679
+</td>
+<td style="text-align:right;">
+0.0461223
+</td>
+<td style="text-align:right;">
+0.7684321
+</td>
+<td style="text-align:right;">
+0.1530515
+</td>
+<td style="text-align:right;">
+1222.500
+</td>
+<td style="text-align:right;">
+0.0935063
+</td>
+<td style="text-align:right;">
+0.5523492
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Atlético de Madrid
+</td>
+<td style="text-align:left;">
+Atlético de Madrid
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+0.3488429
+</td>
+<td style="text-align:right;">
+0.1835874
+</td>
+<td style="text-align:right;">
+0.0640432
+</td>
+<td style="text-align:right;">
+0.8164126
+</td>
+<td style="text-align:right;">
+0.2847998
+</td>
+<td style="text-align:right;">
+1422.662
+</td>
+<td style="text-align:right;">
+0.0980257
+</td>
+<td style="text-align:right;">
+0.5507481
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <h2 id="hubs">Hubs</h2>
 <p>Many Ties to Peripheral Actors</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transfer.nodes</span><span class='op'>$</span><span class='va'>hub_score</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/hub_score.html'>hub_score</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span><span class='op'>$</span><span class='va'>vector</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>transfer.nodes</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                               name degree indegree outdegree
-Aston Villa             Aston Villa     35       27         8
-Inter Milan             Inter Milan     68       32        36
-Borussia Dortmund Borussia Dortmund     45       18        27
-ACF Fiorentina       ACF Fiorentina     66       38        28
-Real Madrid             Real Madrid     46       17        29
-RB Leipzig               RB Leipzig     44       26        18
-                      eigen        rc   eigen.rc        dc  eigen.dc
-Aston Villa       0.2139009 0.1837553 0.03930541 0.8162447 0.1745954
-Inter Milan       0.8787351 0.2193920 0.19278741 0.7806080 0.6859477
-Borussia Dortmund 0.2370659 0.1480322 0.03509339 0.8519678 0.2019725
-ACF Fiorentina    0.7988873 0.1174342 0.09381665 0.8825658 0.7050706
-Real Madrid       0.2296944 0.2975292 0.06834078 0.7024708 0.1613536
-RB Leipzig        0.3082591 0.1717242 0.05293556 0.8282758 0.2553235
-                  betweeness constraint  authority hub_score
-Aston Villa          788.000 0.11333984 0.11093521 0.2347654
-Inter Milan         2799.590 0.09623411 0.26367856 0.7339420
-Borussia Dortmund   2073.000 0.06401961 0.14776045 0.5191494
-ACF Fiorentina     31709.998 0.11085545 0.06147522 0.4296561
-Real Madrid         4185.762 0.10787227 0.39259852 1.0000000
-RB Leipzig          2936.417 0.09094430 0.10029228 0.3521672</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+degree
+</th>
+<th style="text-align:right;">
+indegree
+</th>
+<th style="text-align:right;">
+outdegree
+</th>
+<th style="text-align:right;">
+eigen
+</th>
+<th style="text-align:right;">
+rc
+</th>
+<th style="text-align:right;">
+eigen.rc
+</th>
+<th style="text-align:right;">
+dc
+</th>
+<th style="text-align:right;">
+eigen.dc
+</th>
+<th style="text-align:right;">
+betweeness
+</th>
+<th style="text-align:right;">
+constraint
+</th>
+<th style="text-align:right;">
+authority
+</th>
+<th style="text-align:right;">
+hub_score
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Aston Villa
+</td>
+<td style="text-align:left;">
+Aston Villa
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.2139009
+</td>
+<td style="text-align:right;">
+0.1837553
+</td>
+<td style="text-align:right;">
+0.0393054
+</td>
+<td style="text-align:right;">
+0.8162447
+</td>
+<td style="text-align:right;">
+0.1745954
+</td>
+<td style="text-align:right;">
+788.000
+</td>
+<td style="text-align:right;">
+0.1133398
+</td>
+<td style="text-align:right;">
+0.1109352
+</td>
+<td style="text-align:right;">
+0.2347654
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Inter Milan
+</td>
+<td style="text-align:left;">
+Inter Milan
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0.8787351
+</td>
+<td style="text-align:right;">
+0.2193920
+</td>
+<td style="text-align:right;">
+0.1927874
+</td>
+<td style="text-align:right;">
+0.7806080
+</td>
+<td style="text-align:right;">
+0.6859477
+</td>
+<td style="text-align:right;">
+2799.590
+</td>
+<td style="text-align:right;">
+0.0962341
+</td>
+<td style="text-align:right;">
+0.2636786
+</td>
+<td style="text-align:right;">
+0.7339420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Borussia Dortmund
+</td>
+<td style="text-align:left;">
+Borussia Dortmund
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.2370659
+</td>
+<td style="text-align:right;">
+0.1480322
+</td>
+<td style="text-align:right;">
+0.0350934
+</td>
+<td style="text-align:right;">
+0.8519678
+</td>
+<td style="text-align:right;">
+0.2019725
+</td>
+<td style="text-align:right;">
+2073.000
+</td>
+<td style="text-align:right;">
+0.0640196
+</td>
+<td style="text-align:right;">
+0.1477605
+</td>
+<td style="text-align:right;">
+0.5191494
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ACF Fiorentina
+</td>
+<td style="text-align:left;">
+ACF Fiorentina
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+0.7988873
+</td>
+<td style="text-align:right;">
+0.1174342
+</td>
+<td style="text-align:right;">
+0.0938166
+</td>
+<td style="text-align:right;">
+0.8825658
+</td>
+<td style="text-align:right;">
+0.7050706
+</td>
+<td style="text-align:right;">
+31709.998
+</td>
+<td style="text-align:right;">
+0.1108554
+</td>
+<td style="text-align:right;">
+0.0614752
+</td>
+<td style="text-align:right;">
+0.4296561
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Real Madrid
+</td>
+<td style="text-align:left;">
+Real Madrid
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+0.2296944
+</td>
+<td style="text-align:right;">
+0.2975292
+</td>
+<td style="text-align:right;">
+0.0683408
+</td>
+<td style="text-align:right;">
+0.7024708
+</td>
+<td style="text-align:right;">
+0.1613536
+</td>
+<td style="text-align:right;">
+4185.762
+</td>
+<td style="text-align:right;">
+0.1078723
+</td>
+<td style="text-align:right;">
+0.3925985
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RB Leipzig
+</td>
+<td style="text-align:left;">
+RB Leipzig
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+0.3082591
+</td>
+<td style="text-align:right;">
+0.1717242
+</td>
+<td style="text-align:right;">
+0.0529356
+</td>
+<td style="text-align:right;">
+0.8282758
+</td>
+<td style="text-align:right;">
+0.2553235
+</td>
+<td style="text-align:right;">
+2936.417
+</td>
+<td style="text-align:right;">
+0.0909443
+</td>
+<td style="text-align:right;">
+0.1002923
+</td>
+<td style="text-align:right;">
+0.3521672
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <p>Consider Real Madrid a hub given that their hub_score is 1. We can confirm this by looking at higher eigenvector derived centrality and lower reflected centrality.</p>
 <h2 id="bridges">Bridges</h2>
@@ -1693,7 +2397,7 @@ RB Leipzig          2936.417 0.09094430 0.10029228 0.3521672</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/articulation_points.html'>bridges</a></span><span class='op'>(</span><span class='va'>ig</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>+ 238/4386 edges from 898a914 (vertex names):
+<pre><code>+ 238/4386 edges from a6f55a8 (vertex names):
  [1] Maccabi Haifa      -&gt;Levski Sofia           
  [2] SC Farense         -&gt;Vancouver Whitecaps FC 
  [3] Moreirense FC      -&gt;Al-Batin FC            
@@ -1708,15 +2412,102 @@ RB Leipzig          2936.417 0.09094430 0.10029228 0.3521672</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bridges</span> <span class='op'>&lt;-</span> <span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>name</span> <span class='op'>==</span> <span class='st'>"Maccabi Haifa"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bridges</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bridges</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                       name degree indegree outdegree eigen rc
-Maccabi Haifa Maccabi Haifa      1        0         1     0  0
-              eigen.rc dc eigen.dc betweeness constraint authority
-Maccabi Haifa        0  1        0          0          1         0
-              hub_score
-Maccabi Haifa         0</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+degree
+</th>
+<th style="text-align:right;">
+indegree
+</th>
+<th style="text-align:right;">
+outdegree
+</th>
+<th style="text-align:right;">
+eigen
+</th>
+<th style="text-align:right;">
+rc
+</th>
+<th style="text-align:right;">
+eigen.rc
+</th>
+<th style="text-align:right;">
+dc
+</th>
+<th style="text-align:right;">
+eigen.dc
+</th>
+<th style="text-align:right;">
+betweeness
+</th>
+<th style="text-align:right;">
+constraint
+</th>
+<th style="text-align:right;">
+authority
+</th>
+<th style="text-align:right;">
+hub_score
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Maccabi Haifa
+</td>
+<td style="text-align:left;">
+Maccabi Haifa
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <p>We test the understanding whether these teams actually serve as bridges in the network. By looking at the derived and reflected centrality scores, we see that the the reflected centrality for Maccabi Haifa is low while the derived centrality is high, thereby making it a bridge.</p>
 <h2 id="correlations-for-centrality-measures">Correlations for Centrality Measures</h2>
@@ -1781,7 +2572,7 @@ RB Leipzig        410   0    0    0   0 410</code></pre>
 <span class='va'>broker</span> <span class='op'>&lt;-</span> <span class='va'>transfer.nodes</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>broker.tot</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>broker</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>broker</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <table>
@@ -1881,7 +2672,7 @@ AS Roma
 0.8869014
 </td>
 <td style="text-align:right;">
-20233.500
+20233.50
 </td>
 <td style="text-align:right;">
 0.0830009
@@ -1943,7 +2734,7 @@ AS Monaco
 0.3296040
 </td>
 <td style="text-align:right;">
-920.000
+920.00
 </td>
 <td style="text-align:right;">
 0.0822568
@@ -2005,7 +2796,7 @@ US Sassuolo
 0.7410205
 </td>
 <td style="text-align:right;">
-19581.790
+19581.79
 </td>
 <td style="text-align:right;">
 0.1146313
@@ -2067,7 +2858,7 @@ Genoa CFC
 0.8766619
 </td>
 <td style="text-align:right;">
-34603.483
+34603.48
 </td>
 <td style="text-align:right;">
 0.1803853
@@ -2129,7 +2920,7 @@ Atalanta BC
 0.6789275
 </td>
 <td style="text-align:right;">
-17953.233
+17953.23
 </td>
 <td style="text-align:right;">
 0.0997573
@@ -2191,7 +2982,7 @@ Inter Milan
 0.6859477
 </td>
 <td style="text-align:right;">
-2799.590
+2799.59
 </td>
 <td style="text-align:right;">
 0.0962341
@@ -2221,260 +3012,12 @@ Inter Milan
 0
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-SL Benfica
-</td>
-<td style="text-align:left;">
-SL Benfica
-</td>
-<td style="text-align:right;">
-63
-</td>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-38
-</td>
-<td style="text-align:right;">
-0.2308760
-</td>
-<td style="text-align:right;">
-0.0952775
-</td>
-<td style="text-align:right;">
-0.0219973
-</td>
-<td style="text-align:right;">
-0.9047225
-</td>
-<td style="text-align:right;">
-0.2088787
-</td>
-<td style="text-align:right;">
-9303.833
-</td>
-<td style="text-align:right;">
-0.0988418
-</td>
-<td style="text-align:right;">
-0.1211357
-</td>
-<td style="text-align:right;">
-0.5025727
-</td>
-<td style="text-align:right;">
-905
-</td>
-<td style="text-align:right;">
-905
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ACF Fiorentina
-</td>
-<td style="text-align:left;">
-ACF Fiorentina
-</td>
-<td style="text-align:right;">
-66
-</td>
-<td style="text-align:right;">
-38
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-0.7988873
-</td>
-<td style="text-align:right;">
-0.1174342
-</td>
-<td style="text-align:right;">
-0.0938166
-</td>
-<td style="text-align:right;">
-0.8825658
-</td>
-<td style="text-align:right;">
-0.7050706
-</td>
-<td style="text-align:right;">
-31709.998
-</td>
-<td style="text-align:right;">
-0.1108554
-</td>
-<td style="text-align:right;">
-0.0614752
-</td>
-<td style="text-align:right;">
-0.4296561
-</td>
-<td style="text-align:right;">
-897
-</td>
-<td style="text-align:right;">
-897
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sporting CP
-</td>
-<td style="text-align:left;">
-Sporting CP
-</td>
-<td style="text-align:right;">
-63
-</td>
-<td style="text-align:right;">
-24
-</td>
-<td style="text-align:right;">
-39
-</td>
-<td style="text-align:right;">
-0.2121757
-</td>
-<td style="text-align:right;">
-0.0853551
-</td>
-<td style="text-align:right;">
-0.0181103
-</td>
-<td style="text-align:right;">
-0.9146449
-</td>
-<td style="text-align:right;">
-0.1940654
-</td>
-<td style="text-align:right;">
-15777.081
-</td>
-<td style="text-align:right;">
-0.0750053
-</td>
-<td style="text-align:right;">
-0.0362787
-</td>
-<td style="text-align:right;">
-0.2564397
-</td>
-<td style="text-align:right;">
-891
-</td>
-<td style="text-align:right;">
-891
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Juventus FC
-</td>
-<td style="text-align:left;">
-Juventus FC
-</td>
-<td style="text-align:right;">
-68
-</td>
-<td style="text-align:right;">
-27
-</td>
-<td style="text-align:right;">
-41
-</td>
-<td style="text-align:right;">
-0.6770212
-</td>
-<td style="text-align:right;">
-0.2150981
-</td>
-<td style="text-align:right;">
-0.1456259
-</td>
-<td style="text-align:right;">
-0.7849019
-</td>
-<td style="text-align:right;">
-0.5313953
-</td>
-<td style="text-align:right;">
-20394.667
-</td>
-<td style="text-align:right;">
-0.1013719
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-<td style="text-align:right;">
-0.5912871
-</td>
-<td style="text-align:right;">
-879
-</td>
-<td style="text-align:right;">
-879
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
 </tbody>
 </table>
 </div>
 <p>AS Roma plays a role of coordinator in the network which means that many ties go to and from AS Roma. This is in alignment with the degrees of the network as we saw earlier and the Eigenvector centrality which was also the highest for AS Roma in the network.</p>
 <p>Aston Villa is an iterant broker in the network.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
