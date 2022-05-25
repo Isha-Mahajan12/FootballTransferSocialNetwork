@@ -67,7 +67,7 @@ transfer.nodes<-transfer.nodes %>%
 ```
 
 
-```{r}
+```{r results='hide'}
 ig.undirected <- as.undirected(ig)
 #Run clustering algorithm: fast_greedy
 transfer.fg<-cluster_fast_greedy(ig.undirected)
@@ -76,18 +76,18 @@ names(transfer.fg)
 ```
 
 
-```{r}
+```{r results='hide'}
 transfer.fg
 ```
 
-```{r}
+```{r results='hide'}
 #retrieve list of nodes in communities
 igraph::groups(transfer.fg)
 ```
 
 ## Adding Community Membership to Node Info
 
-```{r}
+```{r results='hide'}
 #Inspect community membership vector
 transfer.fg$membership
 #Compare to vertex names vector
@@ -100,7 +100,7 @@ V(ig)$name
 
 
 
-```{r}
+```{r results='hide'}
 #add community membership as a node attribute
 transfer.nodes$transfer.fg<-transfer.fg$membership
 #summarize node statistics by community
@@ -130,18 +130,18 @@ plot(transfer.fg,ig)
 ```
 
 
-##Walktrap Community Detection
+## Walktrap Community Detection
 
 
 ```{r}
 #Run clustering algorithm: walktrap
 transfer.wt<-walktrap.community(ig)
 #Inspect community membership
-igraph::groups(transfer.wt)
+#igraph::groups(transfer.wt)
 ```
 
 
-```{r}
+```{r results = 'hide'}
 #Run & inspect clustering algorithm: 10, 20, 100 steps
 igraph::groups(walktrap.community(ig, steps=10))
 #Run & inspect clustering algorithm: 10 steps
@@ -150,7 +150,7 @@ igraph::groups(walktrap.community(ig, steps=20))
 
 ```{r}
 #Run & inspect clustering algorithm: 10 steps
-igraph::groups(walktrap.community(ig, steps=100))
+#igraph::groups(walktrap.community(ig, steps=100))
 ```
 
 
@@ -159,7 +159,7 @@ igraph::groups(walktrap.community(ig, steps=100))
 #print(blockmodel(matrix,transfer.wt$membership)$block.model, digits=2)
 ```
 
-```{r}
+```{r results = 'hide'}
 #add community membership as a vertex attribute
 transfer.nodes$transfer.wt<-transfer.wt$membership
 #summarize node statistics by community
@@ -214,14 +214,14 @@ compare.algs(alg.a=c("transfer.fg"),alg.b="transfer.wt")
 
 ## Leading Label Propogation
 
-```{r}
+```{r results= 'hide'}
 #Run clustering algorithm: leading label
 transfer.lab<-label.propagation.community(ig)
 #Inspect community membership
 igraph::groups(transfer.lab)
 ```
 
-```{r}
+```{r results= 'hide'}
 #add community membership as a vertex attribute
 transfer.nodes$transfer.lab<-transfer.lab$membership
 #summarize node statistics by community
@@ -241,14 +241,14 @@ compare.algs(alg.a=c("transfer.fg","transfer.wt"),alg.b="transfer.lab")
 ## Edge Betweeness Community 
 
 
-```{r}
+```{r results= 'hide'}
 #Run clustering algorithm: edge betweenness
 transfer.edge<-label.propagation.community(ig)
 #Inspect community membership
 igraph::groups(transfer.edge)
 ```
 
-```{r}
+```{r results= 'hide'}
 #add community membership as a vertex attribute
 transfer.nodes$transfer.edge<-transfer.edge$membership
 #summarize node statistics by community
@@ -274,7 +274,7 @@ compare.algs(alg.a=c("transfer.fg","transfer.wt", "transfer.lab"), alg.b="transf
 #Eigenvector Community Detection
 
 .
-```{r}
+```{r results = 'hide'}
 #Run clustering algorithm: leading eigenvector
 transfer.eigen<-leading.eigenvector.community(ig)
 #Inspect community membership
