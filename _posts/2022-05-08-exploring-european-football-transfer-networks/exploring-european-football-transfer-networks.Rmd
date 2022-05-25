@@ -29,7 +29,7 @@ library(kableExtra)
 
 ## Load the data 
 
-I begin by converting the data into an edgelist format. I select the club from and club to columns which are our nodes in this case. The relationship that I'm interested in is where from and where to has the majority of transfers taken place across various places. After selecting the from and to columns, I select the players, the transfer fee and the season in which the transfer took place. I also remove loan and free transfer as they don't seem relevant at the moment. 
+We begin by converting the data into an edgelist format. We select the club from and club to columns which are our nodes in this case. The relationship that We are interested in is where from and where to has the majority of transfers taken place across various places. After selecting the from and to columns, we select the players, the transfer fee and the season in which the transfer took place. We also remove loan and free transfer as they don't seem relevant at the moment. 
 
 ```{r collapse=TRUE}
 #load data from CSV
