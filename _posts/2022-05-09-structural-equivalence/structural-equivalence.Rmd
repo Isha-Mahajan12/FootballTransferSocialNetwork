@@ -95,7 +95,7 @@ network.exp.19 <- intergraph::asNetwork(ig.exp.19)
 network.exp.19
 ```
 
-```{r}
+```{r preview = TRUE}
 matrix.exp.19 <- as.matrix(as_adjacency_matrix(ig.exp.19, attr = "weight"))
 transfer.se.exp<-equiv.clust(matrix.exp.19, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
 plot(transfer.se.exp,labels=transfer.se.exp$glabels, cex = 0.2, main="Cluster Dendrogram Expensive 2019 Transfers-  Hamming (Average)")
