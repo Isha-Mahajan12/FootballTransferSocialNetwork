@@ -4,7 +4,7 @@ description: |
   Exploring a network of football teams and the transactions they made from 2018-2021. 
   An Edgelist maybe?
 author:
-  - name: Isha Akshita Mahajan, Ankit Kumar
+  - name: Isha Mahajan, Ankit Kumar
     affiliation: UMass Amherst
 date: 2022-05-08
 output:

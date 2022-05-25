@@ -4,7 +4,7 @@ description: |
  In this blog, We'll be referring to soccer as football -- since it's played with a foot. 
 preview: images/post-1.jpeg
 author:
-  - name: Isha Akshita Mahajan, Ankit Kumar
+  - name: Isha Mahajan, Ankit Kumar
     affiliation: UMass Amherst
 date: 05-08-2022
 output:
