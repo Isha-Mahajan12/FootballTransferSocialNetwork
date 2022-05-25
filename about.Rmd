@@ -1,5 +1,6 @@
 ---
-title: "About this blog"
+title: "About"
+description: "Social Network Analysis : Spring 2022 \n"
 ---
 
 
