@@ -30,3 +30,5 @@ The data was scraped using python and the script is attached to this blog. We ex
 
 
 
+```{.r .distill-force-highlighting-css}
+```
