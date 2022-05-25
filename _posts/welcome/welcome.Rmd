@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Football Networks"
 description: |
-  In this blog, We'll be referring to soccer as football -- since it's played with a foot. 
+ In this blog, We'll be referring to soccer as football -- since it's played with a foot. 
 author:
   - name: Isha Akshita Mahajan, Ankit Kumar
     affiliation: UMass Amherst
@@ -24,7 +24,7 @@ In addition to transfers by paying money, players also move from one club to ano
 
 ## Webscraping 
 
-The data was scraped using python and is attached to this blog. We extracted data from the year 2018-2021 which is 4 years and 8 transfer windows. We removed the free and loan transfers because they don't show a transaction between the club.
+The data was scraped using python and the script is attached to this blog. We extracted data from the year 2018-2021 which is 4 years and 8 transfer windows. We removed the free and loan transfers because they don't show a transaction between the club.
 
 
 

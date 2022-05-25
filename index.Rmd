@@ -1,5 +1,13 @@
 ---
 title: "Football Networks"
 site: distill::distill_website
-listing: posts
+listing: 
+  posts: 
+    - welcome
+    - 2022-05-08-exploring-european-football-transfer-networks
+    - 2022-05-08-network-degree
+    - 2022-05-09-network-status
+    - 2022-05-09-structural-equivalence
+    - 2022-05-10-community-detection
+    - 2022-05-09-testing-statistical-tests-on-football-networks
 ---
