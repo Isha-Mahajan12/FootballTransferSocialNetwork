@@ -132,7 +132,7 @@ plot(ig,
 hist(transfer.nodes$indegree, main="Football Transfers: In-degree Distribution", xlab="Players Recieved")
 ```
 
-```{r collapse=TRUE}
+```{r collapse=TRUE, preview = TRUE}
 #create a histogram of Transfer Indegree
 hist(transfer.nodes$outdegree, main="Football Transfers: Out-degree Distribution", xlab="Players Transferred")
 ```
