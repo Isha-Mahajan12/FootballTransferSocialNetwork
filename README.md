@@ -5,7 +5,12 @@ A Social Network Analysis conducted on transfer of players in major football lea
 
 # Key components of this repository include:
 
-1. Creating an Edgelist 
-2. Network Degree and Structures
-3. Identifying Key Actors in the Network: Network Status
-4. Detecting Communities within the Network using different clustering Algorithms
+1. Creating edgelists and affiliation matrices
+2. Exploring network degree and overall structures
+3. Identifying key actors in the network: Network Status
+4. Detecting Communities within the network using different clustering Algorithms
+
+# Libraries used
+
+1. R: Igraph, Statnet, Intergraph, ggally
+2. Python: Beautiful Soup
