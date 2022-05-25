@@ -6,14 +6,14 @@
       "description": "Social Network Analysis : Spring 2022 \n",
       "author": [],
       "contents": "\nThis blog is an attempt to examine a social network of football transfers in major football leagues across the globe. As part of our course on Social Network Analysis in the Spring of 2022, these blogs enable us to use the data of our choice and better understand the key concepts of network analysis like wrangling network data, interpretation and the different algorithms used to detect communities in out network. Our data was scraped from Transfermarket.uk using a python script that is attached to this repository. We extracted data from the year 2018-2021 which is 4 years and 8 transfer windows. We removed the free and loan transfers because they don’t show a transaction between the club.\nWe hope you enjoy browsing through this blog as much as we enjoyed making it!\n\n\n\n",
-      "last_modified": "2022-05-25T13:06:46-04:00"
+      "last_modified": "2022-05-25T13:12:52-04:00"
     },
     {
       "path": "index.html",
       "title": "Football Networks",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-05-25T13:06:47-04:00"
+      "last_modified": "2022-05-25T13:12:53-04:00"
     }
   ],
   "collections": ["posts/posts.json"]
