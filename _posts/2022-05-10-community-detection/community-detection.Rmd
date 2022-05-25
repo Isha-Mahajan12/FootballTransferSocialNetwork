@@ -3,7 +3,7 @@ title: "Community Detection"
 description: |
   Detecting Communities in out Football Transfer Network
 author:
-  - name: Isha Akshita Mahajan, Ankit Kumar
+  - name: Isha Mahajan, Ankit Kumar
     affiliation: UMass Amherst
 date: 2022-05-10
 output:
